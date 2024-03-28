@@ -27,6 +27,7 @@
 
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
+        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
     </head>
 
     <body>
@@ -74,14 +75,44 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
-                            <a href="{{route('login-page')}}" class="nav-item nav-link">Login</a>
-                            <a href="{{route('register-page')}}" class="nav-item nav-link">Register</a>
                         </div>
-                      
+                        <div class="d-flex m-3 me-0">
+                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                            <a href="#" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            </a>
+                            <a href="#" class="my-auto">
+                                <i class="fas fa-user fa-2x" id="user-icon"></i>
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </div>
-        </div>
+         <!-- Logout div -->
+    <div id="logout-div" class="logout-div">
+        <!-- Logout form -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+        
+        <!-- Error display -->
+        <div id="logout-error" class="logout-error" style="display: none;"></div>
+    </div>
+
+    <!-- Include the JavaScript code -->
+    <script>
+        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
+        document.getElementById('user-icon').addEventListener('click', function() {
+            var logoutDiv = document.getElementById('logout-div');
+            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
+                logoutDiv.style.display = 'block';
+            } else {
+                logoutDiv.style.display = 'none';
+            }
+        });
+    </script>
         <!-- Navbar End -->
 
 
