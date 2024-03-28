@@ -1,0 +1,11 @@
+/* Logout error message styles */
+.logout-error {
+    color: #dc3545;
+    padding: 5px 20px;
+    font-size: 14px;
+}
+
+/* Ensure the logout dropdown is always below the user icon */
+.dropdown-menu {
+    top: calc(100% + 10px) !important;
+}
