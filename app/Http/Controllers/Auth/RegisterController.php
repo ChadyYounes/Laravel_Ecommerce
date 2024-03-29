@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use App\Mail\Verify;
+use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     public function registerView() {
@@ -32,10 +34,15 @@ class RegisterController extends Controller
         $new_user->password = Hash::make($validatedData['createPassword']);
         $new_user->role_id = ($validatedData['accountType'] === 'buyer') ? 1 : 2;
         $new_user->save();
-    
+    // Generate the verification URL with user ID
+    $verificationUrl = route('user.verify', ['user' => $new_user->id]);
+ 
+    // Send the verification email with the $user variable
+    Mail::to($request->email)->send(new Verify($verificationUrl, $new_user));
+
+    // Redirect to the email verification page
+    return redirect()->route('email.verify');
         
-    
-        return redirect()->route('home');
     }
     
     
