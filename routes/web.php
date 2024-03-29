@@ -6,6 +6,8 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+
 
 /********************************************************************* */
 /********************************Amine Start*************************** */
@@ -28,8 +30,9 @@ Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user
 Route::get('/home', [HomeController::class, 'homeView'])->name('home');
 
 // Route for handling the verify by email
-Route::get('/verify', [VerificationController::class, 'showVerificationNotice'])->name('verification.notice');
-Route::get('/verify-email', [VerificationController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');
+Route::get('/verify-email/{user}', [HomeController::class, 'verifyEmail'])->name('user.verify');
+//Route::get('/home', [HomeController::class, 'verifyEmail'])->name('home.verify');
 
 /****************************Amine End******************************** */
 /******************************************************************** */

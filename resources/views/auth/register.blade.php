@@ -55,7 +55,7 @@
                         @error('accountType')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
-                        <button>
+                        <button type="submit">
                             Sign up
                         </button>
                         <div href="#" class="alt-f-full">
