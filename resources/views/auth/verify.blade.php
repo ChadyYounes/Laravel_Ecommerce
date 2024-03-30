@@ -19,36 +19,22 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
             text-decoration: none;
             font-size: 16px;
             transition: background-color 0.3s, opacity 0.3s; /* Added opacity transition */
         }
-        .verify-btn:hover {
-            background-color: #0056b3;
-        }
-        /* Added CSS to style the button when disabled */
-        .verify-btn[disabled] {
-            opacity: 0.5; /* Reduced opacity when disabled */
-            cursor: not-allowed; /* Change cursor to not-allowed when disabled */
-        }
+       
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Verify Your Email Address</h2>
-        <p>Click the button below to verify your email address:</p>
-        <a id="verifyBtn" href="{{ $verificationUrl }}" class="verify-btn" onclick="disableButton(event, this)">Verify Email</a>
+        
+       
+        <p class="verify-btn" 
+           >We sent you a verification email please check your inbox</p>
     </div>
     
-    <script>
-        function disableButton(event, button) {
-            event.preventDefault(); // Prevent default form submission behavior
-            
-            button.disabled = true;
-            button.innerText = 'Check your inbox';
-            button.style.backgroundColor = '#ccc'; 
-        }
-    </script>
+    
 </body>
 </html>

@@ -44,7 +44,7 @@ class verify extends Mailable
     {
         return $this
             ->subject('Verify Your Email')
-            ->view('auth.verify');
+            ->view('auth.verifyEmail');
     }
     /**
      * Get the attachments for the message.

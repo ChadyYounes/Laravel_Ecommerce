@@ -31,8 +31,6 @@ Route::get('/home', [HomeController::class, 'homeView'])->name('home');
 
 // Route for handling the verify by email
 Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');
-Route::get('/verify-email/{user}', [HomeController::class, 'verifyEmail'])->name('user.verify');
-//Route::get('/home', [HomeController::class, 'verifyEmail'])->name('home.verify');
-
+Route::get('/verify-email/{user_id}', [HomeController::class, 'verifyEmail'])->name('user.verify');
 /****************************Amine End******************************** */
 /******************************************************************** */
