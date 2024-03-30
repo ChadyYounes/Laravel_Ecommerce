@@ -33,7 +33,7 @@
         <h2>Please verify your email</h2>
         
         <!-- Link for email verification -->
-        <a href="{{ route('user.verify', ['user' => $user->id]) }}" class="verify-link">Verify Email</a>
+        <a href="{{ route('user.verify', ['user_id' => $user->id]) }}" class="verify-link">Verify Email</a>
     </div>
 </body>
 </html>

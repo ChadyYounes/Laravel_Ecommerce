@@ -35,7 +35,7 @@ class RegisterController extends Controller
         $new_user->role_id = ($validatedData['accountType'] === 'buyer') ? 1 : 2;
         $new_user->save();
     // Generate the verification URL with user ID
-    $verificationUrl = route('user.verify', ['user' => $new_user->id]);
+    $verificationUrl = route('user.verify', ['user_id' => $new_user->id]);
  
     // Send the verification email with the $user variable
     Mail::to($request->email)->send(new Verify($verificationUrl, $new_user));
