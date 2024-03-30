@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,7 @@ Route::get('/verify-email', [EmailVerificationController::class, 'showVerificati
 Route::get('/verify-email/{user_id}', [HomeController::class, 'verifyEmail'])->name('user.verify');
 /****************************Amine End******************************** */
 /******************************************************************** */
+
+//kassem
+//chat form route
+Route::get('/chat',[ChatController::class,'chatForm'])->name('chat_form')->middleware('auth');
