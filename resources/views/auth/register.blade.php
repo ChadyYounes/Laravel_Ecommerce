@@ -47,14 +47,7 @@
                         @error('confirmPassword')
                             <p class="error-message">{{ $message }}</p>
                         @enderror
-                        <p>Choose your account type</p>
-                        <label for="buyer">Buyer</label>
-                        <input type="radio" id="buyer" name="accountType" value="buyer">
-                        <label for="seller">Seller</label>
-                        <input type="radio" id="seller" name="accountType" value="seller">
-                        @error('accountType')
-                            <p class="error-message">{{ $message }}</p>
-                        @enderror
+                       
                         <button type="submit">
                             Sign up
                         </button>

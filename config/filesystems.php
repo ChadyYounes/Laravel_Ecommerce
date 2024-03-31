@@ -55,6 +55,12 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+        'profile_images' => [
+            'driver' => 'local',
+            'root' => public_path('profile-images'),
+            'url' => env('APP_URL').'/profile-images',
+            'visibility' => 'public',
+        ],
 
     ],
 

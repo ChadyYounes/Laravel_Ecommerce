@@ -29,6 +29,6 @@ class HomeController extends Controller
     }
 
     // Redirect the user to the home page
-    return redirect()->route('home');
+    return redirect()->route('set-profile', ['user_id' => $user_id]);
 }
 }

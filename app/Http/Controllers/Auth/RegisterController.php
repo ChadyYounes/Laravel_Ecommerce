@@ -22,7 +22,6 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'createPassword' => 'required|string|min:8',
             'confirmPassword' => 'required|same:createPassword', 
-            'accountType' => 'required|in:buyer,seller',
         ], [
             'email.unique' => 'The email address has already been taken.', 
             'confirmPassword.same' => 'The password confirmation does not match.', 
@@ -32,7 +31,7 @@ class RegisterController extends Controller
         $new_user->name = $validatedData['username'];
         $new_user->email = $validatedData['email'];
         $new_user->password = Hash::make($validatedData['createPassword']);
-        $new_user->role_id = ($validatedData['accountType'] === 'buyer') ? 1 : 2;
+        
         $new_user->save();
     // Generate the verification URL with user ID
     $verificationUrl = route('user.verify', ['user_id' => $new_user->id]);
