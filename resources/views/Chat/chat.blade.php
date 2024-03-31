@@ -23,7 +23,7 @@
 
                     <div class="msg-bubble">
                         <div class="msg-info">
-                            <div class="msg-info-name">BOT</div>
+                            <div class="msg-info-name">{{$receiver->name}}</div>
                             <div class="msg-info-time">12:45</div>
                         </div>
 
@@ -41,7 +41,7 @@
 
                     <div class="msg-bubble">
                         <div class="msg-info">
-                            <div class="msg-info-name">Sajad</div>
+                            <div class="msg-info-name">{{$sender->name}}</div>
                             <div class="msg-info-time">12:46</div>
                         </div>
 
