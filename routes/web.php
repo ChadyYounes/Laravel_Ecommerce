@@ -44,4 +44,5 @@ Route::post('/save-profile/{user_id}', [SetProfileController::class, 'saveProfil
 
 //kassem
 //chat form route
-Route::get('/chat',[ChatController::class,'chatForm'])->name('chat_form')->middleware('auth');
+Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list');
+Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
