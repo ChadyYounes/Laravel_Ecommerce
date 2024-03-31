@@ -24,12 +24,13 @@ Route::get('auth/google/callback', [GoogleAuthController::class, 'callBackGoogle
 // Route for handling the login attempt
 Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');;
+Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route for handling the register method
 Route::get('register', [RegisterController::class, 'registerView'])->name('register-page');
 Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user');
 //Route::post('/home', [HomeController::class, 'homeView'])->name('home');
-Route::get('/home', [HomeController::class, 'homeView'])->name('home');
+Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth');
 
 // Route for handling the verify by email
 Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');

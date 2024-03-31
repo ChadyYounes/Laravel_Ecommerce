@@ -46,7 +46,7 @@
                                 <hr class="border-light m-0">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label class="form-label">Username<span>*</span></label>
+                                        <label class="form-label">Username</label>
                                         <input type="text" class="form-control mb-1" value="{{$user->name}}"
                                             disabled>
                                     </div>

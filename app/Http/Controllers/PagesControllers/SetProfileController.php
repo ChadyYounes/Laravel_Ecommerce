@@ -21,9 +21,9 @@ class SetProfileController extends Controller
     
         public function saveProfile(Request $request, $user_id) {
             try {
-                // Validate the form data
+               
                 $request->validate([
-                    // Your other validation rules
+                    
                     'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800', // Adjust max file size as needed
                 ]);
         
@@ -58,12 +58,10 @@ class SetProfileController extends Controller
             $user->role_id = $role_id;
             $user->save();
     
-            // Redirect the user to the home page
             return redirect()->route('home')->with('success', 'Profile saved successfully');
         } catch (\Exception $e) {
-            // Log the error
+            
             Log::error("Error saving profile: {$e->getMessage()}");
-    
             // Redirect back to the form page with an error message
             return redirect()->back()->withInput()->withErrors(['error' => 'An error occurred while saving the profile']);
         }
