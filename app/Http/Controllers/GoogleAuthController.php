@@ -14,36 +14,30 @@ class GoogleAuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
     public function callBackGoogle() {
-        
         try {
-
             $google_user = Socialite::driver('google')->user();
             $user = User::where('google_id', $google_user->getId())->first();
-
-            if(!$user) {
-                // $new_user = User::create([
-                //     'name'=> $google_user->getName(),
-                //     'email'=> $google_user->getEmail(),
-                //     'google_id'=> $google_user->getId(), 
-                // ]);
+    
+            if (!$user) {
+                // Create a new user if not exists
                 $new_user = new User();
                 $new_user->name = $google_user->getName();
                 $new_user->email =  $google_user->getEmail();
-                $new_user->google_id =$google_user->getId();
+                $new_user->google_id = $google_user->getId();
                 $new_user->save();
-
-                Auth::login($new_user);
-
-                //return redirect()->intended('dashboard');
-                return view('home');
+                $user = $new_user;
             }
-            else {
-                Auth::login($user);
-
-                //return redirect()->intended('dashboard');
-                return view('home');
+    
+            Auth::login($user);
+    
+            if ($user->role_id === null) {
+                // Redirect the user to the setup page
+                return redirect()->route('set-profile', ['user_id' => $user->id]);
+            } else {
+                // Redirect the user to their dashboard or homepage
+                return redirect()->route('home');
             }
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             dd("Something went wrong " . $e->getMessage());
         }
     }

@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Mail;
 class EmailVerificationController extends Controller
 {
      
- 
- // Display the email verification page
  public function showVerificationPage()
  {
     
