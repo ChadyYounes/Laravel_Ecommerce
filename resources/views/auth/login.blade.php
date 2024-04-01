@@ -54,7 +54,7 @@
                             <div class="error-message">{{ $message }}</div>
                         @enderror
                         <!-- Forgot password link -->
-                        <a href="#" class="alt-f">Forgot Password ?</a>
+                        <a href="{{route('forgotpassword-page1')}}" class="alt-f">Forgot Password ?</a>
                         <button type="submit">Sign in</button>
                         <div class="alt-f-full">
                             Not a Member yet ? <a href="{{ route('register-page') }}" class="alt-f">Sign up</a>

@@ -15,6 +15,10 @@ class VerifyCsrfToken extends Middleware
         'login',
         'home',
         'store',
-        'register'
+        'register',
+        'send-reset-password-otp',
+        'verify-otp',
+        'password.reset',
+        'reset-new-password/*'
     ];
 }
