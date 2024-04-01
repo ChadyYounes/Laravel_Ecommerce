@@ -20,7 +20,7 @@
                             Login 
                         </div>
                         <div class="sign-in-title-alt">
-                            Lorem ipsum dolor sit amet
+                            It's quick and easy.
                         </div>
                     </div>
                     <div class="sign-buttons">
@@ -28,9 +28,9 @@
                             <img width="18" height="18" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo" />
                             <span>Sign in with Google</span>
                         </a>
-                        <a href="#" class="login-w-button">
-                            <img width="18" height="18" src="https://img.icons8.com/ios-filled/50/microsoft-365.png" alt="mac-os" />
-                            <span>Sign in with Microsoft</span>
+                        <a href="{{ route('facebook-auth')}}" class="login-w-button">
+                            <img width="18" height="18" src="https://img.icons8.com/ios-filled/50/facebook.png" alt="mac-os" />
+                            <span>Sign in with Facebook</span>
                         </a>
                     </div>
                     <div class="sign-buttons">

@@ -7,23 +7,23 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class MicrosoftAuthController extends Controller
+class FacebookAuthController extends Controller
 {
     public function redirect() {
-        return Socialite::driver('microsoft')->redirect();
+        return Socialite::driver('facebook')->redirect();
     }
 
-    public function callBackMicrosoft() {
+    public function callBackFacebook() {
         try {
-            $microsoft_user = Socialite::driver('microsoft')->user();
-            $user = User::where('microsoft_id', $microsoft_user->getId())->first();
+            $facebook_user = Socialite::driver('facebook')->user();
+            $user = User::where('facebook_id', $facebook_user->getId())->first();
     
             if (!$user) {
                 // Create a new user if not exists
                 $new_user = new User();
-                $new_user->name = $microsoft_user->getName();
-                $new_user->email =  $microsoft_user->getEmail();
-                $new_user->microsoft_id = $microsoft_user->getId();
+                $new_user->name = $facebook_user->getName();
+                $new_user->email =  $facebook_user->getEmail();
+                $new_user->microsoft_id = $facebook_user->getId();
                 $new_user->save();
                 $user = $new_user;
             }
