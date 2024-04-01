@@ -20,7 +20,7 @@
                             Sign up 
                         </div>
                         <div class="sign-in-title-alt">
-                            Lorem ipsum dolor sit amet
+                            It's quick and easy.
                         </div>
                     </div>
                     <div class="slice-container">
