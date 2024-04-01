@@ -59,3 +59,4 @@ Route::post('/save-profile/{user_id}', [SetProfileController::class, 'saveProfil
 //chat form route
 Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list');
 Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
+Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
