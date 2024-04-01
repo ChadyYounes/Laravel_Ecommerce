@@ -7,7 +7,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use App\Http\Controllers\PagesControllers\SetProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
 
@@ -26,10 +26,20 @@ Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-pa
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');;
 Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Forgot Password routes
+Route::get('/forgot-password', [ForgotPasswordController::class, 'forgotPasswordView_p1'])->name('forgotpassword-page1');
+Route::get('/forgotpassword-enter-otp', [ForgotPasswordController::class, 'forgotPasswordEnterOtpView'])->name('forgotpassword-enter-otp');
+Route::post('/send-reset-password-otp', [ForgotPasswordController::class, 'sendResetPasswordOtp'])->name('send-reset-password-otp');
+Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('verify-otp');
+Route::get('/reset-password/{id}', [ForgotPasswordController::class, 'showResetPasswordView'])->name('reset-password');
+
+Route::post('/reset-new-password/{id}', [ForgotPasswordController::class, 'ResetNewPassword'])->name('reset-new-password');
+
+
 // Route for handling the register method
 Route::get('register', [RegisterController::class, 'registerView'])->name('register-page');
 Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user');
-//Route::post('/home', [HomeController::class, 'homeView'])->name('home');
 Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth');
 
 // Route for handling the verify by email
