@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\chat_event;
 use App\Models\chat_messages;
 use App\Models\Role;
 use App\Models\User;
@@ -24,44 +25,40 @@ class ChatController extends Controller
     public function chatForm($receiverId){
         $receiver=User::find($receiverId);
         $sender=Auth::user();
+        $messages = chat_messages::where([
+            ['sender_id', '=', $sender->id],
+            ['receiver_id', '=', $receiver->id]
+        ])
+            ->orWhere([
+                ['sender_id', '=', $receiver->id],
+                ['receiver_id', '=', $sender->id]
+            ])
+            ->orderBy('created_at')
+            ->get();
+
+
+//        dd($messages);
         return view('Chat.chat',[
             'receiver'=>$receiver,
-            'sender'=>$sender
+            'sender'=>$sender,
+            'messages'=>$messages
         ]);
     }
-    public function sendMessage(Request $request)
+    public function sendMessage($receiver_id,Request $request)
     {
         $user = Auth::user();
 
         $chat = new chat_messages();
         $chat->sender_id = $user->id;
+        $chat->receiver_id =$receiver_id;
         $chat->message_content = $request->message;
         $chat->save();
 
-        // Pusher configuration
-        $options = [
-            'cluster' => env('PUSHER_APP_CLUSTER'),
-            'useTLS' => true
-        ];
+        $receiver=User::find($receiver_id);
+        \broadcast(new chat_event($receiver,$request->message));
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
-        $data['message'] = $request->message;
-        $pusher->trigger('chat-channel', 'chat-event', $data);
-
-        return response()->json(['status' => 'Message sent']);
+        return redirect()->route('chat_form', ['id' => $receiver_id]);
     }
 
-    public function fetchMessages()
-    {
-        $messages = chat_messages::with('user')->latest()->take(10)->get();
-
-        return response()->json($messages);
-    }
 
 }
