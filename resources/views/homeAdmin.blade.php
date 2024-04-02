@@ -28,6 +28,48 @@
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <style>
+#logout-div {
+    background-color: darkred;
+    padding: 10px;
+    display: none;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 999;
+    right: 5%;
+    width: 150px; /* Adjust width as needed */
+}
+
+.logout-button,
+.edit-profile-button {
+    background-color: white;
+    color: darkred;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+
+.logout-button:hover,
+.edit-profile-button:hover {
+    background-color: lightgray;
+}
+
+#user-icon {
+    position: relative;
+}
+
+.logout-div {
+    position: absolute;
+    width: 150px; /* Adjust width as needed */
+}
+
+        </style>
     </head>
 
     <body>
@@ -91,6 +133,8 @@
             </div>
          <!-- Logout div -->
     <div id="logout-div" class="logout-div">
+    <button class="edit-profile-button">Edit Profile</button>
+
         <!-- Logout form -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST">
             @csrf

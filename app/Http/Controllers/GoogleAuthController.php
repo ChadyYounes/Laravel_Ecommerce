@@ -35,7 +35,7 @@ class GoogleAuthController extends Controller
                 return redirect()->route('set-profile', ['user_id' => $user->id]);
             } else {
                 // Redirect the user to their dashboard or homepage
-                return redirect()->route('home');
+                return redirect()->route('home', ['user_id' => $user->id]);
             }
         } catch (\Throwable $e) {
             dd("Something went wrong " . $e->getMessage());

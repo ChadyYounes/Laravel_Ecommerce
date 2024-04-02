@@ -28,6 +28,48 @@
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <style>
+#logout-div {
+    background-color: darkred;
+    padding: 10px;
+    display: none;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 999;
+    right: 5%;
+    width: 150px; /* Adjust width as needed */
+}
+
+.logout-button,
+.edit-profile-button {
+    background-color: white;
+    color: darkred;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+
+.logout-button:hover,
+.edit-profile-button:hover {
+    background-color: lightgray;
+}
+
+#user-icon {
+    position: relative;
+}
+
+.logout-div {
+    position: absolute;
+    width: 150px; /* Adjust width as needed */
+}
+
+        </style>
     </head>
 
     <body>
@@ -41,19 +83,7 @@
 
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
-            <div class="container topbar bg-primary d-none d-lg-block">
-                <div class="d-flex justify-content-between">
-                    <div class="top-info ps-2">
-                        <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small>
-                        <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
-                    </div>
-                    <div class="top-link pe-2">
-                        <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
-                    </div>
-                </div>
-            </div>
+            
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
                     <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
@@ -91,6 +121,7 @@
             </div>
          <!-- Logout div -->
     <div id="logout-div" class="logout-div">
+    <button class="edit-profile-button">Edit Profile</button>
         <!-- Logout form -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST">
             @csrf
