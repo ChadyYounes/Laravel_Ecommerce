@@ -7,6 +7,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use App\Http\Controllers\PagesControllers\SetProfileController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
@@ -60,3 +61,10 @@ Route::post('/save-profile/{user_id}', [SetProfileController::class, 'saveProfil
 Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list');
 Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
 Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
+
+
+//chady
+//stores routes
+Route::get('/storeView',[StoreController::class,'storeView'])->name('storeView');
+
+
