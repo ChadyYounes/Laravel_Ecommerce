@@ -21,9 +21,7 @@ class SetProfileController extends Controller
     
         public function saveProfile(Request $request, $user_id) {
             try {
-               
                 $request->validate([
-                    
                     'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800', // Adjust max file size as needed
                 ]);
         
@@ -52,18 +50,18 @@ class SetProfileController extends Controller
                 $profile->user_id = $user_id;
                 $profile->save();
         
-            // Update the user's role based on the radio button
-            $user = User::findOrFail($user_id);
-            $role_id = $request->input('buyer-seller') == 'buyer' ? 1 : 2;
-            $user->role_id = $role_id;
-            $user->save();
-    
-            return redirect()->route('home')->with('success', 'Profile saved successfully');
-        } catch (\Exception $e) {
-            
-            Log::error("Error saving profile: {$e->getMessage()}");
-            // Redirect back to the form page with an error message
-            return redirect()->back()->withInput()->withErrors(['error' => 'An error occurred while saving the profile']);
-        }
+                // Update the user's role based on the radio button
+                $user = User::findOrFail($user_id);
+                $role_id = $request->input('buyer-seller') == 'buyer' ? 1 : 2;
+                $user->role_id = $role_id;
+                $user->save();
+        
+                // Redirect to the home page with user_id parameter
+                return redirect()->route('home', ['user_id' => $user_id])->with('success', 'Profile saved successfully');
+            } catch (\Exception $e) {
+                Log::error("Error saving profile: {$e->getMessage()}");
+                // Redirect back to the form page with an error message
+                return redirect()->back()->withInput()->withErrors(['error' => 'An error occurred while saving the profile']);
+            }
     }
 }
