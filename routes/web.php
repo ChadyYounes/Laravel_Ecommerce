@@ -43,7 +43,7 @@ Route::post('/reset-new-password/{id}', [ForgotPasswordController::class, 'Reset
 // Route for handling the register method
 Route::get('register', [RegisterController::class, 'registerView'])->name('register-page');
 Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user');
-Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth');
+Route::get('/home/{user_id}', [HomeController::class, 'homeView'])->name('home')->middleware('auth');
 
 // Route for handling the verify by email
 Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');
