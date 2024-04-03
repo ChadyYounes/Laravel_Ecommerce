@@ -30,7 +30,7 @@
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <style>
 #logout-div {
-    background-color: darkred;
+    background-color: #ddd;
     padding: 10px;
     display: none;
     border-radius: 5px;
@@ -40,8 +40,7 @@
     width: 150px; /* Adjust width as needed */
 }
 
-.logout-button,
-.edit-profile-button {
+.logout-button  {
     background-color: white;
     color: darkred;
     border: none;
@@ -53,6 +52,22 @@
     width: 100%;
     text-align: left;
     transition: background-color 0.3s ease;font-weight: bold;
+}
+.edit-profile-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+.username {
+    color: black;
 }
 
 .logout-button:hover,
@@ -66,9 +81,8 @@
 
 .logout-div {
     position: absolute;
-    width: 150px; /* Adjust width as needed */
+    width: 150px; 
 }
-
         </style>
     </head>
 
@@ -121,7 +135,8 @@
             </div>
          <!-- Logout div -->
     <div id="logout-div" class="logout-div">
-    <button class="edit-profile-button">Edit Profile</button>
+        <p class="username">{{$user->name}}</p><hr>
+        <a href="{{ route('edit-profile', ['user_id' => $user->id]) }}" class="edit-profile-button">Edit Profile</a>
         <!-- Logout form -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST">
             @csrf
