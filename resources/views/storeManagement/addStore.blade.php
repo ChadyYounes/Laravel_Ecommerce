@@ -26,37 +26,45 @@
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
     <style>
-   .storesHeader {
-    margin-top: 7%;
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content; 
-    color: black;
-}
+            #logout-div {
+                background-color: darkred;
+                padding: 10px;
+                display: none;
+                border-radius: 5px;
+                position: absolute;
+                z-index: 999;
+                right: 5%;
+                width: 150px; /* Adjust width as needed */
+            }
 
-    .mini-window {
-        position: absolute;
-        top: 45px;
-        right: 0;
-        
-        background-color: lightgray;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-        padding: 10px;
-        border-radius: 5px;
-        display: none;
-    }
+            .logout-button,
+            .edit-profile-button {
+                background-color: white;
+                color: darkred;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 3px;
+                margin: 5px 0;
+                display: block;
+                width: 100%;
+                text-align: left;
+                transition: background-color 0.3s ease;font-weight: bold;
+            }
 
-    .show-mini-window {
-        display: block;
-    }
-    .logout-button{
-        background-color : darkred;
-        color:white;
-        padding : 5px;
-        font-weight : bold;
-        border-radius : 8px;
-        border-color:darkred ;
-    }
+            .logout-button:hover,
+            .edit-profile-button:hover {
+                background-color: lightgray;
+            }
+
+            #user-icon {
+                position: relative;
+            }
+
+            .logout-div {
+                position: absolute;
+                width: 150px; /* Adjust width as needed */
+            }
 </style>
 </head>
 <body>
@@ -64,62 +72,67 @@
 
  <!-- Navbar start -->
  <div class="container-fluid fixed-top">
-    <div class="container px-0">
-        <nav class="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
-            <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars text-primary"></span>
-            </button>
-            <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
-                <div class="navbar-nav mx-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="shop.html" class="nav-item nav-link">Shop</a>
-                    <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                            <a href="cart.html" class="dropdown-item">Cart</a>
-                            <a href="chackout.html" class="dropdown-item">Chackout</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
+            
+            <div class="container px-0">
+                <nav class="navbar navbar-light bg-white navbar-expand-xl">
+                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Fruitables</h1></a>
+                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-primary"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+                        <div class="navbar-nav mx-auto">
+                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="{{asset('storeView')}}" class="nav-item nav-link">Stores</a>
+                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu m-0 bg-secondary rounded-0">
+                                    <a href="cart.html" class="dropdown-item">Cart</a>
+                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
+                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                    <a href="404.html" class="dropdown-item">404 Page</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        </div>
+                        <div class="d-flex m-3 me-0">
+                            <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                            <a href="#" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i>
+                                <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                            </a>
+                            <a href="#" class="my-auto">
+                                <i class="fas fa-user fa-2x" id="user-icon"></i>
+                            </a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-                <div class="d-flex m-3 me-0">
-                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                    <a href="#" class="position-relative me-4 my-auto">
-                        <i class="fa fa-shopping-bag fa-2x"></i>
-                        <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-                    </a>
-                    <div class="position-relative">
-                        <i class="fas fa-user fa-2x" id="user-icon"></i>
-                        <div class="mini-window" id="logout-div">
-                            <!-- Logout form -->
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="logout-button">Logout</button>
-                            </form>
-                            
-                            <!-- Error display -->
-                            <div id="logout-error" class="logout-error" style="display: none;"></div>
-                        </div>
-                    </div>
-                </div>
+                </nav>
             </div>
-        </nav>
+         <!-- Logout div -->
+    <div id="logout-div" class="logout-div">
+    <button class="edit-profile-button">Edit Profile</button>
+        <!-- Logout form -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+        
+        <!-- Error display -->
+        <div id="logout-error" class="logout-error" style="display: none;"></div>
     </div>
-</div>
-<br><br><br><br>
-<!-- Include the JavaScript code -->
-<script>
-    // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-    document.getElementById('user-icon').addEventListener('click', function() {
-        var logoutDiv = document.getElementById('logout-div');
-        logoutDiv.classList.toggle('show-mini-window');
-    });
-</script>
 
+    <!-- Include the JavaScript code -->
+    <script>
+        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
+        document.getElementById('user-icon').addEventListener('click', function() {
+            var logoutDiv = document.getElementById('logout-div');
+            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
+                logoutDiv.style.display = 'block';
+            } else {
+                logoutDiv.style.display = 'none';
+            }
+        });
+    </script>
         <!-- Navbar End -->
 
 <form>
