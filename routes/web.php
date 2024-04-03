@@ -7,6 +7,7 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use App\Http\Controllers\PagesControllers\SetProfileController;
+use App\Http\Controllers\PagesControllers\EditProfileController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -53,6 +54,10 @@ Route::get('/verify-email/{user_id}', [HomeController::class, 'verifyEmail'])->n
 Route::get('/set-profile/{user_id}', [SetProfileController::class, 'setProfileView'])->name('set-profile');
 Route::post('/save-profile/{user_id}', [SetProfileController::class, 'saveProfile'])->name('save-profile');
 
+//Edit Profile
+Route::get('/edit-profile/{user_id}', [EditProfileController::class, 'editProfileView'])->name('edit-profile');
+Route::post('/save-profile-edited/{user_id}', [EditProfileController::class, 'saveProfile'])->name('save-profile-edited');
+Route::post('/delete-account/{user_id}', [EditProfileController::class, 'deleteAccount'])->name('delete-account');
 /****************************Amine End******************************** */
 /******************************************************************** */
 

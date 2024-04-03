@@ -32,7 +32,7 @@ class SetProfileController extends Controller
                     $filePath = 'profile-images/' . $fileName;
                     Storage::putFileAs('public', $image, $filePath);
                 } else {
-                    $fileName = 'default.jpg'; // Default image if no image is uploaded
+                    $fileName = 'https://bootdey.com/img/Content/avatar/avatar1.png'; 
                 }
         
                 // Create a new profile instance
