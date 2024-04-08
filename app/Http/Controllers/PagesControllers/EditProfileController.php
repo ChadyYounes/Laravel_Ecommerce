@@ -10,11 +10,16 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 class EditProfileController extends Controller
 {
-    public function editProfileView($user_id)
-            {
-                $user = User::findOrFail($user_id);
-                return view('profile.editProfile', compact('user'));
-            }
+    public function __construct()
+    {
+        $this->middleware('auth'); 
+    }
+    public function editProfileView()
+    {
+       
+        $user = Auth::user();
+        return view('profile.editProfile', compact('user'));
+    }
 
     public function deleteAccount(Request $request, $user_id)
             {
@@ -24,8 +29,12 @@ class EditProfileController extends Controller
                 return redirect()->route('login');
             }
 
-            public function saveProfile(Request $request, $user_id) {
-                try {
+    public function saveProfile(Request $request, $user_id)
+            {
+                if (Auth::id() != $user_id) {
+                    return redirect()->route('home')->withErrors(['error' => 'Unauthorized access']);
+                }
+               try {
                     $request->validate([
                         'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800', 
                     ]);
@@ -69,7 +78,7 @@ class EditProfileController extends Controller
                     }
             
                     
-                    return redirect()->route('home', ['user_id' => $user_id])->with('success', 'Profile saved successfully');
+                    return redirect()->route('home')->with('success', 'Profile saved successfully');
                 } catch (\Exception $e) {
                     Log::error("Error saving profile: {$e->getMessage()}");
                     
