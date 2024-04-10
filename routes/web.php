@@ -70,6 +70,7 @@ Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'
 
 //chady
 //stores routes
-Route::get('/storeView',[StoreController::class,'storeView'])->name('storeView');
+Route::get('/storeView/{user_id}',[StoreController::class,'storeView'])->name('storeView');
+
 
 
