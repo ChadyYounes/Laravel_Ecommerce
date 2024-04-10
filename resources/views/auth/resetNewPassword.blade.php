@@ -46,7 +46,7 @@
     <div class="card login-form">
         <div class="card-body">
             <div class="card-text">
-                <form action="{{ route('reset-new-password', ['id' => $id]) }}" method="POST" onsubmit="return validateForm()">
+                <form action="{{ route('reset-new-password')}}" method="POST" onsubmit="return validateForm()">
                     @csrf
                     
                     <input type="hidden" name="email" value="{{ $email }}">

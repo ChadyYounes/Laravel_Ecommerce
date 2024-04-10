@@ -25,7 +25,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <form action="{{ route('save-profile', ['user_id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('save-profile')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="tab-pane fade active show" id="account-general">
                                 <div class="card-body media align-items-center">
