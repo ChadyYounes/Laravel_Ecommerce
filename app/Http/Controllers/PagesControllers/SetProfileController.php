@@ -22,17 +22,18 @@ class SetProfileController extends Controller
     public function saveProfile(Request $request) {
         try {
             $request->validate([
-                'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800', // Adjust max file size as needed
+                'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800',  
             ]);
     
             // Handle image upload
+            
             if ($request->hasFile('image_url')) {
                 $image = $request->file('image_url');
                 $fileName = time() . '.' . $image->getClientOriginalExtension();
                 $filePath = 'profile-images/' . $fileName;
                 Storage::putFileAs('public', $image, $filePath);
             } else {
-                $fileName = 'https://bootdey.com/img/Content/avatar/avatar1.png'; 
+                $fileName = null; 
             }
     
             // Create a new profile instance
