@@ -37,6 +37,11 @@
                 opacity: 0.5;
                 cursor: not-allowed;
             }
+            .userInfo {
+                color: gold;
+                
+            }
+             
         </style>
 </head>
 
@@ -168,7 +173,9 @@
 
                     <table>
                         @foreach ($all_users as $user)
+                        
                         <tr>
+                            
                             <td width="60px">
                                 <div class="imgBx">
                                     @if ($user->getProfile && $user->getProfile->image_url)
@@ -189,9 +196,13 @@
                                         <button type="submit" name="status" value="activated" class="status-button activate-button" {{ $user->is_active ? 'disabled' : '' }}>Activate</button>
                                         <button type="submit" name="status" value="deactivated" class="status-button deactivate-button" {{ $user->is_active ? '' : 'disabled' }}>Deactivate</button>
                                     </td>
+                                    <td><a href="{{route('user.info', ['user_id' => $user->id])}}" class="userInfo" >
+                                        <ion-icon name="information-circle-outline" size="large" class="userInfoIcon"></ion-icon></a></td>
                                 </form>
                             </td>
+                       
                         </tr>
+                    
                         @endforeach
                         
                         
@@ -204,7 +215,7 @@
 
     <!-- =========== Scripts =========  -->
     <script src="{{asset('js/admin.js')}}"></script>
-    <script src="{{asset('js/turnOnOffBtn.js')}}"></script>
+    
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
