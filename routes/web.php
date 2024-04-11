@@ -29,7 +29,7 @@ Route::get('auth/facebook/callback', [FacebookAuthController::class, 'callBackFa
 /******************************************** */
 // Route for handling the login attempt and logout
 Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('checkUserStatus');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -69,7 +69,8 @@ Route::get('/admin/users', [AdminController::class, 'admin_users_view'])->name('
 Route::get('/admin/stores', [AdminController::class, 'admin_stores_view'])->name('admin.stores');
 Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserStatus'])->name('user.updateStatus');
 Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');
-
+Route::get('/user/info/{user_id}',[AdminController::class, 'user_info_view'])->name('user.info');
+Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 'saveProfileByAdmin'])->name('save-profile-edited-by-admin');
 /****************************Amine End******************************** */
 /******************************************************************** */
 
