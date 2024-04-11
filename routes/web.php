@@ -73,7 +73,13 @@ Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'
 
 //chady
 //stores routes
-Route::get('/storeView/{user_id}',[StoreController::class,'storeView'])->name('storeView');
+Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');
+Route::post('/addStore/{user_id}',[StoreController::class,'createStore'])->name('createStore');
+
+Route::get('/viewStore/{user_id}',[StoreController::class,'storeView'])->name('storeView');
+
+
+
 
 
 

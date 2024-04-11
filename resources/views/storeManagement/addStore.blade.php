@@ -26,45 +26,61 @@
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
     <style>
-            #logout-div {
-                background-color: darkred;
-                padding: 10px;
-                display: none;
-                border-radius: 5px;
-                position: absolute;
-                z-index: 999;
-                right: 5%;
-                width: 150px; /* Adjust width as needed */
-            }
+          #logout-div {
+    background-color: #ddd;
+    padding: 10px;
+    display: none;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 999;
+    right: 5%;
+    width: 150px; /* Adjust width as needed */
+}
 
-            .logout-button,
-            .edit-profile-button {
-                background-color: white;
-                color: darkred;
-                border: none;
-                padding: 5px 10px;
-                cursor: pointer;
-                border-radius: 3px;
-                margin: 5px 0;
-                display: block;
-                width: 100%;
-                text-align: left;
-                transition: background-color 0.3s ease;font-weight: bold;
-            }
+.logout-button  {
+    background-color: white;
+    color: darkred;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+.edit-profile-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+.username {
+    color: black;
+}
 
-            .logout-button:hover,
-            .edit-profile-button:hover {
-                background-color: lightgray;
-            }
 
-            #user-icon {
-                position: relative;
-            }
+.logout-button:hover,
+.edit-profile-button:hover {
+    background-color: lightgray;
+}
 
-            .logout-div {
-                position: absolute;
-                width: 150px; /* Adjust width as needed */
-            }
+#user-icon {
+    position: relative;
+}
+
+.logout-div {
+    position: absolute;
+    width: 150px; 
+}
 </style>
 </head>
 <body>
@@ -82,8 +98,7 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                         <a href="{{route('home',['user_id' => $user->id])}}" class="nav-item nav-link active">Home</a>
-                            <a href="{{route('storeView',['user_id' => $user->id])}}" class="nav-item nav-link">Stores</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                        <a href="{{route('storeView' , ['user_id' => $user->id ])}}" class="nav-item nav-link">Your stores</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
@@ -135,16 +150,16 @@
     </script>
         <!-- Navbar End -->
 
-<form>
+<form method="POST" action="{{route('createStore' , ['user_id' => $user->id])}}" enctype="multipart/form-data">
 <ul class="form-style-1">
 
     <li>
         <label>Store Name <span class="required">*</span></label>
-        <input type="text" name="field3" class="field-long" />
+        <input type="text" name="store_name" class="field-long" />
     </li>
     <li>
         <label>Mainly Selling </label>
-        <select name="field4" class="field-select">
+        <select name="store_category" class="field-select">
         <option value="Cars">Cars & Vehicles</option>
         <option value="Accessories">Accessories</option>
         <option value="Phones">Phones</option>
@@ -154,11 +169,11 @@
     </li>
     <li>
         <label>Store Description<span class="required">*</span></label>
-        <textarea name="field5" id="field5" class="field-long field-textarea"></textarea>
+        <textarea name="store_description" id="field5" class="field-long field-textarea"></textarea>
     </li>
     <li>
         <label>Store Logo or image</label>
-        <input type="file" name="field3" class="field-long" />
+        <input type="file" name="image_url" class="field-long" />
     </li>
     <li>
         <input type="submit" value="Submit" />

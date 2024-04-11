@@ -70,6 +70,7 @@
     color: black;
 }
 
+
 .logout-button:hover,
 .edit-profile-button:hover {
     background-color: lightgray;
@@ -107,8 +108,8 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="{{route('home',['user_id' => $user->id])}}" class="nav-item nav-link active">Home</a>
-                            <a href="{{route('storeView',['user_id' => $user->id])}}" class="nav-item nav-link">Stores</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="{{route('storeFormView',['user_id' => $user->id])}}" class="nav-item nav-link">Create Store</a>
+                            <a href="{{route('storeView' , ['user_id' => $user->id ])}}" class="nav-item nav-link">Your stores</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">

@@ -32,7 +32,7 @@
         
 <style>
    #logout-div {
-    background-color: darkred;
+    background-color: #ddd;
     padding: 10px;
     display: none;
     border-radius: 5px;
@@ -42,8 +42,7 @@
     width: 150px; /* Adjust width as needed */
 }
 
-.logout-button,
-.edit-profile-button {
+.logout-button  {
     background-color: white;
     color: darkred;
     border: none;
@@ -56,6 +55,23 @@
     text-align: left;
     transition: background-color 0.3s ease;font-weight: bold;
 }
+.edit-profile-button {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin: 5px 0;
+    display: block;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;font-weight: bold;
+}
+.username {
+    color: black;
+}
+
 
 .logout-button:hover,
 .edit-profile-button:hover {
@@ -68,10 +84,8 @@
 
 .logout-div {
     position: absolute;
-    width: 150px; /* Adjust width as needed */
+    width: 150px; 
 }
-.storesHeader{
-    margin: 0 auto;}
 </style>
     </head>
 </head>
@@ -89,8 +103,8 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                         <a href="{{route('home',['user_id' => $user->id])}}" class="nav-item nav-link active">Home</a>
-                            <a href="{{route('storeView',['user_id' => $user->id])}}" class="nav-item nav-link">Stores</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="{{route('storeFormView',['user_id' => $user->id])}}" class="nav-item nav-link">Create Store</a>
+                            <a href="{{route('storeView' , ['user_id' => $user->id ])}}" class="nav-item nav-link">Your stores</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">

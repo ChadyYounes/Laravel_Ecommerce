@@ -17,6 +17,9 @@ class RolesTableSeeder extends Seeder
         ['name' => 'seller'],
         ['name' => 'admin'],
     ]);
+    
+    
+
 }
 
 }
