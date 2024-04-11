@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Models\User;
 class StoreController extends Controller
@@ -25,28 +26,32 @@ class StoreController extends Controller
        //validate the data
        $request->validate([
         'store_name' => 'required|max:255|string',
-        'mainly_selling' => 'required',
+        'store_category' => 'required',
         'store_description' => 'required|max:255|string',
-        'photo' => 'image|mimes:jpeg,png,jpg,gif|max:800'
+        'image_url' => 'nullable|mimes:jpeg,png,jpg'
        ]);
 
-       try {
-        if ($request->hasFile('photo')) {
-            $image = $request->file('photo');
-            $fileName = time() . '.' . $image->getClientOriginalExtension();
-            $filePath = 'stores-images/' . $fileName;
-            Storage::putFileAs('public', $image, $filePath);
-        } else {
-            $fileName = 'https://bootdey.com/img/Content/avatar/avatar1.png'; 
+        if ($request->has('image_url')) {
+            $file = $request->file('image_url');
+            $extension = $file->getClientOriginalExtension();
+
+            $fileName = time().'.'.$extension;
+            $path = 'public/storage/stores-images';
+            $file->move($path,$fileName);
+
+         } else {
+            $fileName = 'C:\Users\chadi\Desktop\Final-Project-Laravel\public\storage\stores-images\store.jpg'; 
         }
+        Store::create([
+            'store_name' => $request->store_name,
+            'store_category' => $request->store_category,
+            'store_descipriton' => $request->store_description,
+            'image_url' => $path.$fileName,
+        ]);
 
         // Redirect to the home page with success message
         return redirect()->route('home')->with('success', 'store created successfully');
-    } catch (\Exception $e) {
-        Log::error("Error creating store: {$e->getMessage()}");
-        // Redirect back to the form page with an error message
-        return redirect()->back()->withInput()->withErrors(['error' => 'An error occurred while creating the store']);
-    }
+    
 }
     }
 
