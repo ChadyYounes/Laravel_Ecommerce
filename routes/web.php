@@ -12,7 +12,7 @@ use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
-
+use App\Http\Controllers\Admin\AdminController;
 
 /********************************************************************* */
 /********************************Amine Start*************************** */
@@ -21,18 +21,19 @@ Route::get('/', function () {
 });
 
 /************************************************ */
+//Socialite Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/callback', [GoogleAuthController::class, 'callBackGoogle']);
 Route::get('auth/facebook', [FacebookAuthController::class, 'redirect'])->name('facebook-auth');
 Route::get('auth/facebook/callback', [FacebookAuthController::class, 'callBackFacebook']);
 /******************************************** */
-// Route for handling the login attempt
+// Route for handling the login attempt and logout
 Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login');;
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login')->middleware('checkUserStatus');
 Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Forgot Password routes
+// Forgot Password Controller
 Route::get('/forgot-password', [ForgotPasswordController::class, 'forgotPasswordView_p1'])->name('forgotpassword-page1');
 Route::get('/forgotpassword-enter-otp', [ForgotPasswordController::class, 'forgotPasswordEnterOtpView'])
 ->name('forgotpassword-enter-otp');
@@ -46,21 +47,29 @@ Route::post('/reset-new-password', [ForgotPasswordController::class, 'ResetNewPa
 // Route for handling the register method
 Route::get('register', [RegisterController::class, 'registerView'])->name('register-page');
 Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user');
-Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth');
+Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth')->middleware('checkUserStatus');
     
 // Route for handling the verify by email
 Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');
 Route::get('/verify-email/{user_id}', [HomeController::class, 'verifyEmail'])->name('user.verify');
 
-//Set Profile
+//Set Profile Controller
 Route::get('/set-profile', [SetProfileController::class, 'setProfileView'])->name('set-profile')->middleware('auth');
 
 Route::post('/save-profile', [SetProfileController::class, 'saveProfile'])->name('save-profile');
 
-//Edit Profile
+//Edit Profile Controller
 Route::get('/edit-profile', [EditProfileController::class, 'editProfileView'])->name('edit-profile');
 Route::post('/save-profile-edited/{user_id}', [EditProfileController::class, 'saveProfile'])->name('save-profile-edited');
 Route::post('/delete-account/{user_id}', [EditProfileController::class, 'deleteAccount'])->name('delete-account');
+
+//Admin Controller
+Route::get('/admin/orders', [AdminController::class, 'admin_orders_view'])->name('admin.orders');
+Route::get('/admin/users', [AdminController::class, 'admin_users_view'])->name('admin.users');
+Route::get('/admin/stores', [AdminController::class, 'admin_stores_view'])->name('admin.stores');
+Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserStatus'])->name('user.updateStatus');
+Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');
+
 /****************************Amine End******************************** */
 /******************************************************************** */
 

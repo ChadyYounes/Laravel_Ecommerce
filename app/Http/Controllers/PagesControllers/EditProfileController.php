@@ -51,11 +51,11 @@ class EditProfileController extends Controller
                         Storage::putFileAs('public', $image, $filePath);
             
                         // Delete old image if exists
-                        if ($profile->image_url && $profile->image_url !== 'https://bootdey.com/img/Content/avatar/avatar1.png') {
+                        if ($profile->image_url && $profile->image_url !== null) {
                             Storage::delete('public/profile-images/' . $profile->image_url);
                         }
                     } else {
-                        $fileName = $profile->image_url ?? 'https://bootdey.com/img/Content/avatar/avatar1.png'; 
+                        $fileName = null;
                     }
             
                     
