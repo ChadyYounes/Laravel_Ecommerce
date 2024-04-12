@@ -136,18 +136,16 @@
 <h2 class="storesHeader">Manage your Stores!</h2><br/>
 
 @foreach ($stores as $userStores)
-<div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5" style="max-width: 18rem;">
-  <img src="https://codingyaar.com/wp-content/uploads/cactus.jpg" class="card-img-top" alt="...">
-  <div class="card-body bg-dark text-white">
-    <h5 class="card-title fw-bold">Product Title</h5>
-    <p class="card-text">Something about the product.</p>
-    <a href="#" class="btn btn-light px-3 rounded-pill">Buy Now</a>
-    <p class="mt-3">$129.00</p>
+<div class="product-card">
+  <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" alt="">
+  <h4>Store Name</h4>
+  <div>
+    <span>Manage Store</span>
+    <button>+</button>
   </div>
 </div>
 
-<p class="mt-5 text-center">Get a step-by-step written explanation here: <a href="https://codingyaar.com/product-card-oval-design-bootstrap-5-html/" target="_blank">Bootstrap 5 Product Card Oval Shape</a> </p>
-<p class="mt-5 text-center">Get a step-by-step video explanation here: <a href="https://youtu.be/5yOx3KApWkY" target="_blank">Bootstrap 5 Product Card</a> </p>
+
 @endforeach
 
 
