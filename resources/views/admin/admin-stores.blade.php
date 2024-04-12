@@ -12,7 +12,34 @@
    <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <style>
+            .status-button {
+                padding: 8px 16px;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 14px;
+            }
         
+            .activate-button {
+                background-color: #28a745; 
+            }
+        
+            .deactivate-button {
+                background-color: #dc3545;
+            }
+        
+            .status-button:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            .storeInfo {
+                color: gold;
+                
+            }
+             
+        </style>
 </head>
 
 <body>
@@ -136,6 +163,50 @@
             </div>
 
             <!-- ================ Stores Details List ================= -->
+            <div class="recentCustomers">
+                <div class="cardHeader">
+                    <h2>All Stores</h2>
+                </div>
+
+                <table>
+                    @foreach ($all_stores as $store)
+                    
+                    <tr>
+                        
+                        {{-- <td width="60px">
+                            <div class="imgBx">
+                                @if ($store->getProfile && $store->getProfile->image_url)
+                                    <img id="avatar" src="{{ asset('storage/profile-images/' . $store->getProfile->image_url) }}" alt="Avatar" class="d-block ui-w-80">
+                                @else
+                                <i class="bi bi-shop"></i>
+                                @endif
+                        </div>
+                        </td> --}}
+                        <td>
+                            <h4>{{ $store->store_name}} <br> {{--<span>{{$store->getRole->name}}</span>--}}</h4>
+                        </td>
+                        <td>
+                            {{-- <form method="POST" action="{{ route('store.updateStatus', $store->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <td>
+                                    <button type="submit" name="status" value="activated" class="status-button activate-button" {{ $store->is_active ? 'disabled' : '' }}>Activate</button>
+                                    <button type="submit" name="status" value="deactivated" class="status-button deactivate-button" {{ $store->is_active ? '' : 'disabled' }}>Deactivate</button>
+                                </td>
+                                <td><a href="{{route('store.info', ['store_id' => $store->id])}}" class="storeInfo" >
+                                    <ion-icon name="information-circle-outline" size="large" class="storeInfoIcon"></ion-icon></a></td>
+                            </form> --}}
+                        </td>
+                   
+                    </tr>
+                
+                    @endforeach
+                    
+                    
+                   
+                </table>
+            </div>
+
            
         </div>
     </div>
