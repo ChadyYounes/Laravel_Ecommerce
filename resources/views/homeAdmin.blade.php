@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Buyer</title>
+        <title>Fruitables - Admin</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -81,7 +81,7 @@
 
 .logout-div {
     position: absolute;
-    width: 150px;
+    width: 150px; 
 }
 
         </style>
@@ -149,7 +149,6 @@
          <!-- Logout div -->
     <div id="logout-div" class="logout-div">
         <p class="username">{{$user->name}}</p><hr>
-        
         <a href="{{ route('edit-profile') }}" class="edit-profile-button">Edit Profile</a>
 
         <!-- Logout form -->

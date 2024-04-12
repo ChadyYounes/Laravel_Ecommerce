@@ -18,27 +18,6 @@ class RolesTableSeeder extends Seeder
         ['name' => 'seller'],
         ['name' => 'admin'],
     ]);
-   
-   $hashedPassword = Hash::make('admin2024'); 
-   DB::table('users')->insert([
-       [
-           'name' => 'admin',
-           'email' => 'admin2024@gmail.com',
-           'email_verified_at' => now(), 
-           'password' => $hashedPassword,
-           'role_id' => 3,
-       ],
-   ]);
-   DB::table('profiles')->insert([
-        [
-            'full_name' => 'Admin',
-            'birth_day' => 'Admin',
-            'country' => "Admin",
-            'phone' => 'Admin',
-            'address' => "Admin",
-            'user_id' => 1
-        ]
-   ]);
 }
 
 }
