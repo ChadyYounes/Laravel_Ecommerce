@@ -68,6 +68,7 @@ Route::get('/admin/orders', [AdminController::class, 'admin_orders_view'])->name
 Route::get('/admin/users', [AdminController::class, 'admin_users_view'])->name('admin.users');
 Route::get('/admin/stores', [AdminController::class, 'admin_stores_view'])->name('admin.stores');
 Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserStatus'])->name('user.updateStatus');
+Route::put('/store/{storeId}/updateStatus',[AdminController::class, 'updateStoreStatus'])->name('store.updateStatus');
 Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');
 Route::get('/user/info/{user_id}',[AdminController::class, 'user_info_view'])->name('user.info');
 Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 'saveProfileByAdmin'])->name('save-profile-edited-by-admin');

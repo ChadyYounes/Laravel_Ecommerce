@@ -71,10 +71,10 @@
                                         <label class="form-label">Birthday </label>
                                         @php
                                             try {
-                                                // Convert varchar birth_day to date format
+                                                
                                                 $formattedBirthday = Carbon::createFromFormat('m/d/Y', $user->getProfile->birth_day)->format('Y-m-d');
                                             } catch (\Exception $e) {
-                                                // Handle the exception (e.g., invalid date format)
+                                               
                                                 $formattedBirthday = null;
                                             }
                                         @endphp
