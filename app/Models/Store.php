@@ -13,8 +13,12 @@ class Store extends Model
         'store_name',
         'store_category',
         'store_description',
-        'image_url'
+        'image_url',
+        'seller_id'
     ] ;
-
+    public function getUser()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }

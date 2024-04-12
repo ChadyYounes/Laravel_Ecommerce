@@ -23,9 +23,10 @@
         <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="{{asset("css/style.css")}}" rel="stylesheet">
+        <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
     <style>
+        
           #logout-div {
     background-color: #ddd;
     padding: 10px;
@@ -80,6 +81,47 @@
 .logout-div {
     position: absolute;
     width: 150px; 
+}
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center text */
+}
+
+#proceed-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px; /* Smaller padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.image-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.field-long {
+    flex: 1;
+}
+
+#image_preview {
+    margin-left: 10px;
 }
 </style>
 </head>
@@ -151,7 +193,8 @@
         <!-- Navbar End -->
 
 <form method="POST" action="{{route('createStore' , ['user_id' => $user->id])}}" enctype="multipart/form-data">
-<ul class="form-style-1">
+        @csrf
+    <ul class="form-style-1">
 
     <li>
         <label>Store Name <span class="required">*</span></label>
@@ -172,14 +215,53 @@
         <textarea name="store_description" id="field5" class="field-long field-textarea"></textarea>
     </li>
     <li>
-        <label>Store Logo or image</label>
-        <input type="file" name="image_url" class="field-long" />
-    </li>
+    <label>Store Logo or image</label>
+    <div class="image-input-container">
+        <input type="file" name="image_url" id="image_url" class="field-long" onchange="previewImage(event)" />
+        <img id="image_preview" src="#" alt="Preview" style="max-width: 100px; max-height: 100px; margin-left: 10px; display: none;" />
+    </div>
+</li>
+
     <li>
         <input type="submit" value="Submit" />
     </li>
 </ul>
 </form>
+@if(session('success'))
+<div id="popup">
+        <div id="popup-content">
+            <p>{{ session('success') }}</p>
+            <button id="proceed-btn">Proceed</button>
+        </div>
+    </div>
+@endif
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var popup = document.getElementById("popup");
+    var proceedBtn = document.getElementById("proceed-btn");
+
+    if (popup) {
+        console.log("Popup element found.");
+        proceedBtn.addEventListener("click", function() {
+            console.log("Proceed button clicked.");
+            popup.style.display = "none";
+        });
+    }
+});
+
+    function previewImage(event) {
+        var input = event.target;
+        var preview = document.getElementById('image_preview');
+        preview.style.display = 'block';
+        var reader = new FileReader();
+        reader.onload = function() {
+            preview.src = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+
+ 
 
 
 </body>

@@ -24,13 +24,14 @@
 
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet">
+       
 
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
-        
+         <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet">
 <style>
+
    #logout-div {
     background-color: #ddd;
     padding: 10px;
@@ -86,6 +87,11 @@
     position: absolute;
     width: 150px; 
 }
+.storesHeader{
+    text-align:center;
+    margin-top:5%;
+    color:    #1e90ff;
+}
 </style>
     </head>
 </head>
@@ -104,7 +110,7 @@
                         <div class="navbar-nav mx-auto">
                         <a href="{{route('home',['user_id' => $user->id])}}" class="nav-item nav-link active">Home</a>
                             <a href="{{route('storeFormView',['user_id' => $user->id])}}" class="nav-item nav-link">Create Store</a>
-                            <a href="{{route('storeView' , ['user_id' => $user->id ])}}" class="nav-item nav-link">Your stores</a>
+                            <a href="{{route('storeView' , ['user_id' => $user->id])}}" class="nav-item nav-link">Your stores</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
@@ -156,53 +162,50 @@
     </script>
         <!-- Navbar End -->
 <!--           -->
+<h2 class="storesHeader">Manage your Stores!</h2><br/>
 
-<div class="container-fluid service py-5">
-<h2 class="storesHeader">Manage Your Stores!</h2>
-            <div class="container py-5">
-                <div class="row g-4 justify-content-center">
-                    <div class="col-md-6 col-lg-4">
-                        <a href="#">
-                            <div class="service-item bg-secondary rounded border border-secondary">
-                                <img src="img/featur-1.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="px-4 rounded-bottom">
-                                    <div class="service-content bg-primary text-center p-4 rounded">
-                                        <h5 class="text-white">Fresh Apples</h5>
-                                        <h3 class="mb-0">20% OFF</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a href="#">
-                            <div class="service-item bg-dark rounded border border-dark">
-                                <img src="img/featur-2.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="px-4 rounded-bottom">
-                                    <div class="service-content bg-light text-center p-4 rounded">
-                                        <h5 class="text-primary">Tasty Fruits</h5>
-                                        <h3 class="mb-0">Free delivery</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <a href="#">
-                            <div class="service-item bg-primary rounded border border-primary">
-                                <img src="img/featur-3.jpg" class="img-fluid rounded-top w-100" alt="">
-                                <div class="px-4 rounded-bottom">
-                                    <div class="service-content bg-secondary text-center p-4 rounded">
-                                        <h5 class="text-white">Exotic Vegitable</h5>
-                                        <h3 class="mb-0">Discount 30$</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Featurs End -->
+@foreach ($stores as $userStores)
+<div class="card rounded-pill text-center overflow-hidden border-0 shadow m-5" style="max-width: 18rem;">
+  <img src="https://codingyaar.com/wp-content/uploads/cactus.jpg" class="card-img-top" alt="...">
+  <div class="card-body bg-dark text-white">
+    <h5 class="card-title fw-bold">Product Title</h5>
+    <p class="card-text">Something about the product.</p>
+    <a href="#" class="btn btn-light px-3 rounded-pill">Buy Now</a>
+    <p class="mt-3">$129.00</p>
+  </div>
+</div>
+
+<p class="mt-5 text-center">Get a step-by-step written explanation here: <a href="https://codingyaar.com/product-card-oval-design-bootstrap-5-html/" target="_blank">Bootstrap 5 Product Card Oval Shape</a> </p>
+<p class="mt-5 text-center">Get a step-by-step video explanation here: <a href="https://youtu.be/5yOx3KApWkY" target="_blank">Bootstrap 5 Product Card</a> </p>
+@endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset("lib/easing/easing.min.js")}}"></script>
+    <script src="{{asset("lib/waypoints/waypoints.min.js")}}"></script>
+    <script src="{{asset("lib/lightbox/js/lightbox.min.js")}}"></script>
+    <script src="{{asset("lib/owlcarousel/owl.carousel.min.js")}}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{asset("js/main.js")}}"></script>
 </body>
 </html>
