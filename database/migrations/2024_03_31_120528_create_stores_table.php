@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('store_description');
             $table->string('image_url')->nullable();
             $table->boolean('is_approved')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('seller_id');
             $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
 //            $table->foreignIdFor(User::class,"seller_id");
