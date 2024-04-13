@@ -67,7 +67,47 @@ class StoreController extends Controller
         // Redirect to the home page with success message
         return redirect()->route('storeFormView', ['user_id' => $user->id])->with('success', 'store created successfully');
 }
-   
+
+
+   public function updateView($store_id , $user_id){
+    $store = Store::find($store_id);
+    $user = User::find($user_id);
+    return view('storeManagement.editStore',compact('store' , 'user'));
+   }
+
+
+public function updateStore(Request $request, $store_id)
+{    $userId = Auth::id();
+    $user = User::find($userId);
+    
+    $store = Store::findOrFail($store_id);
+
+    $request->validate([
+        'store_name' => 'required|max:255|string',
+        'store_category' => 'required',
+        'store_description' => 'required|max:255|string',
+        'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    // Handle image upload if there's a new image
+    if ($request->hasFile('image_url')) {
+        $file = $request->file('image_url');
+        $extension = $file->getClientOriginalExtension();
+        $fileName = time() . '.' . $extension;
+        $path = "storage/stores-images/";
+        $file->move($path, $fileName);
+        $store->image_url = $path . $fileName;
+    }
+
+    $store->store_name = $request->store_name;
+    $store->store_category = $request->store_category;
+    $store->store_description = $request->store_description;
+
+    $store->save();
+
+    return redirect()->route('storeView',['user_id'=>$user->id, 'store_id' => $store->id])->with('updateSuccess', 'Store updated successfully');
+}
+
 
 public function deleteStore($store_id){
     $store_delete = Store::findOrFail($store_id);
