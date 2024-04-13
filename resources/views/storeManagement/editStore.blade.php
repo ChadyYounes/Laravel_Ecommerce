@@ -110,106 +110,88 @@
 #image_preview {
     margin-left: 10px;
 }
+.button-container {
+    text-align: center;
+}
+
+.update-button,
+.cancel-button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.update-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.update-button:hover,
+.cancel-button:hover {
+    opacity: 0.8;
+}
+
 </style>
 </head>
 <body>
 
 
-<!-- navbar -->
-<body>
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
-                <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
-                <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
-            </ul>
-            <h1 class="logo">Navbar</h1>
-        </div>
-    </nav>
-  <!-- Logout div -->
-  
-   <div id="logout-div" class="logout-div">
-        <p class="username">{{$user->name}}</p><hr>
-        <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
-        <!-- Logout form -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
-        
-        <!-- Error display -->
-        <div id="logout-error" class="logout-error" style="display: none;"></div>
-    </div>
 
-    <!-- Include the JavaScript code -->
-    <script>
-        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-        document.getElementById('user-icon').addEventListener('click', function() {
-            var logoutDiv = document.getElementById('logout-div');
-            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
-                logoutDiv.style.display = 'block';
-            } else {
-                logoutDiv.style.display = 'none';
-            }
-        });
-    </script>
-<!--end navbar-->
 
-<form method="POST" action="{{route('createStore' , ['user_id' => $user->id])}}" enctype="multipart/form-data">
+<form method="POST" action="{{route('updateStore' , ['store_id' => $store->id , 'user_id' => $user->id])}}" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
     <ul class="form-style-1">
 
     <li>
         <label>Store Name <span class="required">*</span></label>
-        <input type="text" name="store_name" class="field-long" />
+        <input type="text" name="store_name" class="field-long" value="{{$store->store_name}}" />
     </li>
     <li>
-        <label>Mainly Selling </label>
-        <select name="store_category" class="field-select">
-        <option value="Cars & Vehicles">Cars & Vehicles</option>
-        <option value="Accessories">Accessories</option>
-        <option value="Phones">Phones</option>
-        <option value="General">General</option>
+    <label>Mainly Selling </label>
+    <select name="store_category" class="field-select">
+        <option value="Cars & Vehicles" {{$store->store_category == 'Cars' ? 'selected' : ''}}>Cars & Vehicles</option>
+        <option value="Accessories" {{$store->store_category == 'Accessories' ? 'selected' : ''}}>Accessories</option>
+        <option value="Phones" {{$store->store_category == 'Phones' ? 'selected' : ''}}>Phones</option>
+        <option value="General" {{$store->store_category == 'General' ? 'selected' : ''}}>General</option>
+    </select>
+</li>
 
-        </select>
-    </li>
     <li>
         <label>Store Description<span class="required">*</span></label>
-        <textarea name="store_description" id="field5" class="field-long field-textarea"></textarea>
+        <textarea name="store_description" id="field5" class="field-long field-textarea">{{$store->store_description}}</textarea>
     </li>
     <li>
     <label>Store Logo or image</label>
     <div class="image-input-container">
         <input type="file" name="image_url" id="image_url" class="field-long" onchange="previewImage(event)" />
-        <img id="image_preview" src="#" alt="Preview" style="max-width: 100px; max-height: 100px; margin-left: 10px; display: none;" />
+        <img id="image_preview" src="{{asset($store->image_url)}}" alt="Preview" style="max-width: 100px; max-height: 100px; margin-left: 10px; display: block;" />
     </div>
 </li>
 
-    <li>
-        <input type="submit" value="Submit" />
-    </li>
+
+<li>
+    <div class="button-container">
+        <button type="submit" class="update-button">Update</button>
+       
+    </div>
+</li>
 </ul>
 </form>
-@if(session('success'))
-<div id="popup">
-        <div id="popup-content">
-            <p>{{ session('success') }}</p>
-            <button id="proceed-btn" style="margin-top:3%;">Proceed</button>
-        </div>
-    </div>
-@elseif($errors->any())
+<a href="{{route('storeView',['user_id' => $user->id])}}"><button class="cancel-button">Cancel</button></a>
+
+@if($errors->any())
     <div id="popup" >
         <div id="popup-content">
-            <h3 style="color:darkred;">Store not created</h3>
+            <h3 style="color:darkred;">Store not Updated</h3>
             
                 @foreach ($errors->all() as $error)
                     {{ $error }}<br>
@@ -236,19 +218,26 @@
 </script>
 
     
-
- <script>
+<script>
     function previewImage(event) {
         var input = event.target;
         var preview = document.getElementById('image_preview');
-        preview.style.display = 'block';
-        var reader = new FileReader();
-        reader.onload = function() {
-            preview.src = reader.result;
-        };
-        reader.readAsDataURL(input.files[0]);
+
+        // Check if an image is selected
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                preview.style.display = 'block';
+                preview.src = reader.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            // If no image is selected, hide the preview
+            preview.style.display = 'none';
+        }
     }
 </script>
+
 
  
 

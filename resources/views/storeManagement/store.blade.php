@@ -11,6 +11,7 @@
 
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')}}>
 
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
@@ -57,7 +58,34 @@
 .username {
     color: black;
 }
+#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+#popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center; /* Center text */
+}
+
+#proceed-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px; /* Smaller padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 .logout-button:hover,
 .edit-profile-button:hover {
@@ -134,38 +162,57 @@
 
 <!--           -->
 <h2 class="storesHeader">Manage your Stores!</h2><br/>
-
-@foreach ($stores as $userStores)
-<div class="product-card">
-  <img src="{{asset($userStores->image_url)}}" alt="">
-  <h4>{{$userStores->store_name}}</h4>
-  <div>
-    <span>Manage Store</span>
-    <button>+</button>
-  </div>
+<div class="wrapper">
+    @foreach($stores as $store)
+        <!-- Check if the store has errors -->
+        <div class="card">
+            <div class="product-img">
+                <img src="{{ asset($store->image_url) }}" alt="{{ $store->store_name }}">
+            </div>
+            <div class="product-info">
+                <div class="product-text">
+                    <div class="title-and-edit">
+                        <h3>{{ $store->store_name }}</h3>
+                        <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}"><img src="{{asset('/storage/project-images/edit.png')}}" alt="Edit"  class="edit-icon"></a>
+                    </div>
+                    <h4>{{ $store->store_category }}</h4>      
+                    <h5>{{ $store->store_description }}</h5>
+                </div>
+                <div class="product-price-btn">
+                    <button type="button" style="width:42%; margin-right:7% ; bottom:0;" class="view-products-btn">View Products</button>
+                    <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>               
+                 </div>
+            </div>
+        </div>
+    @endforeach
 </div>
+@if(session('updateSuccess'))
+<div id="popup">
+    <div id="popup-content">
+        <p>{{ session('updateSuccess') }}</p>
+        <button id="proceed-btn" style="margin-top:3%;">Proceed</button>
+    </div>
+</div>
+@endif
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var popup = document.getElementById("popup");
+        var proceedBtn = document.getElementById("proceed-btn");
 
-@endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if (popup) {
+            console.log("Popup element found.");
+            proceedBtn.addEventListener("click", function() {
+                console.log("Proceed button clicked.");
+                popup.style.display = "none";
+            });
+        }
+    });
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

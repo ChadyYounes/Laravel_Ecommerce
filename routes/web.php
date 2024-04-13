@@ -89,7 +89,11 @@ Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('st
 Route::post('/addStore/{user_id}',[StoreController::class,'createStore'])->name('createStore');
 
 Route::get('/viewStore/{user_id}',[StoreController::class,'storeView'])->name('storeView');
-
+//store delete
+Route::delete('/viewStore/{store_id}',[StoreController::class,'deleteStore'])->name('deleteStore');
+//store edit
+Route::get('/editStore/{store_id}/{user_id}',[StoreController::class,'updateView'])->name('updateView');
+Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore'])->name('updateStore');
 
 
 
