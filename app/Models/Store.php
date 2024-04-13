@@ -18,7 +18,7 @@ class Store extends Model
     ] ;
     public function getUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,"seller_id", "id");
     }
     
 }

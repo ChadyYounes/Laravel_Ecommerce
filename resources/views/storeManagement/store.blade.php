@@ -137,8 +137,8 @@
 
 @foreach ($stores as $userStores)
 <div class="product-card">
-  <img src="https://codingyaar.com/wp-content/uploads/chair-image.jpg" alt="">
-  <h4>Store Name</h4>
+  <img src="{{asset($userStores->image_url)}}" alt="">
+  <h4>{{$userStores->store_name}}</h4>
   <div>
     <span>Manage Store</span>
     <button>+</button>

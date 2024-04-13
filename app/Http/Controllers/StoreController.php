@@ -32,7 +32,7 @@ class StoreController extends Controller
         'store_name' => 'required|max:255|string',
         'store_category' => 'required',
         'store_description' => 'required|max:255|string',
-        'image_url' => 'nullable|mimes:jpeg,png,jpg'
+        'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
        ]);
 
         if ($request->has('image_url')) {
@@ -40,7 +40,7 @@ class StoreController extends Controller
             $extension = $file->getClientOriginalExtension();
 
             $fileName = time().'.'.$extension;
-            $path = 'storage/stores-images';
+            $path = "storage/stores-images/";
             $file->move($path,$fileName);
 
             Store::create([
@@ -53,7 +53,7 @@ class StoreController extends Controller
             ]);
 
          } else {
-            $fileName = 'C:\Users\chadi\Desktop\Final-Project-Laravel\public\storage\stores-images\store.jpg'; 
+            $fileName = "storage/stores-images/store.jpg"; 
             Store::create([
                 'store_name' => $request->store_name,
                 'store_category' => $request->store_category,
