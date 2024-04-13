@@ -175,47 +175,124 @@
         display: none;
     }
 }
+/* 
+* Design by Robert Mayer:https://goo.gl/CJ7yC8
+*
+*I intentionally left out the line that was supposed to be below the subheader simply because I don't like how it looks.
+*
+* Chronicle Display Roman font was substituted for similar fonts from Google Fonts.
+*/
 
-.product-card {
-    max-width: 12em;
-    background-color: #fff;
-    padding: 1em;
-    box-shadow: 0 5px 5px #e1e1e1;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  .product-card img {
-    max-width: 100%;
-  }
-  .product-card h4 {
-    font-size: 1.3em;
-    margin: 0.5em 0;
-  }
-  .product-card div {
-    font-size: 1.2em;
+/* Wrapper styles */
+/* Global styles */
+
+/* Wrapper styles */
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 50px auto; /* Top and bottom margin */
+    margin-left: 20px; /* Left margin */
+    margin-right: 20px; /* Right margin */
+}
+
+.card {
+    width: calc(33.33% - 20px); /* Three cards per row with a small gap */
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    box-sizing: border-box; /* Ensure the width includes padding and border */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Zoom effect on hover for the whole card */
+}
+
+/* Product image styles */
+.product-img {
+    width: 100%;
+    height: 200px; /* Decreased height */
+    overflow: hidden;
+    position: relative;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Product info styles */
+.product-info {
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.product-text {
+    margin-bottom: 10px;
+}
+
+.product-text h4 {
+    font-weight: 450;
+    margin-top: -5%;
+    margin-bottom:3%s
+
+}
+
+.product-text h5 {
+    font-weight: 350;
+}
+
+.product-price-btn {
+    text-align: center;
+    display: flex;
+}
+
+.product-price-btn button {
+    margin-top: 15px; /* Increased margin-top */
+    min-width: 70%;
+    padding: 12px 20px; /* Increased padding */
+    background-color: #4a90e2; /* Medium blue background color */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    cursor: pointer;
+}
+
+.product-price-btn button:hover {
+    background-color: #357ae8; /* Darker blue on hover */
+}
+
+.product-price-btn button.delete-btn {
+    background-color: #e24a4a; /* Red background color for delete button */
+}
+
+/* Edit image styles */
+.product-price-btn a {
+    display: inline-block;
+    margin-left: auto;
+}
+
+.product-price-btn a img {
+    width: 20px; /* Adjust size of edit image */
+    height: 20px; /* Adjust size of edit image */
+    vertical-align: middle;
+    margin-left: 10px; /* Space between edit image and text */
+}
+.title-and-edit{
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  .product-card button {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    font-size: 1em;
-  }
-  .product-card:hover {
-    background-color: lightslategray;
-    color: #fff;
-  }
-  .product-card:hover button {
-    color: #000;
-    background-color: #fff;
-  }
-  @media screen and (max-width: 576px) {
-    .product-card {
-      font-size: 0.9em;
-    }
-  }
+}
+.title-and-edit h2{
   
+   margin-right: 40%;
+}
+
+.title-and-edit .edit-icon{
+    max-width: 40px;
+    min-height: 70%;
+ }

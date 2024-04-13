@@ -67,5 +67,38 @@ class StoreController extends Controller
         // Redirect to the home page with success message
         return redirect()->route('storeFormView', ['user_id' => $user->id])->with('success', 'store created successfully');
 }
-    }
+   
+
+public function deleteStore($store_id){
+    $store_delete = Store::findOrFail($store_id);
+    $user_id = $store_delete->seller_id;
+    $store_delete->delete();
+    return redirect()->route('storeView',['user_id'=>$user_id])->with('delete_success','store deleted successfully');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 

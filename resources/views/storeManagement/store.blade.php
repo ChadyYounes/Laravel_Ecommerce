@@ -11,6 +11,7 @@
 
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')}}>
 
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
@@ -134,37 +135,33 @@
 
 <!--           -->
 <h2 class="storesHeader">Manage your Stores!</h2><br/>
-
-@foreach ($stores as $userStores)
-<div class="product-card">
-  <img src="{{asset($userStores->image_url)}}" alt="">
-  <h4>{{$userStores->store_name}}</h4>
-  <div>
-    <span>Manage Store</span>
-    <button>+</button>
-  </div>
+<div class="wrapper">
+    @foreach($stores as $store)
+        <!-- Check if the store has errors -->
+        <div class="card">
+            <div class="product-img">
+                <img src="{{ asset($store->image_url) }}" alt="{{ $store->store_name }}">
+            </div>
+            <div class="product-info">
+                <div class="product-text">
+                    <div class="title-and-edit">
+                        <h3>{{ $store->store_name }}</h3>
+                        <a href=""><img src="{{asset('/storage/project-images/edit.png')}}" alt="Edit"  class="edit-icon"></a>
+                    </div>
+                    <h4>{{ $store->store_category }}</h4>      
+                    <h5>{{ $store->store_description }}</h5>
+                </div>
+                <div class="product-price-btn">
+                    <button type="button" style="width:42%; margin-right:7% ; bottom:0;" class="view-products-btn">View Products</button>
+                    <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>                </div>
+            </div>
+        </div>
+    @endforeach
 </div>
-
-
-@endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
