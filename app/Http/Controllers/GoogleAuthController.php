@@ -21,21 +21,18 @@ class GoogleAuthController extends Controller
         $user = User::where('email', $googleUser->getEmail())->first();
     
         if (!$user) {
-            // Create a new user if not exists
             $user = new User();
             $user->name = $googleUser->getName();
             $user->email = $googleUser->getEmail();
-            $user->google_id = Hash::make($googleUser->getId()); // Store the hashed Google ID
+            $user->google_id = Hash::make($googleUser->getId()); 
             $user->save();
         }
     
         Auth::login($user);
     
         if ($user->role_id === null) {
-            // Redirect the user to the setup page
             return redirect()->route('set-profile');
         } else {
-            // Redirect the user to their dashboard or homepage
             return redirect()->route('home');
         }
     } catch (\Throwable $e) {
