@@ -6,39 +6,38 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FacebookAuthController extends Controller
 {
-    public function redirect() {
-        return Socialite::driver('facebook')->redirect();
-    }
+    public function redirect()
+            {
+                return Socialite::driver('facebook')->redirect();
+            }
 
-    public function callBackFacebook() {
-        try {
-            $facebook_user = Socialite::driver('facebook')->user();
-            $user = User::where('facebook_id', $facebook_user->getId())->first();
-    
-            if (!$user) {
-                // Create a new user if not exists
-                $new_user = new User();
-                $new_user->name = $facebook_user->getName();
-                $new_user->email =  $facebook_user->getEmail();
-                $new_user->microsoft_id = $facebook_user->getId();
-                $new_user->save();
-                $user = $new_user;
+    public function callBackFacebook()
+        {
+            try {
+                $facebookUser = Socialite::driver('facebook')->user();
+                $user = User::where('email', $facebookUser->getEmail())->first();
+            
+                if (!$user) {
+                    $user = new User();
+                    $user->name = $facebookUser->getName();
+                    $user->email = $facebookUser->getEmail();
+                    $user->facebook_id = Hash::make($facebookUser->getId()); 
+                    $user->save();
+                }
+            
+                Auth::login($user);
+            
+                if ($user->role_id === null) {
+                    return redirect()->route('set-profile');
+                } else {
+                    return redirect()->route('home');
+                }
+            } catch (\Throwable $e) {
+                dd("Error: " . $e->getMessage() . " on line " . $e->getLine() . " in file " . $e->getFile());
             }
-    
-            Auth::login($user);
-    
-            if ($user->role_id === null) {
-                // Redirect the user to the setup page
-                return redirect()->route('set-profile', ['user_id' => $user->id]);
-            } else {
-                // Redirect the user to their dashboard or homepage
-                return redirect()->route('home');
-            }
-        } catch (\Throwable $e) {
-            dd("Something went wrong " . $e->getMessage());
         }
-    } 
 }
