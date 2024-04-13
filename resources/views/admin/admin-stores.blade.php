@@ -173,29 +173,32 @@
                     
                     <tr>
                         
-                        {{-- <td width="60px">
+                        <td width="60px">
                             <div class="imgBx">
-                                @if ($store->getProfile && $store->getProfile->image_url)
-                                    <img id="avatar" src="{{ asset('storage/profile-images/' . $store->getProfile->image_url) }}" alt="Avatar" class="d-block ui-w-80">
+                                @if ($store->image_url)
+                                    <img id="avatar" src="{{ asset($store->image_url) }}" alt="Avatar" class="d-block ui-w-80">
                                 @else
                                 <i class="bi bi-shop"></i>
                                 @endif
                         </div>
-                        </td> --}}
-                        <td>
-                            <h4>{{ $store->store_name}} <br> {{--<span>{{$store->getRole->name}}</span>--}}</h4>
                         </td>
                         <td>
-                            {{-- <form method="POST" action="{{ route('store.updateStatus', $store->id) }}">
+                            <h4>{{ $store->store_name}} <br> <span>{{$store->getUser->name}}</span></h4>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ route('store.updateStatus', $store->id) }}">
                                 @csrf
                                 @method('PUT')
                                 <td>
                                     <button type="submit" name="status" value="activated" class="status-button activate-button" {{ $store->is_active ? 'disabled' : '' }}>Activate</button>
                                     <button type="submit" name="status" value="deactivated" class="status-button deactivate-button" {{ $store->is_active ? '' : 'disabled' }}>Deactivate</button>
                                 </td>
-                                <td><a href="{{route('store.info', ['store_id' => $store->id])}}" class="storeInfo" >
-                                    <ion-icon name="information-circle-outline" size="large" class="storeInfoIcon"></ion-icon></a></td>
-                            </form> --}}
+                                {{-- <td>
+                                    <a href="{{route('store.info', ['store_id' => $store->id])}}" class="storeInfo" >
+                                    <ion-icon name="information-circle-outline" size="large" class="storeInfoIcon"></ion-icon>
+                                </a>
+                            </td> --}}
+                            </form>
                         </td>
                    
                     </tr>

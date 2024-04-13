@@ -25,8 +25,6 @@ class SetProfileController extends Controller
                 'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800',  
             ]);
     
-            // Handle image upload
-            
             if ($request->hasFile('image_url')) {
                 $image = $request->file('image_url');
                 $fileName = time() . '.' . $image->getClientOriginalExtension();

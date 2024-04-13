@@ -71,6 +71,7 @@ Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserSta
 Route::put('/store/{storeId}/updateStatus',[AdminController::class, 'updateStoreStatus'])->name('store.updateStatus');
 Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');
 Route::get('/user/info/{user_id}',[AdminController::class, 'user_info_view'])->name('user.info');
+//Route::get('/store/info/{store_id}',[AdminController::class, 'store_info_view'])->name('store.info');
 Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 'saveProfileByAdmin'])->name('save-profile-edited-by-admin');
 /****************************Amine End******************************** */
 /******************************************************************** */
