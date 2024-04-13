@@ -11,7 +11,7 @@
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -77,7 +77,7 @@
                             <a href="{{route('login-page')}}" class="nav-item nav-link">Login</a>
                             <a href="{{route('register-page')}}" class="nav-item nav-link">Register</a>
                         </div>
-                      
+
                     </div>
                 </nav>
             </div>
@@ -551,7 +551,7 @@
                             </div>
                         </div>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
         <!-- Fruits Shop End-->
@@ -1127,7 +1127,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-item">
                             <h4 class="text-light mb-3">Why People Like us!</h4>
-                            <p class="mb-4">typesetting, remaining essentially unchanged. It was 
+                            <p class="mb-4">typesetting, remaining essentially unchanged. It was
                                 popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
                             <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
                         </div>
@@ -1190,9 +1190,9 @@
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-        
+
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1200,6 +1200,7 @@
     <script src="{{asset("lib/waypoints/waypoints.min.js")}}"></script>
     <script src="{{asset("lib/lightbox/js/lightbox.min.js")}}"></script>
     <script src="{{asset("lib/owlcarousel/owl.carousel.min.js")}}"></script>
+    <script type="module" defer crossorigin data-id="45d0044d-76ab-497a-839c-38bcbff98463" data-name="MantaAssistant" src="https://barnaclestudios.com/js/scripts/site/chat/externalassistant.js"></script>
 
     <!-- Template Javascript -->
     <script src="{{asset("js/main.js")}}"></script>

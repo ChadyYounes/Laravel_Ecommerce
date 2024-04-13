@@ -47,18 +47,36 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h2>Chat List</h2>
-    @foreach($chatsList as $chat)
-        <div class="chat">
-            <div class="chat-info">
-                <p class="chat-name">{{$chat->name}}</p>
-            </div>
-            <div class="chat-action">
-                <a href="{{ route("chat_form",['id' => $chat->id]) }}" class="chat-button">Chat Now</a>
-            </div>
+@if(auth()->check())
+    @if(auth()->user()->getRole->name === 'buyer')
+        <div class="container">
+            <h2>Chat List</h2>
+            @foreach($chatsListSellers as $chat)
+                <div class="chat">
+                    <div class="chat-info">
+                        <p class="chat-name">{{$chat->name}}</p>
+                    </div>
+                    <div class="chat-action">
+                        <a href="{{ route("chat_form",['id' => $chat->id]) }}" class="chat-button">Chat Now</a>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    @endforeach
-</div>
+    @elseif(auth()->user()->getRole->name === 'seller')
+        <div class="container">
+            <h2>Chat List</h2>
+            @foreach($chatsListBuyers as $chat)
+                <div class="chat">
+                    <div class="chat-info">
+                        <p class="chat-name">{{$chat->name}}</p>
+                    </div>
+                    <div class="chat-action">
+                        <a href="{{ route("chat_form",['id' => $chat->id]) }}" class="chat-button">Chat Now</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+@endif
 </body>
 </html>
