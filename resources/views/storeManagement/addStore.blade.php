@@ -9,7 +9,6 @@
        
         <!-- Icon Font Stylesheet -->
        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- Template Stylesheet -->
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
@@ -204,26 +203,41 @@
 <div id="popup">
         <div id="popup-content">
             <p>{{ session('success') }}</p>
-            <button id="proceed-btn">Proceed</button>
+            <button id="proceed-btn" style="margin-top:3%;">Proceed</button>
+        </div>
+    </div>
+@elseif($errors->any())
+    <div id="popup" >
+        <div id="popup-content">
+            <h3 style="color:darkred;">Store not created</h3>
+            
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+            
+            <button id="proceed-btn" style="margin-top:3%;">OK</button>
         </div>
     </div>
 @endif
 
- <script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var popup = document.getElementById("popup");
+        var proceedBtn = document.getElementById("proceed-btn");
+
+        if (popup) {
+            console.log("Popup element found.");
+            proceedBtn.addEventListener("click", function() {
+                console.log("Proceed button clicked.");
+                popup.style.display = "none";
+            });
+        }
+    });
+</script>
+
     
-document.addEventListener("DOMContentLoaded", function() {
-    var popup = document.getElementById("popup");
-    var proceedBtn = document.getElementById("proceed-btn");
 
-    if (popup) {
-        console.log("Popup element found.");
-        proceedBtn.addEventListener("click", function() {
-            console.log("Proceed button clicked.");
-            popup.style.display = "none";
-        });
-    }
-});
-
+ <script>
     function previewImage(event) {
         var input = event.target;
         var preview = document.getElementById('image_preview');

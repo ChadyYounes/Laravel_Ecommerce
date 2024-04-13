@@ -61,6 +61,13 @@ return [
             'url' => env('APP_URL').'/profile-images',
             'visibility' => 'public',
         ],
+        'store_images' => [
+            'driver' => 'local',
+            'root' => public_path('stores-images'),
+            'url' => env('APP_URL').'/stores-images',
+            'visibility' => 'public',
+        ],
+        
 
     ],
 
