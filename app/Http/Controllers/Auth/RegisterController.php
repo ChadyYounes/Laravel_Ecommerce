@@ -38,13 +38,10 @@ class RegisterController extends Controller
         
         
 
-    // Generate the verification URL with user id
     $verificationUrl = route('user.verify', ['user_id' => $new_user->id]);
  
-    // Send the verification email with the $user variable
     Mail::to($request->email)->send(new Verify($verificationUrl, $new_user));
 
-    // Redirect to the email verification page
     return redirect()->route('email.verify');
         
     }

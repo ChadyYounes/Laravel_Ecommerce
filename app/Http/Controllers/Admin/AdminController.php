@@ -121,5 +121,60 @@ class AdminController extends Controller
                         
                         return redirect()->back()->withInput()->withErrors(['error' => 'An error occurred while saving the profile']);
                     }
-                }   
+                }
+                public function deleteUserAccountByAdmin(Request $request, $user_id)
+            {
+                $user = User::findOrFail($user_id);
+                $user->delete();
+                return redirect()->route('home');
+            }
+
+        public function store_info_view($store_id) {
+
+            $store = Store::find($store_id);
+            return view('admin.store-info')->with('store', $store);
+            
+        }
+
+
+        public function updateStoreByAdmin(Request $request, $store_id)
+                { 
+                    $userId = Auth::id();
+                    $user = User::find($userId);
+                
+                $store = Store::findOrFail($store_id);
+
+                $request->validate([
+                    'store_name' => 'required|max:255|string',
+                    'store_category' => 'required',
+                    'store_description' => 'required|max:255|string',
+                    'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                ]);
+
+                if ($request->hasFile('image_url')) {
+                    $file = $request->file('image_url');
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName = time() . '.' . $extension;
+                    $path = "storage/stores-images/";
+                    $file->move($path, $fileName);
+                    $store->image_url = $path . $fileName;
+                }
+
+                $store->store_name = $request->store_name;
+                $store->store_category = $request->store_category;
+                $store->store_description = $request->store_description;
+
+                $store->save();
+
+                // return redirect()->route('storeView',['user_id'=>$user->id, 'store_id' => $store->id])->with('updateSuccess', 'Store updated successfully');
+                return redirect()->route('home')->with('success', 'Profile saved successfully');
+
+            }
+            
+            public function deleteStoreByAdmin(Request $request, $store_id)
+            {
+                $store = Store::findOrFail($store_id);
+                $store->delete();
+                return redirect()->route('home');
+            }
 }

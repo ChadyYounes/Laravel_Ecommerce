@@ -11,8 +11,8 @@
 
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
-        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')}}>
-
+        <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
+        
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
        
@@ -162,6 +162,7 @@
 
 <!--           -->
 <h2 class="storesHeader">Manage your Stores!</h2><br/>
+
 <div class="wrapper">
     @foreach($stores as $store)
         <!-- Check if the store has errors -->
@@ -173,8 +174,12 @@
                 <div class="product-text">
                     <div class="title-and-edit">
                         <h3>{{ $store->store_name }}</h3>
-                        <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}"><img src="{{asset('/storage/project-images/edit.png')}}" alt="Edit"  class="edit-icon"></a>
+                        <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}">
+                            {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
+                            edit
+                        </a>
                     </div>
+                    <br>
                     <h4>{{ $store->store_category }}</h4>      
                     <h5>{{ $store->store_description }}</h5>
                 </div>
@@ -220,6 +225,7 @@
     <script src="{{asset("lib/waypoints/waypoints.min.js")}}"></script>
     <script src="{{asset("lib/lightbox/js/lightbox.min.js")}}"></script>
     <script src="{{asset("lib/owlcarousel/owl.carousel.min.js")}}"></script>
+    
 
     <!-- Template Javascript -->
     <script src="{{asset("js/main.js")}}"></script>
