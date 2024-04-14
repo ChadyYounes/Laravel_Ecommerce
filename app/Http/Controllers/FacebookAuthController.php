@@ -7,7 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Log;
 class FacebookAuthController extends Controller
 {
     public function redirect()
@@ -37,6 +37,7 @@ class FacebookAuthController extends Controller
                     return redirect()->route('home');
                 }
             } catch (\Throwable $e) {
+                Log::error("Error: " . $e->getMessage() . " on line " . $e->getLine() . " in file " . $e->getFile());
                 dd("Error: " . $e->getMessage() . " on line " . $e->getLine() . " in file " . $e->getFile());
             }
         }

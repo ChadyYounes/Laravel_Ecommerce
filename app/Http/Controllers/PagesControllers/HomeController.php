@@ -12,12 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function homeView() {
-        // Retrieve the authenticated user
         $user = Auth::user();
         
         // Check if the user is authenticated
         if ($user) {
-            // Check the role_id of the user
             switch ($user->role_id) {
                 case 1:
                     // Buyer
@@ -37,7 +35,6 @@ class HomeController extends Controller
                     break;
             }
         } else {
-            // Redirect to login if user is not authenticated
             return redirect()->route('login-page')->with('error', 'Please log in to access this page');
         }
     }
@@ -66,7 +63,6 @@ class HomeController extends Controller
             $user = User::findOrFail($user_id);
             $user->email_verified_at = now();
             $user->save();
-            // Authenticate the user
             Auth::login($user);
         } catch (\Exception $e) {
             Log::error("Error verifying email: {$e->getMessage()}");

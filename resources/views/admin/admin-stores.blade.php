@@ -193,11 +193,11 @@
                                     <button type="submit" name="status" value="activated" class="status-button activate-button" {{ $store->is_active ? 'disabled' : '' }}>Activate</button>
                                     <button type="submit" name="status" value="deactivated" class="status-button deactivate-button" {{ $store->is_active ? '' : 'disabled' }}>Deactivate</button>
                                 </td>
-                                {{-- <td>
+                                <td>
                                     <a href="{{route('store.info', ['store_id' => $store->id])}}" class="storeInfo" >
                                     <ion-icon name="information-circle-outline" size="large" class="storeInfoIcon"></ion-icon>
                                 </a>
-                            </td> --}}
+                            </td>
                             </form>
                         </td>
                    

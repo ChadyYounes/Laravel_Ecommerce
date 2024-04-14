@@ -53,7 +53,6 @@ class ForgotPasswordController extends Controller
         $storedOtp = session('reset_password_otp');
 
         if ($enteredOtp == $storedOtp) {
-            // Redirect to the reset password form
             return redirect()->route('reset-password');
         } else {
             return redirect()->back()->with('error', 'Invalid OTP. Please try again.');
@@ -72,26 +71,22 @@ class ForgotPasswordController extends Controller
 
     public function ResetNewPassword(Request $request)
     {
-        // Validate the form data
         $request->validate([
             'email' => 'required|email|exists:users,email',
             'new_password' => 'required|string|min:8',
             'confirm_password' => 'required|string|min:8|same:new_password',
         ]);
 
-        // Find the user by email
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
 
-        // Update the user's password
         $user->password = Hash::make($request->new_password);
         $user->save();
 
         Auth::logout();
 
-        // Redirect the user to the login page with a success message
         return redirect()->route('login-page')->with('success', 'Your password has been successfully updated. Please login with your new password.');
     }
 }

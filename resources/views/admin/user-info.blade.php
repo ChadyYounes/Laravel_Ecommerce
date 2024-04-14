@@ -133,7 +133,7 @@
                             </div>
                         </form>
                         <div class="text-right mt-3" id="buttonBox">
-                        <form action="{{ route('delete-account', ['user_id' => $user->id]) }}" method="POST">
+                        <form action="{{ route('delete-user-account-by-admin', ['user_id' => $user->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-danger">Delete Account</button>
                         </form>

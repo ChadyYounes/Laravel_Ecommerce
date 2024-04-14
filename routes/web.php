@@ -28,7 +28,7 @@ Route::get('auth/facebook', [FacebookAuthController::class, 'redirect'])->name('
 Route::get('auth/facebook/callback', [FacebookAuthController::class, 'callBackFacebook']);
 /******************************************** */
 // Route for handling the login attempt and logout
-Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
+//Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -71,8 +71,11 @@ Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserSta
 Route::put('/store/{storeId}/updateStatus',[AdminController::class, 'updateStoreStatus'])->name('store.updateStatus');
 Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');
 Route::get('/user/info/{user_id}',[AdminController::class, 'user_info_view'])->name('user.info');
-//Route::get('/store/info/{store_id}',[AdminController::class, 'store_info_view'])->name('store.info');
+Route::get('/store/info/{store_id}',[AdminController::class, 'store_info_view'])->name('store.info');
 Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 'saveProfileByAdmin'])->name('save-profile-edited-by-admin');
+Route::post('/delete-user-account/{user_id}', [AdminController::class, 'deleteUserAccountByAdmin'])->name('delete-user-account-by-admin');
+Route::put('/update-store-by-admin/{store_id}', [AdminController::class, 'updateStoreByAdmin'])->name('update-store-by-admin');
+Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'deleteStoreByAdmin'])->name('delete-store-by-admin');
 /****************************Amine End******************************** */
 /******************************************************************** */
 
