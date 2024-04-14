@@ -10,6 +10,8 @@
         <meta content="" name="description">
 
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+        <link href="{{asset("css/storeCard.css")}}" rel="stylesheet">
+
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
         
@@ -166,33 +168,28 @@
 <div class="wrapper">
     @foreach($stores as $store)
         <!-- Check if the store has errors -->
-        <div class="card">
-            <div class="product-img">
-                <img src="{{ asset($store->image_url) }}" alt="{{ $store->store_name }}">
-            </div>
-            <div class="product-info">
-                <div class="product-text">
-                    <div class="title-and-edit">
-                        <h3>{{ $store->store_name }}</h3>
-                        <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}">
-                            {{-- <i class="fa-regular fa-pen-to-square"></i> --}}
-                            edit
-                        </a>
-                    </div>
-                    <br>
-                    <h4>{{ $store->store_category }}</h4>      
-                    <h5>{{ $store->store_description }}</h5>
-                </div>
-                <div class="product-price-btn">
-                    <button type="button" style="width:42%; margin-right:7% ; bottom:0;" class="view-products-btn">View Products</button>
-                    <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="delete-btn">Delete</button>
-                    </form>               
-                 </div>
+        <div class="product-card">
+    <div class="badge"><a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}"><img src="{{asset('/storage/project-images/edit.png')}}" style ="width:100%; height 10%"></a></div>
+    <div class="product-tumb">
+        <img src="{{asset($store->image_url)}}" alt="">
+    </div>
+    <div class="product-details">
+        <span class="product-catagory">{{ $store->store_category }}</span>
+        <h4><a href="">{{ $store->store_name }}</a></h4>
+        <p>{{ $store->store_description }}</p>
+        <div class="product-bottom-details">
+            <div class="product-links">
+                <a href="{{route('productsView',['store_id'=>$store->id])}}"><button type="button" class="manage-products-btn">Manage</button></a>
+                <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
     @endforeach
 </div>
 @if(session('updateSuccess'))
