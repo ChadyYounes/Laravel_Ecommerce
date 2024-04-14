@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->string('facebook_id')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->foreignId('base_currency')->nullable()->references('id')->on('currencies');
             $table->foreignId('role_id')->nullable()->references('id')->on('roles')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
-        }); 
+        });
     }
 
     /**

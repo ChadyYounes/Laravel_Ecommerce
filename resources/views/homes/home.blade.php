@@ -11,7 +11,7 @@
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -134,13 +134,22 @@
          <!-- Logout div -->
     <div id="logout-div" class="logout-div">
     <button class="edit-profile-button">Edit Profile</button>
+    <label for="base-currency">Base Currency:</label>
+{{--    <select name="base-currency" id="base-currency">--}}
+{{--        @foreach($currencies as $currency)--}}
+{{--            <option value="{{$currency->currency_code}}" {{$user->base_currency == $currency->code ? 'selected' : ''}}>--}}
+{{--                {{$currency->currency_name}} ({{$currency->currency_code}})--}}
+{{--            </option>--}}
+{{--        @endforeach--}}
+{{--    </select>--}}
+
 
         <!-- Logout form -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="logout-button">Logout</button>
         </form>
-        
+
         <!-- Error display -->
         <div id="logout-error" class="logout-error" style="display: none;"></div>
     </div>
@@ -180,13 +189,13 @@
         <!-- Modal Search End -->
 
 
-        
+
 
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-        
+
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
