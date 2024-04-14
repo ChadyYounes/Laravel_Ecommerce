@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PagesControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
@@ -13,13 +14,14 @@ class HomeController extends Controller
 {
     public function homeView() {
         $user = Auth::user();
-        
+
         // Check if the user is authenticated
         if ($user) {
             switch ($user->role_id) {
                 case 1:
                     // Buyer
-                    return view('homes.homeBuyer', compact('user'));
+                    $currencies=Currency::all();
+                    return view('homes.homeBuyer', compact('user','currencies'));
                     break;
                 case 2:
                     // Seller
@@ -56,7 +58,7 @@ class HomeController extends Controller
                     ->with('total_orders', $total_orders)
                     ->with('today_new_users', $today_new_users);
     }
-    
+
     public function verifyEmail($user_id)
     {
         try {

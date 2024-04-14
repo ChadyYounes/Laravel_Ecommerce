@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\Currency\CurrencyController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
@@ -48,7 +49,7 @@ Route::post('/reset-new-password', [ForgotPasswordController::class, 'ResetNewPa
 Route::get('register', [RegisterController::class, 'registerView'])->name('register-page');
 Route::post('store', [RegisterController::class, 'storeUser'])->name('store-user');
 Route::get('/home', [HomeController::class, 'homeView'])->name('home')->middleware('auth')->middleware('checkUserStatus');
-    
+
 // Route for handling the verify by email
 Route::get('/verify-email', [EmailVerificationController::class, 'showVerificationPage'])->name('email.verify');
 Route::get('/verify-email/{user_id}', [HomeController::class, 'verifyEmail'])->name('user.verify');
@@ -84,7 +85,7 @@ Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'delet
 Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list');
 Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
 Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
-
+Route::post('/update-base-currency',[CurrencyController::class,'changeBaseCurrency'])->name('update-base-currency');
 
 //chady
 //stores routes
