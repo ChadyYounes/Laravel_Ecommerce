@@ -1,0 +1,17 @@
+
+.add_a_product{
+    border-radius: 10px;
+    background-color: rgb(0, 0, 137);
+    color: white;
+    padding: 20px;
+    margin: 5%;
+}
+.productsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center horizontally */
+}
+.productsHeader > * + * {
+    margin-left: 10%; /* Adjust the value as needed */
+}
+

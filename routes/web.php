@@ -9,6 +9,7 @@ use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
 use App\Http\Controllers\PagesControllers\SetProfileController;
 use App\Http\Controllers\PagesControllers\EditProfileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -98,6 +99,8 @@ Route::delete('/viewStore/{store_id}',[StoreController::class,'deleteStore'])->n
 //store edit
 Route::get('/editStore/{store_id}/{user_id}',[StoreController::class,'updateView'])->name('updateView');
 Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore'])->name('updateStore');
+//products view route
+Route::get('/productsView/{store_id}',[ProductController::class,'productView'])->name('productsView');
 
 
 
