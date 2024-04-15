@@ -101,6 +101,7 @@ Route::get('/editStore/{store_id}/{user_id}',[StoreController::class,'updateView
 Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore'])->name('updateStore');
 //products view route
 Route::get('/productsView/{store_id}',[ProductController::class,'productView'])->name('productsView');
+Route::get('/addproductsView/{store_id}',[ProductController::class,'addProductView'])->name('addProductView');
 
 
 
