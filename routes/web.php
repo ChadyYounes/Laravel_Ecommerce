@@ -18,10 +18,6 @@ use App\Http\Controllers\Admin\AdminController;
 
 /********************************************************************* */
 /********************************Amine Start*************************** */
-Route::get('/', function () {
-    return view('index');
-});
-
 /************************************************ */
 //Socialite Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
@@ -30,9 +26,8 @@ Route::get('auth/facebook', [FacebookAuthController::class, 'redirect'])->name('
 Route::get('auth/facebook/callback', [FacebookAuthController::class, 'callBackFacebook']);
 /******************************************** */
 // Route for handling the login attempt and logout
-//Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
+Route::get('/', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot Password Controller
@@ -78,6 +73,8 @@ Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 
 Route::post('/delete-user-account/{user_id}', [AdminController::class, 'deleteUserAccountByAdmin'])->name('delete-user-account-by-admin');
 Route::put('/update-store-by-admin/{store_id}', [AdminController::class, 'updateStoreByAdmin'])->name('update-store-by-admin');
 Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'deleteStoreByAdmin'])->name('delete-store-by-admin');
+Route::get('/admin/search', [AdminController::class, 'super_search_view'])->name('admin.super_search_view');
+
 /****************************Amine End******************************** */
 /******************************************************************** */
 

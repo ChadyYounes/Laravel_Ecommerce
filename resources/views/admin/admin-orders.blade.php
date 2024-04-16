@@ -65,11 +65,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('admin.super_search_view')}}">
                         <span class="icon">
-                            <ion-icon name="settings-outline"></ion-icon>
+                            <ion-icon name="search-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Super Search</span>
                     </a>
                 </li>
 
@@ -107,12 +107,7 @@
                     <ion-icon name="menu-outline"></ion-icon>
                 </div>
 
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </label>
-                </div>
+              
 
                 
             </div>

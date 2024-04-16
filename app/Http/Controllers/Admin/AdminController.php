@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -171,10 +172,34 @@ class AdminController extends Controller
 
             }
             
-            public function deleteStoreByAdmin(Request $request, $store_id)
-            {
-                $store = Store::findOrFail($store_id);
-                $store->delete();
-                return redirect()->route('home');
-            }
+        public function deleteStoreByAdmin(Request $request, $store_id)
+                {
+                    $store = Store::findOrFail($store_id);
+                    $store->delete();
+                    return redirect()->route('home');
+                }
+        public function super_search_view(Request $request)
+                {
+                    $query = $request->input('query');
+                    $users = [];
+                    $stores = [];
+                    $products = [];
+                
+                    if ($query) {
+                        $users = User::where('name', 'like', "%$query%")
+                                     ->orWhere('email', 'like', "%$query%")
+                                     ->get();
+                
+                        $stores = Store::where('store_name', 'like', "%$query%")
+                                       ->orWhere('store_category', 'like', "%$query%")
+                                       ->orWhere('store_description', 'like', "%$query%")
+                                       ->get();
+                
+                        $products = Product::where('product_name', 'like', "%$query%")
+                                           ->get();
+                    }
+                
+                    return view('admin.super-search', compact('users', 'stores', 'products'));
+                }
+        
 }

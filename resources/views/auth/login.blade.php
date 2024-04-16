@@ -42,7 +42,7 @@
                             <div class="slice-text">Or with email</div>
                         </div>
                     </div>
-                    <form class="input-container" method="post" action="{{ route('login-page') }}">
+                    <form class="input-container" method="post" action="{{ route('login') }}">
                         @csrf
                         <input type="email" required placeholder="Email" name="email">
                         
@@ -66,10 +66,10 @@
         <div class="sign-column w2">
             <div class="intro-p">
                 <div class="canvas-logo">
-                    <img src="https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="logo">
+                   <h2 class="logo">CRAK E-commerce</h2>
                 </div>
                 <div class="intro-content">
-                    <div class="intro-title">Lorem ipsum dolor sit amet</div>
+                    <div class="intro-title">Your Best E-commerce</div>
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,39 +8,52 @@
     <title>Admin Dashboard</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-    
-    
    <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
-            .status-button {
-                padding: 8px 16px;
-                border: none;
-                cursor: pointer;
-                border-radius: 4px;
-                color: #fff;
-                font-size: 14px;
+            .searchContainer {
+                position: absolute;
+                right: 30%;
+                top:50px;
+
             }
-        
-            .activate-button {
-                background-color: #28a745; 
+            .searchField {
+                margin-bottom: 50px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                border-radius: 25px;
+                box-shadow: 5px 5px  black;
+                width: 500px;
             }
-        
-            .deactivate-button {
-                background-color: #dc3545;
+            .searchButton {
+                background-color: lightyellow;
+                padding: 5px;
+                border-radius: 10px;
+                color: black;
+                box-shadow: 5px 5px  black;
+                margin-left: 15px;
+                width: 100px;
             }
-        
-            .status-button:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-            .userInfo {
-                color: gold;
+            .searchResultLabel {
+                margin-bottom: 20px;
                 
             }
-             
+            .li_result {
+                background-color: lightblue;
+                padding: 5px;
+                margin-top: 7px;
+                border: 1px solid black;
+                color: black;
+                list-style: none;
+                border-radius: 20px;
+                text-align: center;
+            }
+            .infoIcon {
+                color: yellow;
+                font-weight: 600;
+            }
         </style>
 </head>
 
@@ -95,7 +107,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('admin.super_search_view')}}">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="search-outline"></ion-icon>
                         </span>
@@ -131,82 +143,64 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-            </div>
+        <div class="searchContainer">
+            
+            <form action="{{ route('admin.super_search_view') }}" method="GET">
+                @csrf
+                <input type="text" class="searchField" name="query" placeholder="search for a user, store, product ">
+                <button type="submit" class="searchButton">Search</button>
+            </form>
+                 <!-- Display search results if available -->
+                @if(isset($users) || isset($stores) || isset($products))
+                <h3 class="searchResultLabel">Search Results:
+                    @if(isset($users)) {{ count($users) }} users, @endif
+                    @if(isset($stores)) {{ count($stores) }} stores, @endif
+                    @if(isset($products)) {{ count($products) }} orders @endif
+                </h3>
+                
+                @if((isset($users) && count($users) > 0) || (isset($stores) && count($stores) > 0) || (isset($products) && count($products) > 0))
+                    @if(isset($users) && count($users) > 0)
+                        <h4>Users</h4>
+                        <ul>
+                            @foreach ($users as $user)
+                                <li class="li_result">{{ $user->name }}
+                                    <a href="{{route('user.info', ['user_id' => $user->id])}}" class="userInfo" >
+                                        <ion-icon name="information-circle-outline" size="small" class="userInfoIcon infoIcon"></ion-icon>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    @endif
 
-            <!-- ======================= Cards ================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers">{{$all_users->count()}}</div>
-                        <div class="cardName">Total Users</div>
-                    </div>
+                    @if(isset($stores) && count($stores) > 0)
+                        <h4>Stores</h4>
+                        <ul>
+                            @foreach ($stores as $store)
+                                <li class="li_result">{{ $store->store_name }}
+                                    <a href="{{route('store.info', ['store_id' => $store->id])}}" class="storeInfo" >
+                                        <ion-icon name="information-circle-outline" size="small" class="storeInfoIcon infoIcon"></ion-icon>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
 
-                    <div class="iconBx">
-                        <ion-icon name="person-outline"></ion-icon>
-                    </div>
-                </div>
-
-
-            </div>
-
-          
-
-                <!-- ================= All Users ================ -->
-                <div class="recentCustomers">
-                    <div class="cardHeader">
-                        <h2>All users</h2>
-                    </div>
-
-                    <table>
-                        @foreach ($all_users as $user)
-                        
-                        <tr>
-                            
-                            <td width="60px">
-                                <div class="imgBx">
-                                    @if ($user->getProfile && $user->getProfile->image_url)
-                                        <img id="avatar" src="{{ asset('storage/profile-images/' . $user->getProfile->image_url) }}" alt="Avatar" class="d-block ui-w-80">
-                                    @else
-                                       <img id="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Default Avatar" class="d-block ui-w-80">
-                                    @endif
-                            </div>
-                            </td>
-                            <td>
-                                <h4>{{ $user->name}} <br> <span>{{$user->getRole->name}}</span></h4>
-                            </td>
-                            <td>
-                                <form method="POST" action="{{ route('user.updateStatus', $user->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <td>
-                                        <button type="submit" name="status" value="activated" class="status-button activate-button" {{ $user->is_active ? 'disabled' : '' }}>Activate</button>
-                                        <button type="submit" name="status" value="deactivated" class="status-button deactivate-button" {{ $user->is_active ? '' : 'disabled' }}>Deactivate</button>
-                                    </td>
-                                    <td><a href="{{route('user.info', ['user_id' => $user->id])}}" class="userInfo" >
-                                        <ion-icon name="information-circle-outline" size="large" class="userInfoIcon"></ion-icon></a></td>
-                                </form>
-                            </td>
-                       
-                        </tr>
-                    
-                        @endforeach
-                        
-                        
-                       
-                    </table>
-                </div>
-            </div>
+                    @if(isset($products) && count($products) > 0)
+                        <h4>Orders</h4>
+                        <ul>
+                            @foreach ($products as $product)
+                                <li class="li_result">{{ $product->description }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                @else
+                    <p>Not Found</p>
+                @endif
+            @endif
         </div>
-    </div>
-
-    <!-- =========== Scripts =========  -->
+       
+       
+        <!-- =========== Scripts =========  -->
     <script src="{{asset('js/admin.js')}}"></script>
-    
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
