@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\StripeController;
 /********************************************************************* */
 /********************************Amine Start*************************** */
 /************************************************ */
@@ -76,6 +76,11 @@ Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'delet
 Route::get('/admin/search', [AdminController::class, 'super_search_view'])->name('admin.super_search_view');
 
 /****************************Amine End******************************** */
+
+/****************** Payment Checkout*************************** */
+Route::get('/checkout', [StripeController::class,'checkout'])->name('checkout');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class,'success'])->name('success');
 /******************************************************************** */
 
 //kassem
