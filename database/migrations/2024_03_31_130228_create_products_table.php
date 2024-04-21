@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('store_id')->references('id')->on('stores')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('product_name');
-            $table->double('price');
+            $table->double('product_price');
             $table->text('description');
-            $table->string('product_url')->nullable();
+            $table->string('product_url');
             $table->timestamps();
         });
     }

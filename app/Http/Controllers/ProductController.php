@@ -19,11 +19,17 @@ class ProductController extends Controller
         return view('Products.products',compact('store','product','user'));
     }
 
-    public function addProductView(){
-        return view('Products.addProduct');
+    public function addProductView($store_id){
+        $store = Store::findOrFail($store_id);
+        $user = User::findOrFail(Auth::user() -> id);
+        $category = Category::all();
+
+        return view('Products.addProduct',compact('store','user','category'));
     }
     public function createProduct(Request $request, $store_id)
 {
+    $category = Category::where('category_name', $request->category_name)->firstOrFail();
+
     // Validate the request data
     $request->validate([
         'product_name' => 'required|max:255|string',
@@ -33,7 +39,6 @@ class ProductController extends Controller
         'category_name' => 'required|string', 
     ]);
 
-    $category = Category::where('category_name', $request->category_name)->firstOrFail();
 
     $file = $request->file('product_url');
     $extension = $file->getClientOriginalExtension();
