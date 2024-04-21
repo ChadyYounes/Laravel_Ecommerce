@@ -19,6 +19,7 @@ class ProductController extends Controller
         return view('Products.products',compact('store','product','user'));
     }
 
+
     public function addProductView($store_id){
         $store = Store::findOrFail($store_id);
         $user = User::findOrFail(Auth::user() -> id);
@@ -30,6 +31,7 @@ class ProductController extends Controller
 {
     $category = Category::where('category_name', $request->category_name)->firstOrFail();
 
+
     // Validate the request data
     $request->validate([
         'product_name' => 'required|max:255|string',
@@ -38,6 +40,9 @@ class ProductController extends Controller
         'product_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         'category_name' => 'required|string', 
     ]);
+
+
+    $category = Category::where('category_name', $request->category_name)->firstOrFail();
 
 
     $file = $request->file('product_url');

@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('product_name');
             $table->double('product_price');
             $table->text('description');
+
             $table->string('product_url');
+
             $table->timestamps();
         });
     }

@@ -15,13 +15,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\StripeController;
 /********************************************************************* */
 /********************************Amine Start*************************** */
-Route::get('/', function () {
-    return view('index');
-});
-
 /************************************************ */
 //Socialite Controllers
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
@@ -30,9 +26,8 @@ Route::get('auth/facebook', [FacebookAuthController::class, 'redirect'])->name('
 Route::get('auth/facebook/callback', [FacebookAuthController::class, 'callBackFacebook']);
 /******************************************** */
 // Route for handling the login attempt and logout
-//Route::get('/login-page', [LoginController::class, 'loginView'])->name('login-page');
+Route::get('/', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
-Route::get('/login', [LoginController::class, 'loginView'])->name('login-page');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Forgot Password Controller
@@ -78,7 +73,17 @@ Route::post('/save-profile-edited-by-admin/{user_id}', [AdminController::class, 
 Route::post('/delete-user-account/{user_id}', [AdminController::class, 'deleteUserAccountByAdmin'])->name('delete-user-account-by-admin');
 Route::put('/update-store-by-admin/{store_id}', [AdminController::class, 'updateStoreByAdmin'])->name('update-store-by-admin');
 Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'deleteStoreByAdmin'])->name('delete-store-by-admin');
+Route::get('/admin/search', [AdminController::class, 'super_search_view'])->name('admin.super_search_view');
+//
+// Inside your routes/web.php file
+Route::get('admin/stores/deactivated', [AdminController::class,'admin_stores_deactivated_view'])->name('admin.stores.deactivated');
+Route::get('admin/stores/activated', [AdminController::class,'admin_stores_activated_view'])->name('admin.stores.activated');
 /****************************Amine End******************************** */
+
+/****************** Payment Checkout*************************** */
+Route::get('/checkout', [StripeController::class,'checkout'])->name('checkout');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class,'success'])->name('success');
 /******************************************************************** */
 
 //kassem
@@ -102,7 +107,9 @@ Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore
 //products view route
 Route::get('/productsView/{store_id}',[ProductController::class,'productView'])->name('productsView');
 Route::get('/addproductsView/{store_id}',[ProductController::class,'addProductView'])->name('addProductView');
+
 Route::post('/addproductsView/{store_id}',[ProductController::class,'createProduct'])->name('addProduct');
+
 
 
 

@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\StoreStatus;
+use Illuminate\Support\Facades\Mail;
 class AdminController extends Controller
 {
         public function admin_orders_view()
@@ -27,11 +30,29 @@ class AdminController extends Controller
 
         public function admin_stores_view()
                 {
-
-                $all_stores = Store::all();
-                return view('admin.admin-stores')->with('all_stores', $all_stores);
+                    $total_stores = Store::count();
+                    $active_stores = Store::where('is_active', true)->count();
+                    $deactivated_stores = Store::where('is_active', false)->count();
+                    $all_stores = Store::all();
+                
+                    return view('admin.admin-stores', compact('total_stores', 'active_stores', 'deactivated_stores', 'all_stores'));
                 }
-
+        public function admin_stores_deactivated_view()
+                {
+                        $deactivated_stores_nbr = Store::where('is_active', false)->count();
+                        $deactivated_stores = Store::where('is_active', false)->get();
+                        return view('admin.admin-stores-deactivated')
+                        ->with('deactivated_stores', $deactivated_stores)
+                        ->with('deactivated_stores_nbr', $deactivated_stores_nbr);
+                }
+        public function admin_stores_activated_view()
+                {
+                        $active_stores_nbr = Store::where('is_active', true)->count();
+                        $activated_stores = Store::where('is_active', true)->get();
+                        return view('admin.admin-stores-activated')
+                        ->with('activated_stores', $activated_stores)
+                        ->with('active_stores_nbr', $active_stores_nbr);
+                }
         public function updateUserStatus(Request $request, $userId)
                 {
                     $user = User::findOrFail($userId);
@@ -43,15 +64,21 @@ class AdminController extends Controller
                     return redirect()->back()->with('success', 'User status updated successfully.');
                 }
                 
-        public function updateStoreStatus(Request $request, $storeId)
+                public function updateStoreStatus(Request $request, $storeId)
                 {
                     $store = Store::findOrFail($storeId);
-                    
+                
                     // Update the is_active column based on the submitted status
-                    $store->is_active = $request->status === 'activated' ? true : false;
+                    $status = $request->status === 'activated' ? true : false;
+                    $store->is_active = $status;
                     $store->save();
+                
+                    // Send email notification to the store owner
+                    $sellerEmail = $store->getUser->email;
+                    Mail::to($sellerEmail)->send(new StoreStatus($status, $store->store_name));
 
-                    return redirect()->back()->with('success', 'User status updated successfully.');
+                
+                    return redirect()->back()->with('success', 'Store status updated successfully.');
                 }
 
         public function user_deactivated_view()
@@ -171,10 +198,34 @@ class AdminController extends Controller
 
             }
             
-            public function deleteStoreByAdmin(Request $request, $store_id)
-            {
-                $store = Store::findOrFail($store_id);
-                $store->delete();
-                return redirect()->route('home');
-            }
+        public function deleteStoreByAdmin(Request $request, $store_id)
+                {
+                    $store = Store::findOrFail($store_id);
+                    $store->delete();
+                    return redirect()->route('home');
+                }
+        public function super_search_view(Request $request)
+                {
+                    $query = $request->input('query');
+                    $users = [];
+                    $stores = [];
+                    $products = [];
+                
+                    if ($query) {
+                        $users = User::where('name', 'like', "%$query%")
+                                     ->orWhere('email', 'like', "%$query%")
+                                     ->get();
+                
+                        $stores = Store::where('store_name', 'like', "%$query%")
+                                       ->orWhere('store_category', 'like', "%$query%")
+                                       ->orWhere('store_description', 'like', "%$query%")
+                                       ->get();
+                
+                        $products = Product::where('product_name', 'like', "%$query%")
+                                           ->get();
+                    }
+                
+                    return view('admin.super-search', compact('users', 'stores', 'products'));
+                }
+        
 }
