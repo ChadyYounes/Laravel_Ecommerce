@@ -12,22 +12,23 @@ use Illuminate\Queue\SerializesModels;
 class StoreStatus extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $status;
+    public $storeName;
+
     /**
      * Create a new message instance.
+     *
+     * @param bool $status
+     * @param string $storeName
      */
-    public function __construct(bool $status)
+    public function __construct(bool $status, string $storeName)
     {
         $this->status = $status;
+        $this->storeName = $storeName;
     }
 
-   
-
     /**
-     * Get the message content definition.
-     */
-
-/**
      * Build the message.
      *
      * @return $this
@@ -35,18 +36,9 @@ class StoreStatus extends Mailable
     public function build()
     {
         $statusText = $this->status ? 'activated' : 'deactivated';
-        $subject = 'Your store has been ' . $statusText;
+        $subject = 'Your store "' . $this->storeName . '" has been ' . $statusText;
         
         return $this->subject($subject)
             ->view('admin.email-store-status');
-    }
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

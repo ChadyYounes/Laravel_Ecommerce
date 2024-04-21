@@ -37,7 +37,7 @@
 <body>
     <div class="container">
         <h1>Store Status Notification</h1>
-        <p>Your store has been 
+        <p>Your store "{{ $storeName }}" has been 
             @if($status)
                 <span class="activation">activated</span>
             @else

@@ -75,7 +75,8 @@ class AdminController extends Controller
                 
                     // Send email notification to the store owner
                     $sellerEmail = $store->getUser->email;
-                    Mail::to($sellerEmail)->send(new StoreStatus($status));
+                    Mail::to($sellerEmail)->send(new StoreStatus($status, $store->store_name));
+
                 
                     return redirect()->back()->with('success', 'Store status updated successfully.');
                 }
