@@ -17,6 +17,7 @@
         
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
+
        
 <style>
 
@@ -192,6 +193,10 @@
 
     @endforeach
 </div>
+<div class="custom-pagination">
+    {{ $stores->links() }}
+</div>
+
 @if(session('updateSuccess'))
 <div id="popup">
     <div id="popup-content">

@@ -15,7 +15,7 @@ class StoreController extends Controller
 
     public function storeView($user_id ) {
         $user = User::findOrFail($user_id);
-        $stores = Store::where('seller_id', $user_id)->get();
+        $stores = Store::where('seller_id', $user_id)->paginate(6);
         return  view('storeManagement.store', compact('user','stores'));
     }
 

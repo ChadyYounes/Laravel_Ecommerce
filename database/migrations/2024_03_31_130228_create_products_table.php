@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->double('price');
             $table->text('description');
+            $table->string('product_url')->nullable();
             $table->timestamps();
         });
     }
