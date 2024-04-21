@@ -74,7 +74,10 @@ Route::post('/delete-user-account/{user_id}', [AdminController::class, 'deleteUs
 Route::put('/update-store-by-admin/{store_id}', [AdminController::class, 'updateStoreByAdmin'])->name('update-store-by-admin');
 Route::post('/delete-store-by-admin/{store_id}', [AdminController::class, 'deleteStoreByAdmin'])->name('delete-store-by-admin');
 Route::get('/admin/search', [AdminController::class, 'super_search_view'])->name('admin.super_search_view');
-
+//
+// Inside your routes/web.php file
+Route::get('admin/stores/deactivated', [AdminController::class,'admin_stores_deactivated_view'])->name('admin.stores.deactivated');
+Route::get('admin/stores/activated', [AdminController::class,'admin_stores_activated_view'])->name('admin.stores.activated');
 /****************************Amine End******************************** */
 
 /****************** Payment Checkout*************************** */
