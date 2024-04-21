@@ -141,16 +141,35 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">{{$all_stores->count()}}</div>
+                        <div class="numbers">{{ $total_stores }}</div>
                         <div class="cardName">Total Stores</div>
                     </div>
-
                     <div class="iconBx">
                         <ion-icon name="storefront-outline"></ion-icon>
                     </div>
                 </div>
-
-
+                <a href="{{route('admin.stores.activated')}}" style="text-decoration: none;">
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ $active_stores }}</div>
+                        <div class="cardName">Activated Stores</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="storefront-outline"></ion-icon>
+                    </div>
+                </div>
+            </a>
+            <a href="{{route('admin.stores.deactivated')}}" style="text-decoration: none;">
+                <div class="card">
+                    <div>
+                        <div class="numbers">{{ $deactivated_stores }}</div>
+                        <div class="cardName">Deactivated Stores</div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="storefront-outline"></ion-icon>
+                    </div>
+                </div>
+            </a>
             </div>
 
             <!-- ================ Stores Details List ================= -->
