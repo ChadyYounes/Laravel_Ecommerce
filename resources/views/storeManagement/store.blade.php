@@ -10,7 +10,6 @@
         <meta content="" name="description">
 
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
-        <link href="{{asset("css/storeCard.css")}}" rel="stylesheet">
 
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
@@ -18,6 +17,19 @@
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
 
+        	<!-- favicon -->
+            <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+            <!-- google font -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+            <!-- fontawesome -->
+            <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+            <!-- bootstrap -->
+            <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+         
+            <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+            <!-- responsive -->
+            <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
        
 <style>
 
@@ -163,39 +175,58 @@
 <!--end navbar-->
 
 
-<!--           -->
-<h2 class="storesHeader">Manage your Stores!</h2><br/>
 
-<div class="wrapper">
-    @foreach($stores as $store)
-        <!-- Check if the store has errors -->
-        <div class="product-card">
-    <div class="badge"><a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}"><img src="{{asset('/storage/project-images/edit.png')}}" style ="width:100%; height 10%"></a></div>
-    <div class="product-tumb">
-        <img src="{{asset($store->image_url)}}" alt="">
-    </div>
-    <div class="product-details">
-        <span class="product-catagory">{{ $store->store_category }}</span>
-        <h4><a href="">{{ $store->store_name }}</a></h4>
-        <p>{{ $store->store_description }}</p>
-        <div class="product-bottom-details">
-            <div class="product-links">
-                <a href="{{route('productsView',['store_id'=>$store->id])}}"><button type="button" class="manage-products-btn">Manage</button></a>
-                <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="delete-btn">Delete</button>
-                </form>
-            </div>
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Manage</span> Your Stores</h3>
+						<p>Create your store, unleash your creativity, and watch your dreams come to life..</p>
+					</div>
+				</div>
+			</div>
+
+<!-- Iterate through stores and organize them into rows with three cards each -->
+@php $storesChunks = $stores->chunk(3); @endphp
+@foreach($storesChunks as $chunk)
+<div class="row">
+    @foreach($chunk as $store)
+    <div class="col-lg-4 col-md-6 text-center">
+    <div class="single-product-item">
+        <div class="product-image">
+            <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}">
+                <img src="{{ asset($store->image_url) }}" alt="">
+            </a>
         </div>
+        <h3>{{ $store->store_name }}</h3>
+        <p class="product-price"><span>{{ $store->store_category }}</span></p>
+        <a href="{{ route('productsView',['store_id'=>$store->id]) }}" class="cart-btn">Manage</a>
+        <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+          <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Delete</button></a>
+        </form>
+
+
     </div>
 </div>
+
 
     @endforeach
 </div>
+@endforeach
+<br>
 <div class="custom-pagination">
     {{ $stores->links() }}
 </div>
+<br><br>
+
+	<!-- end product section -->
+ 
+
+
 
 @if(session('updateSuccess'))
 <div id="popup">

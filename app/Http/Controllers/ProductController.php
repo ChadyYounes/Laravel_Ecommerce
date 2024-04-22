@@ -20,30 +20,21 @@ class ProductController extends Controller
     }
 
 
-    public function addProductView($store_id){
-        $store = Store::findOrFail($store_id);
-        $user = User::findOrFail(Auth::user() -> id);
-        $category = Category::all();
-
-        return view('Products.addProduct',compact('store','user','category'));
-    }
     public function createProduct(Request $request, $store_id)
 {
-    $category = Category::where('category_name', $request->category_name)->firstOrFail();
-
-
     // Validate the request data
     $request->validate([
         'product_name' => 'required|max:255|string',
         'price' => 'required|numeric',
         'description' => 'required|max:255|string',
         'product_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'category_name' => 'required|string', 
+        'category_id' => 'required', 
     ]);
 
+    $store = Store::findOrFail($store_id); 
 
-    $category = Category::where('category_name', $request->category_name)->firstOrFail();
-
+    
+    $category = Category::findOrFail($request->category_id);
 
     $file = $request->file('product_url');
     $extension = $file->getClientOriginalExtension();
@@ -51,7 +42,7 @@ class ProductController extends Controller
     $path = "storage/product-images/";
     $file->move($path, $fileName);
 
-    // Create the product
+    
     Product::create([
         'product_name' => $request->product_name,
         'price' => $request->price,
@@ -61,7 +52,15 @@ class ProductController extends Controller
         'category_id' => $category->id,
     ]);
 
-    // Redirect to the home page with success message
-    return redirect()->route('addProductView')->with('success', 'Product created successfully');
+    return redirect()->route('addProductView', ['store_id' => $store->id])->with('success', 'Product created successfully');
 }
+
+public function addProductView($store_id){
+    $store = Store::findOrFail($store_id);
+    $user = User::findOrFail(Auth::user() -> id);
+    $category = Category::all();
+
+    return view('Products.addProduct',compact('store','user','category'));
+}
+
 }

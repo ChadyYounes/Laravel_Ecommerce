@@ -13,7 +13,21 @@
     
     <!-- Template Stylesheet -->
     <link href="{{asset("css/style.css")}}" rel="stylesheet">
-   
+    <!-- Template Stylesheet -->
+
+<!-- favicon -->
+<link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+<!-- fontawesome -->
+<link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+<!-- bootstrap -->
+<link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+
+<link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+<!-- responsive -->
+<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <style>
         #logout-div {
             background-color: #ddd;
@@ -119,53 +133,57 @@
             }
         });
     </script>
-    <!--end navbar-->
-    <a>
-    <button class="add_a_product">Add a Product</button>
-    </a>
-    @foreach($product as $products)
-        <div class="row">
-            <div class="col l4 m8 s12 offset-m2 offset-l4">
-                <div class="product-card">
-                    <div class="card  z-depth-4">
-                        <div class="card-image">
-                            <a href="#" class="btn-floating btn-large price waves-effect waves-light brown darken-3">5 €</a>
-                            <img src="https://images.pexels.com/photos/853006/pexels-photo-853006.jpeg?crop=entropy&cs=srgb&dl=pexels-jess-bailey-designs-853006.jpg&fit=crop&fm=jpg&h=480&w=640" alt="product-img">
-                            <span class="card-title"><span>Silver Cupcake</span></span>
-                        </div>
-                        <ul class="card-action-buttons">
-                            <li><a href="https://www.facebook.com/sharer/sharer.php?u=https://codepen.io/lybete/full/jBMNzM/" target="_blank" class="btn-floating waves-effect waves-light white"><i class="material-icons grey-text text-darken-3">share</i></a>
-                            </li>
-                            <li><a class="btn-floating waves-effect waves-light red accent-2"><i class="material-icons like">favorite_border</i></a>
-                            </li>
-                            <li><a id="buy" class="btn-floating waves-effect waves-light blue"><i class="material-icons buy">add_shopping_cart</i></a>
-                            </li>
-                        </ul>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col s12">
-                                    <p>
-                                        <strong>Description:</strong> <br />
-                                    </p>
-                                </div>
-                                
-                            </div>
-                            <div class="row">
-                                    <div style="width: 95%; margin: auto;">
-                                        <div class="chip">Dessert</div>
-                                        <div class="chip">French</div>
-                                        <div class="chip">Sweet</div>
-                                        <div class="chip">Chocolate</div>
-                                        <div class="see-more chip"><a href="#">More details</a></div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
 
+    
+    <!--end navbar-->
+<!-- hero area -->
+<div class="hero-area hero-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 offset-lg-2 text-center">
+					<div class="hero-text">
+						<div class="hero-text-tablecell">
+							<p class="subtitle">{{$store->store_name}}</p>
+							<h1>Manage your Store</h1>
+							<div class="hero-btns">
+								<a href="{{route('addProductView',['store_id'=>$store->id])}}" class="boxed-btn">Add Product</a>
+								<a href="" class="bordered-btn">Add Event</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end hero area -->
+<table>
+<colgroup>
+                    <col class="image-col">
+                    <col class="address-col">
+                </colgroup>
+            <thead>
+                <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>    
+                </tr>
+            </thead>
+    @foreach($product as $products)
+                <tr>
+                <td data-label="Image"><img width="74px" src="{{$products->product_url}}" alt="House"></td>
+                <td data-label="name">{{$products->product_name}}</td>
+                <td data-label="Category">
+                </td>             
+                   <td data-label="Quantity"></td>
+                <td data-label="Price">{{$products->price}}$</td>
+
+                </tr>               
+            
+          
+    @endforeach
+  </table> 
         
 
 
