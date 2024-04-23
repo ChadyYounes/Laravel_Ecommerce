@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Mail\StoreStatus;
+use App\Models\Category;
 use Illuminate\Support\Facades\Mail;
 class AdminController extends Controller
 {
@@ -36,6 +37,13 @@ class AdminController extends Controller
                     $all_stores = Store::all();
                 
                     return view('admin.admin-stores', compact('total_stores', 'active_stores', 'deactivated_stores', 'all_stores'));
+                }
+                public function admin_categories_view()
+                {
+                    $total_categories = Category::count();
+                    $all_categories = Category::all();
+                
+                    return view('admin.admin-categories', compact('total_categories', 'all_categories'));
                 }
         public function admin_stores_deactivated_view()
                 {
@@ -193,16 +201,38 @@ class AdminController extends Controller
 
                 $store->save();
 
-                // return redirect()->route('storeView',['user_id'=>$user->id, 'store_id' => $store->id])->with('updateSuccess', 'Store updated successfully');
+            
                 return redirect()->route('home')->with('success', 'Profile saved successfully');
 
             }
-            
-        public function deleteStoreByAdmin(Request $request, $store_id)
+        public function addCategory(Request $request)
+                {
+                    $request->validate([
+                        'category_name' => 'required|unique:categories,category_name', 
+                    ]);
+                    $existingCategory = Category::where('category_name', $request->category_name)->first();
+
+                    if ($existingCategory) {
+                        return redirect()->back()->with('error', 'Category already exists!');
+                    }
+
+                    $new_category = new Category();
+                    $new_category->category_name = $request->category_name;
+                    $new_category->save();
+                    return redirect()->back();
+                }
+
+        public function deleteStoreByAdmin($store_id)
                 {
                     $store = Store::findOrFail($store_id);
                     $store->delete();
                     return redirect()->route('home');
+                }
+        public function deleteCategoryByAdmin($category_id)
+                {
+                    $store = Category::findOrFail($category_id);
+                    $store->delete();
+                    return redirect()->route('admin.categories');
                 }
         public function super_search_view(Request $request)
                 {

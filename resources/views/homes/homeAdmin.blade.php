@@ -65,6 +65,14 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('admin.categories')}}">
+                        <span class="icon">
+                            <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                        <span class="title">Categories</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('admin.super_search_view')}}">
                         <span class="icon">
                             <ion-icon name="search-outline"></ion-icon>
@@ -150,12 +158,12 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers">{{$total_categories}}</div>
+                        <div class="cardName">Total Categories</div>
                     </div>
 
                     <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                        <ion-icon name="list-outline"></ion-icon>
                     </div>
                 </div>
 

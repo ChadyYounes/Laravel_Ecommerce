@@ -95,6 +95,14 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('admin.categories')}}">
+                        <span class="icon">
+                            <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                        <span class="title">Categories</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('admin.super_search_view')}}">
                         <span class="icon">
                             <ion-icon name="search-outline"></ion-icon>

@@ -64,6 +64,9 @@ Route::post('/delete-account/{user_id}', [EditProfileController::class, 'deleteA
 Route::get('/admin/orders', [AdminController::class, 'admin_orders_view'])->name('admin.orders');
 Route::get('/admin/users', [AdminController::class, 'admin_users_view'])->name('admin.users');
 Route::get('/admin/stores', [AdminController::class, 'admin_stores_view'])->name('admin.stores');
+Route::get('/admin/categories', [AdminController::class, 'admin_categories_view'])->name('admin.categories');
+Route::post('/category/add', [AdminController::class,'addCategory'])->name('category.addCategory');
+Route::post('/delete-category-by-admin/{category_id}', [AdminController::class, 'deleteCategoryByAdmin'])->name('category.deleteCategory');
 Route::put('/user/{userId}/updateStatus',[AdminController::class, 'updateUserStatus'])->name('user.updateStatus');
 Route::put('/store/{storeId}/updateStatus',[AdminController::class, 'updateStoreStatus'])->name('store.updateStatus');
 Route::get('/user/deactivated',[AdminController::class, 'user_deactivated_view'])->name('user.deactivated');

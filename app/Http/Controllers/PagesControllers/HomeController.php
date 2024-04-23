@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Order;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
@@ -50,13 +51,15 @@ class HomeController extends Controller
         $today_new_users = User::whereDate('email_verified_at', $today)
                            ->where('email', '!=', 'admin2024@gmail.com')
                            ->get();
+        $total_categories = Category::count();
 
 
         return view('homes.homeAdmin', compact('user'))
                     ->with('total_users', $total_users)
                     ->with('total_stores', $total_stores)
                     ->with('total_orders', $total_orders)
-                    ->with('today_new_users', $today_new_users);
+                    ->with('today_new_users', $today_new_users)
+                    ->with('total_categories', $total_categories);
     }
 
     public function verifyEmail($user_id)
