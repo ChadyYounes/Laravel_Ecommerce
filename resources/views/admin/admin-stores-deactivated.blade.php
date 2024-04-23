@@ -57,14 +57,7 @@
 </head>
 
 <body> 
-    <div>
-    <a href="{{route('admin.stores')}}">
-        <span class="icon">
-            <ion-icon name="storefront-outline"></ion-icon>
-        </span>
-        <span class="title">Go Back to stores</span>
-    </a>
-</div>
+   
         <!-- ========================= Main ==================== -->
         <div class="main">
            
