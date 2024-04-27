@@ -144,6 +144,7 @@
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
 							<p class="subtitle">{{$store->store_name}}</p>
+                            
 							<h1>Manage your Store</h1>
 							<div class="hero-btns">
 								<a href="{{route('addProductView',['store_id'=>$store->id])}}" class="boxed-btn">Add Product</a>
@@ -172,16 +173,12 @@
             </thead>
     @foreach($product as $products)
                 <tr>
-                <td data-label="Image"><img width="74px" src="{{$products->product_url}}" alt="House"></td>
-                <td data-label="name">{{$products->product_name}}</td>
-                <td data-label="Category">
-                </td>             
-                   <td data-label="Quantity"></td>
+                <td data-label="Image"><img style="border-radius: 10px;" width="74px" src="{{asset($products->product_url)}}"></td>
+                <td data-label="Name">{{$products->product_name}}</td>
+                <td data-label="Category">{{$products->getCategory->category_name}}</td>
+                <td data-label="Quantity">{{$products->quantity}}</td>
                 <td data-label="Price">{{$products->price}}$</td>
-
                 </tr>               
-            
-          
     @endforeach
   </table> 
         

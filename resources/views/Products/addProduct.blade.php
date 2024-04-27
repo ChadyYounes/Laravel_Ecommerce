@@ -47,6 +47,7 @@
     color: black; /* Set text color to black */
 }
 
+
 .category-select:focus {
     outline: none;
     border-color: #007bff; 
@@ -88,7 +89,7 @@
         
         <div class="form-container sign-up-container">
             <div class="back-button">
-                <button onclick="goBack()">Back</button>
+            <a href="{{route('productsView',['store_id'=>$store->id])}}"><button>Back</button></a>
             </div>
             <!-- Event Form -->
             <form action="#" enctype="multipart/form-data">
@@ -107,14 +108,15 @@
 
         <div class="form-container sign-in-container">
             <div class="back-button">
-                <button onclick="goBack()">Back</button>
+                <a href="{{route('productsView',['store_id'=>$store->id])}}"><button>Back</button></a>
             </div>
             <!-- product adding -->
             <form method="POST" action="{{route('addProduct',['store_id'=>$store->id])}}"  enctype="multipart/form-data">
             @csrf
                 <h1>Add Product</h1>
                 <input type="text" placeholder="Name" name="product_name" />
-                <input type="number" placeholder="Price" name="price" />
+                <input type="number" placeholder="Price" name="price" id="price" />
+<input type="number" placeholder="Quantity" name="quantity" id="quantity" />
                 <input type="text" placeholder="Description" name="description"></input>               
                 <select name="category_id" class="category-select">
                     <option value="" selected disabled>Select a category</option>

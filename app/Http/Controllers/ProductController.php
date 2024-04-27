@@ -25,36 +25,40 @@ class ProductController extends Controller
     // Validate the request data
     $request->validate([
         'product_name' => 'required|max:255|string',
-        'price' => 'required|numeric',
+        'price' => 'required|numeric|min:0',
+        'quantity' => 'required|numeric|min:0',
         'description' => 'required|max:255|string',
         'product_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         'category_id' => 'required', 
     ]);
 
     $store = Store::findOrFail($store_id); 
-
-    
     $category = Category::findOrFail($request->category_id);
 
-    $file = $request->file('product_url');
-    $extension = $file->getClientOriginalExtension();
-    $fileName = time().'.'.$extension;
-    $path = "storage/product-images/";
-    $file->move($path, $fileName);
+    // Handle file upload
+    if ($request->has('product_url')) {
+        $file = $request->file('product_url');
+        $extension = $file->getClientOriginalExtension();
 
-    
+        $fileName = time().'.'.$extension;
+        $path = "storage/product-images/";
+        $file->move($path,$fileName);
+
+    // Create the product
     Product::create([
         'product_name' => $request->product_name,
         'price' => $request->price,
         'description' => $request->description,
-        'product_url' => $path.$fileName,
         'store_id' => $store_id,
+        'quantity' => $request->quantity,
         'category_id' => $category->id,
+        'product_url' => $path.$fileName, 
+
     ]);
-
+    }
     return redirect()->route('addProductView', ['store_id' => $store->id])->with('success', 'Product created successfully');
-}
 
+}
 public function addProductView($store_id){
     $store = Store::findOrFail($store_id);
     $user = User::findOrFail(Auth::user() -> id);
