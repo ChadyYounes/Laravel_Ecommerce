@@ -44,6 +44,6 @@ class StripeController extends Controller
  
     public function success()
     {
-        return "Thanks for you order You have just completed your payment. The seeler will reach out to you as soon as possible";
+        return "Thanks for you order You have just completed your payment. The seller will reach out to you as soon as possible";
     }
 }

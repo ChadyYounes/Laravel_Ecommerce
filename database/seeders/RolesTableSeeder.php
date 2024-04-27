@@ -47,6 +47,9 @@ class RolesTableSeeder extends Seeder
        ['currency_code'=>'EUR','currency_name'=>'Euro'],
        ['currency_code'=>'KWD','currency_name'=>'Kuwaiti Dinar']
    ]);
+
+
+
 }
 
 }
