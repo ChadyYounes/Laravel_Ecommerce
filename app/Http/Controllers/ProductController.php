@@ -29,10 +29,10 @@ class ProductController extends Controller
         'quantity' => 'required|numeric|min:0',
         'description' => 'required|max:255|string',
         'product_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'category_id' => 'required', 
+        'category_id' => 'required',
     ]);
 
-    $store = Store::findOrFail($store_id); 
+    $store = Store::findOrFail($store_id);
     $category = Category::findOrFail($request->category_id);
 
     // Handle file upload
@@ -52,7 +52,7 @@ class ProductController extends Controller
         'store_id' => $store_id,
         'quantity' => $request->quantity,
         'category_id' => $category->id,
-        'product_url' => $path.$fileName, 
+        'product_url' => $path.$fileName,
 
     ]);
     }

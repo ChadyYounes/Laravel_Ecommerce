@@ -13,7 +13,7 @@
 
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
-        
+
         <!-- Template Stylesheet -->
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
 
@@ -26,11 +26,11 @@
             <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
             <!-- bootstrap -->
             <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-         
+
             <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
             <!-- responsive -->
             <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
-       
+
 <style>
 
    #logout-div {
@@ -113,7 +113,7 @@
 
 .logout-div {
     position: absolute;
-    width: 150px; 
+    width: 150px;
 }
 .storesHeader{
     text-align:center;
@@ -146,7 +146,7 @@
         </div>
     </nav>
   <!-- Logout div -->
-  
+
    <div id="logout-div" class="logout-div">
         <p class="username">{{$user->name}}</p><hr>
         <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
@@ -155,7 +155,7 @@
             @csrf
             <button type="submit" class="logout-button">Logout</button>
         </form>
-        
+
         <!-- Error display -->
         <div id="logout-error" class="logout-error" style="display: none;"></div>
     </div>
@@ -181,7 +181,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
+					<div class="section-title">
 						<h3><span class="orange-text">Manage</span> Your Stores</h3>
 						<p>Create your store, unleash your creativity, and watch your dreams come to life..</p>
 					</div>
@@ -224,7 +224,7 @@
 <br><br>
 
 	<!-- end product section -->
- 
+
 
 
 
@@ -258,7 +258,7 @@
     <script src="{{asset("lib/waypoints/waypoints.min.js")}}"></script>
     <script src="{{asset("lib/lightbox/js/lightbox.min.js")}}"></script>
     <script src="{{asset("lib/owlcarousel/owl.carousel.min.js")}}"></script>
-    
+
 
     <!-- Template Javascript -->
     <script src="{{asset("js/main.js")}}"></script>

@@ -8,9 +8,9 @@
 
     <title>Add Store</title>
        <!-- Google Web Fonts -->
-       
+
         <!-- Icon Font Stylesheet -->
-       
+
         <!-- Template Stylesheet -->
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
@@ -50,12 +50,12 @@
 
 .category-select:focus {
     outline: none;
-    border-color: #007bff; 
+    border-color: #007bff;
 }
 
 .category-select option {
-    color: black; 
-    
+    color: black;
+
 
 }
 #popup {
@@ -86,21 +86,28 @@
 
 
 <div class="container" id="container">
-        
+
         <div class="form-container sign-up-container">
             <div class="back-button">
             <a href="{{route('productsView',['store_id'=>$store->id])}}"><button>Back</button></a>
             </div>
             <!-- Event Form -->
-            <form action="#" enctype="multipart/form-data">
+            <form action="{{route('storeEvent')}}" method="post" enctype="multipart/form-data">
             @csrf
                 <h1>Add Event</h1>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Password" />
+                <input type="hidden" name="store_id" value="{{$store->id}}">
+                <label for="event_datetime">Event Name</label>
+                <input type="text" placeholder="Event Name"  name="event_name"/>
+                <label for="event_datetime">Event Date&Time</label>
+                <input type="datetime-local" name="event_datetime" id="event_datetime" placeholder="Event Date&Time">
+                <label for="event_datetime">Product Name</label>
+                <input type="text" name="product_name" id="" placeholder="Product Name">
+                <label for="product_image_url">Product Image</label>
+                <input type="file" name="product_image_url" id="product_image_url">
+                <label for="event_datetime">Starting Price</label>
+                <input type="number" placeholder="Starting Price" name="starting_price" />
+                <label for="event_datetime">Minimum Increase</label>
+                <input type="number" placeholder="Minimum Increase" name="minimum_increase" />
 
                 <button>Proceed</button>
             </form>
@@ -117,7 +124,7 @@
                 <input type="text" placeholder="Name" name="product_name" />
                 <input type="number" placeholder="Price" name="price" id="price" />
 <input type="number" placeholder="Quantity" name="quantity" id="quantity" />
-                <input type="text" placeholder="Description" name="description"></input>               
+                <input type="text" placeholder="Description" name="description"></input>
                 <select name="category_id" class="category-select">
                     <option value="" selected disabled>Select a category</option>
                     @foreach($category as $cat)
@@ -200,7 +207,7 @@ signInButton.addEventListener("click", () => {
         window.history.back();
     }
 </script>
-    
+
 
  <script>
     function previewImage(event) {
