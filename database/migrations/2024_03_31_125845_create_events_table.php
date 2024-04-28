@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('store_id')->references('id')->on('stores')->onDelete('cascade');
             $table->string('event_name');
             $table->dateTime('event_datetime');
+            $table->string('product_name');
+            $table->string('product_image_url');
+            $table->decimal('starting_price');
+            $table->decimal('minimum_increase');
             $table->timestamps();
         });
     }

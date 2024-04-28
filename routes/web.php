@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Currency\CurrencyController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
@@ -95,7 +96,7 @@ Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list')
 Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
 Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
 Route::post('/update-base-currency',[CurrencyController::class,'changeBaseCurrency'])->name('update-base-currency');
-
+Route::post('/storeEvent',[EventController::class,'storeEvent'])->name('storeEvent');
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');
