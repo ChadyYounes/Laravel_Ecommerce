@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<head>
         <meta charset="utf-8">
         <title>Fruitables </title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -122,8 +121,8 @@
 }
 </style>
     </head>
-</head>
-<body>
+
+
 
 <!-- navbar -->
 <body>
