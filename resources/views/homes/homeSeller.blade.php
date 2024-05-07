@@ -8,11 +8,29 @@
         <meta content="" name="keywords">
         <meta content="" name="description">
 
+        <!--  Stylesheet -->
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
-        <!-- Template Stylesheet -->
+        <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
+
+        
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
-        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <!-- responsive -->
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+
         <style>
 #logout-div {
     background-color: #ddd;
@@ -91,7 +109,7 @@
                 <li><a href="#">Menu</a></li>
                 <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
             </ul>
-            <h1 class="logo">Navbar</h1>
+            <h1 class="logo">FlipCart</h1>
         </div>
     </nav>
   <!-- Logout div -->
@@ -124,32 +142,7 @@
 <!--end navbar-->
 
 
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Search End -->
-
-
-        
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-
+       
         
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

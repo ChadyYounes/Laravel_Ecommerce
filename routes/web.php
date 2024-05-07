@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Currency\CurrencyController;
 use App\Http\Controllers\EventController;
@@ -113,6 +114,9 @@ Route::get('/productsView/{store_id}',[ProductController::class,'productView'])-
 Route::get('/addproductsView/{store_id}',[ProductController::class,'addProductView'])->name('addProductView');
 
 Route::post('/addproductsView/{store_id}',[ProductController::class,'createProduct'])->name('addProduct');
+
+//buyer Stores view
+route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerStores');
 
 
 

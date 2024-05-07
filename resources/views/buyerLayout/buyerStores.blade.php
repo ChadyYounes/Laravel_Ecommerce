@@ -1,14 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8">
-        <title>FlipCart </title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
-
-        <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipCart -BuyerStores</title>
+    <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
 
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
@@ -29,8 +25,7 @@
             <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
             <!-- responsive -->
             <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
-
-<style>
+            <style>
 
    #logout-div {
     background-color: #ddd;
@@ -120,12 +115,9 @@
     color:    #1e90ff;
 }
 </style>
-    </head>
-
-
-
-<!-- navbar -->
-<body>
+</head>
+  <!-- navbar -->
+  <body>
     <nav class="navbar">
         <div class="navbar-container container">
             <input type="checkbox" name="" id="">
@@ -135,9 +127,8 @@
                 <span class="line line3"></span>
             </div>
             <ul class="menu-items">
-                <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
-                <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
-                <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><a href="{{route('buyerStores')}}">View Stores</a></li>
                 <li><a href="#">Menu</a></li>
                 <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
             </ul>
@@ -145,7 +136,7 @@
         </div>
     </nav>
   <!-- Logout div -->
-
+  
    <div id="logout-div" class="logout-div">
         <p class="username">{{$user->name}}</p><hr>
         <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
@@ -154,7 +145,7 @@
             @csrf
             <button type="submit" class="logout-button">Logout</button>
         </form>
-
+        
         <!-- Error display -->
         <div id="logout-error" class="logout-error" style="display: none;"></div>
     </div>
@@ -172,22 +163,7 @@
         });
     </script>
 <!--end navbar-->
-
-
-
-<!-- product section -->
-<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3><span class="orange-text">Manage</span> Your Stores</h3>
-						<p>Create your store, unleash your creativity, and watch your dreams come to life..</p>
-					</div>
-				</div>
-			</div>
-
-<!-- Iterate through stores and organize them into rows with three cards each -->
+   <!-- Iterate through stores and organize them into rows with three cards each -->
 @php $storesChunks = $stores->chunk(3); @endphp
 @foreach($storesChunks as $chunk)
 <div class="row">
@@ -195,18 +171,15 @@
     <div class="col-lg-4 col-md-6 text-center">
     <div class="single-product-item">
         <div class="product-image">
-            <a href="{{route('updateView',['store_id'=>$store->id,'user_id'=>$user->id])}}">
+            <a href="">
                 <img src="{{ asset($store->image_url) }}" alt="">
             </a>
         </div>
         <h3>{{ $store->store_name }}</h3>
         <p class="product-price"><span>{{ $store->store_category }}</span></p>
-        <a href="{{ route('productsView',['store_id'=>$store->id]) }}" class="cart-btn">Manage</a>
-        <form action="{{ route('deleteStore', ['store_id' => $store->id]) }}" method="POST" style="display: inline;">
-            @csrf
-            @method('DELETE')
-          <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Delete</button></a>
-        </form>
+        <a href="" class="cart-btn">Shop</a>
+        <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Follow</button></a>
+        
 
 
     </div>
@@ -217,49 +190,12 @@
 </div>
 @endforeach
 <br>
+<br>
 <div class="custom-pagination">
     {{ $stores->links() }}
 </div>
 <br><br>
-
-	<!-- end product section -->
-
-
-
-
-@if(session('updateSuccess'))
-<div id="popup">
-    <div id="popup-content">
-        <p>{{ session('updateSuccess') }}</p>
-        <button id="proceed-btn" style="margin-top:3%;">Proceed</button>
-    </div>
-</div>
-@endif
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var popup = document.getElementById("popup");
-        var proceedBtn = document.getElementById("proceed-btn");
-
-        if (popup) {
-            console.log("Popup element found.");
-            proceedBtn.addEventListener("click", function() {
-                console.log("Proceed button clicked.");
-                popup.style.display = "none";
-            });
-        }
-    });
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset("lib/easing/easing.min.js")}}"></script>
-    <script src="{{asset("lib/waypoints/waypoints.min.js")}}"></script>
-    <script src="{{asset("lib/lightbox/js/lightbox.min.js")}}"></script>
-    <script src="{{asset("lib/owlcarousel/owl.carousel.min.js")}}"></script>
-
-
-    <!-- Template Javascript -->
-    <script src="{{asset("js/main.js")}}"></script>
+<!-- -->
+<br><br>
 </body>
 </html>
