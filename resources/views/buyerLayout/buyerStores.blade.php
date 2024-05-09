@@ -118,50 +118,7 @@
 </head>
   <!-- navbar -->
   <body>
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="{{route('home')}}">Home</a></li>
-                <li><a href="{{route('buyerStores')}}">View Stores</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
-            </ul>
-            <h1 class="logo">FlipCart</h1>
-        </div>
-    </nav>
-  <!-- Logout div -->
-  
-   <div id="logout-div" class="logout-div">
-        <p class="username">{{$user->name}}</p><hr>
-        <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
-        <!-- Logout form -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
-        
-        <!-- Error display -->
-        <div id="logout-error" class="logout-error" style="display: none;"></div>
-    </div>
-
-    <!-- Include the JavaScript code -->
-    <script>
-        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-        document.getElementById('user-icon').addEventListener('click', function() {
-            var logoutDiv = document.getElementById('logout-div');
-            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
-                logoutDiv.style.display = 'block';
-            } else {
-                logoutDiv.style.display = 'none';
-            }
-        });
-    </script>
+    @include('buyerLayout.buyerNav')
 <!--end navbar-->
    <!-- Iterate through stores and organize them into rows with three cards each -->
 @php $storesChunks = $stores->chunk(3); @endphp
@@ -179,7 +136,7 @@
         <p class="product-price"><span>{{ $store->store_category }}</span></p>
         <a href="" class="cart-btn">Shop</a>
         <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Follow</button></a>
-        
+
 
 
     </div>

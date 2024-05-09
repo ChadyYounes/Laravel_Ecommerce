@@ -20,7 +20,12 @@ class Store extends Model
     {
         return $this->belongsTo(User::class,"seller_id", "id");
     }
-   
+
+    public function getEvents()
+    {
+        return $this->hasMany(Event::class,'store_id','id');
+    }
+
 }
 
 
