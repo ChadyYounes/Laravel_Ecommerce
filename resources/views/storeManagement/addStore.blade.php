@@ -10,8 +10,28 @@
         <!-- Icon Font Stylesheet -->
        
         <!-- Template Stylesheet -->
+        <!--  Stylesheet -->
         <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
+
+        
+        <link href="{{asset("css/style.css")}}" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <!-- responsive -->
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <style>
         
           #logout-div {
