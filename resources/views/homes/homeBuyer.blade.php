@@ -14,7 +14,7 @@
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
 
-        
+
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
 
     <!-- favicon -->
@@ -92,53 +92,10 @@
 
          <!-- navbar -->
 <body>
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="">Home</a></li>
-                <li><a href="{{route('buyerStores')}}">View Stores</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
-            </ul>
-            <h1 class="logo">FlipCart</h1>
-        </div>
-    </nav>
-  <!-- Logout div -->
-  
-   <div id="logout-div" class="logout-div">
-        <p class="username">{{$user->name}}</p><hr>
-        <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
-        <!-- Logout form -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
-        
-        <!-- Error display -->
-        <div id="logout-error" class="logout-error" style="display: none;"></div>
-    </div>
-
-    <!-- Include the JavaScript code -->
-    <script>
-        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-        document.getElementById('user-icon').addEventListener('click', function() {
-            var logoutDiv = document.getElementById('logout-div');
-            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
-                logoutDiv.style.display = 'block';
-            } else {
-                logoutDiv.style.display = 'none';
-            }
-        });
-    </script>
+@include('buyerLayout.buyerNav')
 <!--end navbar-->
 
-    
+
 <!-- home -->
 
 
@@ -161,7 +118,7 @@
 				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 					<div class="list-box d-flex align-items-center">
 						<div class="list-icon">
-                        <img width="50" height="50" class="mr-2 mb-1" src="https://img.icons8.com/ios/50/support.png" alt="support"/>	
+                        <img width="50" height="50" class="mr-2 mb-1" src="https://img.icons8.com/ios/50/support.png" alt="support"/>
     					</div>
 						<div class="content">
 							<h3>24/7 Support</h3>
@@ -172,7 +129,7 @@
 				<div class="col-lg-4 col-md-6">
 					<div class="list-box d-flex justify-content-start align-items-center">
 						<div class="list-icon">
-                        <img width="50" height="50" class="mr-2 mb-1" src="https://img.icons8.com/wired/64/refund.png" alt="refund"/>	
+                        <img width="50" height="50" class="mr-2 mb-1" src="https://img.icons8.com/wired/64/refund.png" alt="refund"/>
     </div>
                         <div class="content">
 							<h3>Refund</h3>
@@ -192,7 +149,7 @@
 
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
+					<div class="section-title">
 						<h3><span class="orange-text">Our</span> News</h3>
 						<p>Discover the latest deals and trends on Flipcart, your go-to destination for all things eCommerce!</p>
 					</div>
@@ -285,7 +242,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
     </section>
     <!-- end cart banner section -->
 
-	
+
 	<!-- advertisement section -->
 	<div class="abt-section mb-150">
 		<div class="container">
@@ -307,7 +264,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 		</div>
 	</div>
 	<!-- end advertisement section -->
-	
+
 	<!-- shop banner -->
 	<section class="shop-banner">
     	<div class="container">
@@ -324,7 +281,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
+					<div class="section-title">
 						<h3><span class="orange-text">Our</span> Products</h3>
 						<p>Discover the latest deals and trends on Flipcart, your go-to destination for all things eCommerce!</p>
 					</div>
@@ -431,7 +388,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 		</div>
 	</div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div class="copyright">
 		<div class="container">
@@ -454,7 +411,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 		</div>
 	</div>
 	<!-- end copyright -->
-	
+
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
@@ -479,13 +436,13 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 
 <!-- end home -->
 
-        
 
 
 
 
 
-      
+
+
         </div>
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

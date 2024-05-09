@@ -98,6 +98,11 @@ Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_for
 Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
 Route::post('/update-base-currency',[CurrencyController::class,'changeBaseCurrency'])->name('update-base-currency');
 Route::post('/storeEvent',[EventController::class,'storeEvent'])->name('storeEvent');
+Route::get('/buyer/viewEvents',[BuyerController::class,'viewEvents'])->name('viewEvents');
+Route::get('/buyer/myEvents',[BuyerController::class,'myEvents'])->name('myEvents');
+Route::post('/subscribeToEvent',[BuyerController::class,'subscribeToEvent'])->name('subscribeToEvent');
+Route::post('/unsubscribeFromEvent',[BuyerController::class,'unsubscribeFromEvent'])->name('unsubscribeFromEvent');
+Route::get('/liveBidding/{id}',[BuyerController::class,'liveBidding'])->name('liveBidding');
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');
