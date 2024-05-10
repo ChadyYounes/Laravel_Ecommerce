@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->references('id')->on('products');
             $table->integer('quantity');
             $table->double('unit_price');
+         
             $table->timestamps();
         });
     }

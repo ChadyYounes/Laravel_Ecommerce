@@ -22,7 +22,6 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('seller_id');
             $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
-//            $table->foreignIdFor(User::class,"seller_id");
             $table->timestamps();
         });
     }

@@ -86,8 +86,12 @@ Route::get('admin/stores/activated', [AdminController::class,'admin_stores_activ
 /****************************Amine End******************************** */
 
 /****************** Payment Checkout*************************** */
-Route::get('/checkout', [StripeController::class,'checkout'])->name('checkout');
-Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('buyer/shoppingCart', [StripeController::class,'shoppingCart'])->name('shoppingCart');
+Route::delete('/delete-cart-item', [StripeController::class,'deleteCartItem'])->name('deleteCartItem');
+Route::patch('/update-cart-item', [StripeController::class,'updateCartItem'])->name('updateCartItem');
+Route::get('buyer/shoppingCart/delivery-address', [StripeController::class,'deliveryAddress'])->name('deliveryAddress');
+
+Route::post('/session-stripe', [StripeController::class, 'session'])->name('session-stripe');
 Route::get('/success', [StripeController::class,'success'])->name('success');
 /******************************************************************** */
 
