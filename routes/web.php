@@ -120,11 +120,15 @@ Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('st
 Route::post('/addStore/{user_id}',[StoreController::class,'createStore'])->name('createStore');
 
 Route::get('/viewStore/{user_id}',[StoreController::class,'storeView'])->name('storeView');
+Route::get('/viewStore/Report/{user_id}',[StoreController::class,'SellerReportsView'])->name('SellerReports');
+
+Route::post('/filter-orders', [StoreController::class, 'filterOrders'])->name('filterOrders');
 //store delete
 Route::delete('/viewStore/{store_id}',[StoreController::class,'deleteStore'])->name('deleteStore');
 //store edit
 Route::get('/editStore/{store_id}/{user_id}',[StoreController::class,'updateView'])->name('updateView');
 Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore'])->name('updateStore');
+
 //products view route
 Route::get('/productsView/{store_id}',[ProductController::class,'productView'])->name('productsView');
 Route::get('/addproductsView/{store_id}',[ProductController::class,'addProductView'])->name('addProductView');

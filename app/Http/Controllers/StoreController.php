@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-
+use Carbon\Carbon;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 class StoreController extends Controller
 {
     public function storeForm($user_id){
@@ -23,6 +25,36 @@ class StoreController extends Controller
         $user = User::find($user_id);
         return  view('homeSeller',compact('user'));
     }
+
+    
+    public function SellerReportsView($user_id){
+        $user = Auth::user();
+        $orders = Order::all();
+        return view('storeManagement.SellerReportsView',compact('user','orders' ));
+    }
+
+    public function filterOrders(Request $request)
+    {
+        // Retrieve start date and end date from the request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $user = Auth::user();
+
+        // Validate start date and end date
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+    
+        // Retrieve orders between the selected dates
+        $orders = Order::whereBetween('created_at', [$startDate, $endDate])
+                       ->orderBy('created_at', 'desc')
+                       ->get();
+    
+        // Pass the orders to a view for display
+        return view('storeManagement.SellerReportsView', compact('orders','user'));
+    }
+
 
     public function createStore(Request $request,$user_id){
        $user = User::find($user_id);

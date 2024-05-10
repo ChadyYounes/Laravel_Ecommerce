@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Fruitables</title>
+    <title>FlipCart</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -83,6 +83,40 @@
             position: absolute;
             width: 150px; 
         }
+        [type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+
+label {
+  display: block;
+}
+input {
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 5px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  width: 190px;
+}
+.dateHeaders{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.innerHeader{
+    display: flex;
+    flex-direction: column;
+    margin-right: 10%;
+    margin-left: 10%;
+
+}
     </style>
 </head>
 <body>
@@ -134,59 +168,44 @@
         });
     </script>
 
-    
-    <!--end navbar-->
-<!-- hero area -->
-<div class="hero-area hero-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 offset-lg-2 text-center">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
-							<p class="subtitle">{{$store->store_name}}</p>
-                            
-							<h1>Manage your Store</h1>
-							<div class="hero-btns">
-								<a href="{{route('addProductView',['store_id'=>$store->id])}}" class="boxed-btn">Add Product</a>
-								<a href="{{route('SellerReports',['user_id'=>$user->id])}}" class="bordered-btn">Reports</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end hero area -->
-<table>
-<colgroup>
-                    <col class="image-col">
-                    <col class="address-col">
-                </colgroup>
-            <thead>
+<!-- end navbar -->    
+<form id="filter-form" action="{{ route('filterOrders') }}" method="POST">
+        @csrf
+        <div class="dateFields">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
+
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <h1>Filtered Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Buyer ID</th>
+                <th>Total Amount</th>
+                <th>Delivery Address</th>
+                <th>Order Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($orders as $order)
                 <tr>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Category</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>    
+                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->buyer_id }}</td>
+                    <td>{{ $order->total_amount }}</td>
+                    <td>{{ $order->delivery_address }}</td>
+                    <td>{{ $order->order_status }}</td>
+                    <td>{{ $order->created_at }}</td>
                 </tr>
-            </thead>
-    @foreach($product as $products)
-                <tr>
-                <td data-label="Image"><img style="border-radius: 10px;" width="74px" src="{{asset($products->product_url)}}"></td>
-                <td data-label="Name">{{$products->product_name}}</td>
-                <td data-label="Category">{{$products->getCategory->category_name}}</td>
-                <td data-label="Quantity">{{$products->quantity}}</td>
-                <td data-label="Price">{{$products->price}}$</td>
-                </tr>               
-    @endforeach
-  </table> 
-        
-
-
-
-
-
+            @endforeach
+        </tbody>
+    </table>
 
 </body>
 </html>
