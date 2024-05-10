@@ -37,7 +37,7 @@
                                             <div class="row">
                                                 <div class="col-sm-3 hidden-xs"><img src="{{ asset($item->getProduct->product_url) }}" width="100" height="100" class="img-responsive"/></div>
                                                 <div class="col-sm-9">
-                                                    <h4 class="nomargin">{{ $item->getProduct->name }}</h4>
+                                                    <h4 class="nomargin">{{ $item->getProduct->product_name }}</h4>
                                                 </div>
                                             </div>
                                         </td>
