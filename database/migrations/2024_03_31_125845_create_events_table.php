@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('product_image_url');
             $table->decimal('starting_price');
             $table->decimal('minimum_increase');
+            $table->double('current_highest_bid')->nullable();
             $table->timestamps();
         });
     }
