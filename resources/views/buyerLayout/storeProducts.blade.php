@@ -177,7 +177,7 @@ width: 75%;
 .new-price{
 font-size: 13px;
 font-weight: bold;
-color: red;
+color: darkred;
 
 }
 .old-price{
@@ -286,6 +286,9 @@ color: grey;
 font-size: 12px;
 color: purple;
 font-weight: 500;
+padding: 8px;
+border-radius: 8px;
+border-style: none;
 }
 
 
@@ -417,18 +420,19 @@ bottom: 5px;
             <!-- Contact and shoppingg cartttttt-->
         <div class="d-flex justify-content-between align-items-center pt-1">
         <div class="d-flex justify-content-center">
-                <a href="" class="d-flex align-items-center">
-            <ion-icon name="call"></ion-icon>
-                <span class="rating-number">Contact</span>
+            
+                <a href="">
+                <button class="buy d-flex align-items-center"><ion-icon name="call"></ion-icon> Contact</button>
                 </a>
             </div>
-
-            <div class="d-flex justify-content-center">
-                <a href="" class="d-flex align-items-center">
-                    <span class="buy">Add To Cart</span>
-                    <ion-icon name="cart"></ion-icon>
-                </a>
+             <div class="d-flex justify-content-center">
+                <form action="{{ route('addToCart') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="productId" value="{{ $p->id }}">
+                    <button type="submit" class="buy d-flex align-items-center">Add To Cart <ion-icon name="cart"></ion-icon></button>
+                </form>
         </div>
+
 
             
             

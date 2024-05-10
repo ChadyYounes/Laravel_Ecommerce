@@ -132,6 +132,9 @@ Route::post('/addproductsView/{store_id}',[ProductController::class,'createProdu
 route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerStores');
 route::get('/buyer/store/{id}/product',[BuyerController::class,'storeProductView'])->name('storeProductView');
 
+//add to shopping cart
+Route::post('/add-to-cart', [StripeController::Class,'addToCart'])->name('addToCart');
+
 
 
 
