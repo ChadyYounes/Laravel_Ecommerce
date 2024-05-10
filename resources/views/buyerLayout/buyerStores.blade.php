@@ -134,8 +134,8 @@
         </div>
         <h3>{{ $store->store_name }}</h3>
         <p class="product-price"><span>{{ $store->store_category }}</span></p>
-        <a href="" class="cart-btn">Shop</a>
-        <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Follow</button></a>
+        <a href="{{ route('storeProductView', ['id' => $store->id]) }}" class="cart-btn">Shop</a>
+        <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Details</button></a>
 
 
 
