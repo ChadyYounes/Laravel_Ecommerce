@@ -13,7 +13,7 @@ class ShoppingCart extends Model
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
-   public function shoppingCartItems() {
+   public function getShoppingCartItem() {
     return $this->hasMany(ShoppingCartItem::class);
 }
 

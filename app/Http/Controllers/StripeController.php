@@ -23,10 +23,10 @@ class StripeController extends Controller
     $totalPrice = 0;
 
     if ($shoppingCart) {
-        $shoppingCart->load('shoppingCartItems.getProduct');
+        $shoppingCart->load('getShoppingCartItem.getProduct');
         $shoppingCart = $shoppingCart->first();
 
-        foreach ($shoppingCart->shoppingCartItems as $item) {
+        foreach ($shoppingCart->getShoppingCartItem as $item) {
             $totalPrice += $item->quantity * $item->getProduct->price;
         }
     }
@@ -34,50 +34,8 @@ class StripeController extends Controller
     return view('payment.shoppingCart', compact('user', 'shoppingCart', 'totalPrice'));
 }
 
-            public function addToCart(Request $request)
-{
-    // Retrieve the product ID and quantity from the request
-    $productId = $request->input('productId');
-    $quantity = 1; // You can modify this to get the quantity from the request if needed
-
-    // Check if the product exists
-    $product = Product::find($productId);
-    if (!$product) {
-        return redirect()->back()->with('error', 'Product not found.');
-    }
-
-    // Retrieve the user's shopping cart or create a new one if it doesn't exist
-    $userId = auth()->id(); // Assuming you have authentication set up
-    $shoppingCart = ShoppingCart::where('user_id', $userId)->first();
-    if (!$shoppingCart) {
-        $shoppingCart = new ShoppingCart();
-        $shoppingCart->user_id = $userId;
-        $shoppingCart->save();
-    }
-
-    // Check if the product is already in the cart, if so, update the quantity
- $existingItem = ShoppingCartItem::where('shopping_cart_id', $shoppingCart->id)
-    ->where('product_id', $productId)
-    ->first();
-   
-
-
-    if ($existingItem) {
-        $existingItem->quantity += $quantity;
-        $existingItem->save();
-    } else {
-        // Create a new shopping cart item
-        $item = new ShoppingCartItem();
-        $item->shopping_cart_id = $shoppingCart->id;
-        $item->product_id = $productId;
-        $item->quantity = $quantity;
-        $item->unit_price = $product->price; // You may adjust this based on your product model
-        $item->save();
-    }
-
-    return redirect()->back()->with('success', 'Product added to cart successfully.');
-}
-            public function updateCartItem(Request $request)
+          
+      public function updateCartItem(Request $request)
                     {
                         try {
                             Log::info('Incoming request data:', $request->all());
