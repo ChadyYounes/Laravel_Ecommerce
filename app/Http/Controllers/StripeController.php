@@ -35,30 +35,30 @@ class StripeController extends Controller
 }
 
           
-      public function updateCartItem(Request $request)
-                    {
-                        try {
-                            Log::info('Incoming request data:', $request->all());
+public function updateCartItem(Request $request)
+{
+    try {
+        Log::info('Incoming request data:', $request->all());
 
-                            $itemId = $request->input('itemId');
-                            $quantity = $request->input('quantity');
-                            $user = Auth::user();
-                            $shoppingCart = $user->getShoppingCart;
-                        
-                            if ($shoppingCart) {
-                                $item = $shoppingCart->getShoppingCartItem()->find($itemId);
-                                if ($item) {
-                                    $item->quantity = $quantity;
-                                    $item->save();
-                                }
-                            }
+        $productId = $request->input('productId');
+        $quantity = $request->input('quantity');
+        $user = Auth::user();
+        $shoppingCart = $user->getShoppingCart;
+    
+        if ($shoppingCart) {
+            $item = $shoppingCart->getShoppingCartItem->find($productId);
+            if ($item) {
+                $item->quantity = $quantity;
+                $item->save();
+            }
+        }
 
-                            return response()->json(['success' => true]);
-                        } catch (\Exception $e) {
-                            Log::error('Error updating cart item: ' . $e->getMessage());
-                            return response()->json(['success' => false], 500);
-                        }
-                    }
+        return response()->json(['success' => true]);
+    } catch (\Exception $e) {
+        Log::error('Error updating cart item: ' . $e->getMessage());
+        return response()->json(['success' => false], 500);
+    }
+}
 
 
     public function deleteCartItem(Request $request)
@@ -86,6 +86,7 @@ class StripeController extends Controller
             if ($shoppingCart) {
                 $shoppingCart->load('getShoppingCartItem.getProduct');
                 $shoppingCart = $shoppingCart->first();
+                
                 foreach ($shoppingCart->getShoppingCartItem as $item) {
                     $totalPrice += $item->quantity * $item->getProduct->price;
                 }
@@ -103,27 +104,35 @@ class StripeController extends Controller
                 $specificAddress = $request->input('specificLocation');   
                 $two0 = "00";
         
-                $session = \Stripe\Checkout\Session::create([
-                    'line_items'  => [
-                        [
-                            'price_data' => [
-                                'currency'     => 'USD',
-                                'product_data' => [
-                                    "name" => $productname,
-                                ],
-                                'unit_amount'  => $totalprice.$two0,
+                $user = Auth::user();
+                $shoppingCart = $user->getShoppingCart;
+                $shoppingCartItems = $shoppingCart->getShoppingCartItem;
+
+                $lineItems = [];
+
+                foreach ($shoppingCartItems as $item) {
+                    $lineItems[] = [
+                        'price_data' => [
+                            'currency'     => 'USD',
+                            'product_data' => [
+                                'name' => $item->getProduct->product_name,
                             ],
-                            'quantity'   => 1,
+                            'unit_amount'  => $item->unit_price * 100, 
                         ],
-                        
-                    ],
+                        'quantity'   => $item->quantity,
+                    ];
+                }
+
+                $session = \Stripe\Checkout\Session::create([
+                    'line_items'  => $lineItems,
                     'mode'        => 'payment',
-                    'success_url' => route('success', ['total' => $totalprice, 'deliveryAdress' => $deliveryAddress, 'specificAddress' => $specificAddress]),
+                    'success_url' => route('success',['total' => $totalprice, 'deliveryAdress' => $deliveryAddress, 'specificAddress' => $specificAddress]),
                     'cancel_url'  => route('deliveryAddress'),
                 ]);
-        
+
                 return redirect()->away($session->url);
-            }
+}
+            
  
             public function success(Request $request)
             {

@@ -43,7 +43,7 @@
                                         </td>
                                         <td data-th="Price">${{ $item->getProduct->price }}</td>
                                         <td data-th="Quantity">
-                                            <input type="number" class="form-control quantity cart_update" value="{{ $item->quantity }}" min="1" max="{{ $item->getProduct->quantity }}" data-product-id="{{ $item->id }}" data-product-price="{{ $item->getProduct->price }}" />
+                                            <input type="number" class="form-control quantity cart_update" value="{{ $item->quantity }}" name="quantity" min="1" max="{{ $item->getProduct->quantity }}" data-product-id="{{ $item->id }}" data-product-price="{{ $item->getProduct->price }}" />
                                         </td>
                                         <td data-th="Subtotal" class="text-center subtotal">${{ $item->getProduct->price * $item->quantity }}</td>
                                         <td class="actions" data-th="">
