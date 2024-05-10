@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('buyer_id')->references('id')->on('users')->onDelete('cascade');
             $table->double('total_amount');
+            $table->string('delivery_address')->nullable();
+            $table->string('delivery_longitude_latitude')->nullable();
             $table->string('order_status');
             $table->timestamps();
         });
