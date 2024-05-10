@@ -147,7 +147,7 @@
                 <td>{{ $event->getEvent->starting_price }} $</td>
                 <td>{{ $event->getEvent->minimum_increase }} $</td>
                 <td>
-                    <button id="joinBtn{{$event->id}}" type="button" class="btn btn-primary btn-sm" disabled onclick="joinEvent({{$event->id}})">
+                    <button id="joinBtn{{$event->id}}" type="button" class="btn btn-primary btn-sm" disabled onclick="joinEvent({{$event->getEvent->id}})">
                         Join (<span id="countdown{{$event->id}}" class="countdown-text"></span>)
                     </button>
                     <form id="unsubscribeForm{{$event->id}}" method="POST" action="{{route('unsubscribeFromEvent')}}">

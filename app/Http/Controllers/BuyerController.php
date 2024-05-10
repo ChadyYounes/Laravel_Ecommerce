@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Event;
+use App\Models\EventBid;
 use App\Models\EventParticipant;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -62,7 +63,19 @@ class BuyerController extends Controller
 
     public function liveBidding($eventId)
     {
-        return view('buyerLayout.liveBidding');
+        $event=Event::find($eventId);
+        $eventBids = EventBid::where('event_id', $eventId)->orderBy('created_at', 'asc')->get();
+//        dd($eventBids);
+        $currentHighestBid = EventBid::where('event_id', $event->id)
+            ->orderByDesc('amount')
+            ->first();
+        $currentBid=$currentHighestBid?:null;
+//        dd($event);
+        return view('buyerLayout.liveBidding',[
+            'event'=>$event,
+            'eventBids'=>$eventBids,
+            'currentBid'=>$currentBid
+        ]);
     }
 
 }

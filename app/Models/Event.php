@@ -13,4 +13,12 @@ class Event extends Model
     {
         return $this->belongsTo(Store::class,'store_id','id');
     }
+    public function getBids()
+    {
+        return $this->hasMany(EventBid::class,'event_id','id');
+    }
+    public function current_highest_bid()
+    {
+        return $this->getBids()->orderByDesc('amount')->first()?:0;
+    }
 }

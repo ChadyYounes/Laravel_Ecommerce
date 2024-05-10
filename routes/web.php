@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Currency\CurrencyController;
@@ -103,6 +104,7 @@ Route::get('/buyer/myEvents',[BuyerController::class,'myEvents'])->name('myEvent
 Route::post('/subscribeToEvent',[BuyerController::class,'subscribeToEvent'])->name('subscribeToEvent');
 Route::post('/unsubscribeFromEvent',[BuyerController::class,'unsubscribeFromEvent'])->name('unsubscribeFromEvent');
 Route::get('/liveBidding/{id}',[BuyerController::class,'liveBidding'])->name('liveBidding');
+Route::post('/placeBid',[BidController::class,'placeBid'])->name('placeBid');
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');
