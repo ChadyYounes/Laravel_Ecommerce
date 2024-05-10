@@ -17,20 +17,22 @@ use Illuminate\Database\QueryException;
 class StripeController extends Controller
 {
     public function shoppingCart()
-            {
-            $user = Auth::user();
-            $shoppingCart = $user->getShoppingCart;
-            $totalPrice = 0;
-            if ($shoppingCart) {
-                $shoppingCart->load('getShoppingCartItem.getProduct');
-                $shoppingCart = $shoppingCart->first();
-                foreach ($shoppingCart->getShoppingCartItem as $item) {
-                    $totalPrice += $item->quantity * $item->getProduct->price;
-                }
-            }
+{
+    $user = Auth::user();
+    $shoppingCart = $user->getShoppingCart;
+    $totalPrice = 0;
 
-            return view('payment.shoppingCart', compact('user', 'shoppingCart', 'totalPrice'));
-            }
+    if ($shoppingCart) {
+        $shoppingCart->load('shoppingCartItems.getProduct');
+        $shoppingCart = $shoppingCart->first();
+
+        foreach ($shoppingCart->shoppingCartItems as $item) {
+            $totalPrice += $item->quantity * $item->getProduct->price;
+        }
+    }
+
+    return view('payment.shoppingCart', compact('user', 'shoppingCart', 'totalPrice'));
+}
 
             public function addToCart(Request $request)
 {
@@ -54,9 +56,11 @@ class StripeController extends Controller
     }
 
     // Check if the product is already in the cart, if so, update the quantity
-    $existingItem = ShoppingCartItem::where('cart_id', $shoppingCart->id)
-        ->where('product_id', $productId)
-        ->first();
+ $existingItem = ShoppingCartItem::where('shopping_cart_id', $shoppingCart->id)
+    ->where('product_id', $productId)
+    ->first();
+   
+
 
     if ($existingItem) {
         $existingItem->quantity += $quantity;
@@ -64,7 +68,7 @@ class StripeController extends Controller
     } else {
         // Create a new shopping cart item
         $item = new ShoppingCartItem();
-        $item->cart_id = $shoppingCart->id;
+        $item->shopping_cart_id = $shoppingCart->id;
         $item->product_id = $productId;
         $item->quantity = $quantity;
         $item->unit_price = $product->price; // You may adjust this based on your product model

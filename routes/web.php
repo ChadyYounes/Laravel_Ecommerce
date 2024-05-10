@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Currency\CurrencyController;
 use App\Http\Controllers\EventController;
@@ -133,7 +134,7 @@ route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerS
 route::get('/buyer/store/{id}/product',[BuyerController::class,'storeProductView'])->name('storeProductView');
 
 //add to shopping cart
-Route::post('/add-to-cart', [StripeController::Class,'addToCart'])->name('addToCart');
+Route::post('/add-to-cart', [CartController::Class,'addToCart'])->name('addToCart');
 
 
 
