@@ -135,7 +135,24 @@
         <h3>{{ $store->store_name }}</h3>
         <p class="product-price"><span>{{ $store->store_category }}</span></p>
         <a href="{{ route('storeProductView', ['id' => $store->id]) }}" class="cart-btn">Shop</a>
-        <a class="cart-btn delete-btn"><button type="submit" class="cart-btn delete-btn" style="border: none; background: none; cursor: pointer; color: #fff; text-decoration: none;">Details</button></a>
+
+
+            <input type="hidden" name="store_id" value="{{$store->id}}">
+            @if(auth()->user()->isFollowing($store->id))
+                <form action="{{route('unfollowStore')}}" method="post" style="display: inline">
+                @csrf
+                <input type="hidden" name="store_id" value="{{$store->id}}">
+                <button type="submit" style="background-color: #f28123;border-style: none; border-radius: 40px; padding:12px" class="btn btn-primary">UnFollow</button>
+                </form>
+            @else
+            <form action="{{route('followStore')}}" method="post" style="display: inline">
+                @csrf
+                <input type="hidden" name="store_id" value="{{$store->id}}">
+                <button type="submit" style="background-color: #f28123;border-style: none; border-radius: 40px; padding:12px" class="btn btn-primary">Follow</button>
+            </form>
+            @endif
+
+        <a href="{{route('chat_form',$store->getUser->id)}}" class="cart-btn chat-btn">Chat</a>
 
 
 

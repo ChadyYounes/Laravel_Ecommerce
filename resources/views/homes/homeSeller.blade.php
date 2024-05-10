@@ -14,7 +14,7 @@
         <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
 
-        
+
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
 
     <!-- favicon -->
@@ -85,7 +85,7 @@
 
 .logout-div {
     position: absolute;
-    width: 150px; 
+    width: 150px;
 }
         </style>
     </head>
@@ -106,14 +106,14 @@
                 <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
                 <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
                 <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
-                <li><a href="#">Menu</a></li>
+                <li><a href="{{route('chats_list')}}">Chats</a></li>
                 <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
             </ul>
             <h1 class="logo">FlipCart</h1>
         </div>
     </nav>
   <!-- Logout div -->
-  
+
    <div id="logout-div" class="logout-div">
         <p class="username">{{$user->name}}</p><hr>
         <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
@@ -122,7 +122,7 @@
             @csrf
             <button type="submit" class="logout-button">Logout</button>
         </form>
-        
+
         <!-- Error display -->
         <div id="logout-error" class="logout-error" style="display: none;"></div>
     </div>
@@ -142,8 +142,8 @@
 <!--end navbar-->
 
 
-       
-        
+
+
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

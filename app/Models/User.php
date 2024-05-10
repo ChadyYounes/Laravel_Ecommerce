@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
@@ -47,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getRole() {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
-    
+
     public function getProfile() {
         return $this->hasOne(Profile::class);
     }
@@ -59,5 +60,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getShoppingCart()
     {
         return $this->hasOne(ShoppingCart::class);
+    }
+    public function getFollowedStores()
+    {
+        return $this->hasMany(StoreFollower::class,'user_id','id');
+    }
+    public function isFollowing($storeId)
+    {
+        // Check if the user has a relationship with the given store
+        return $this->getFollowedStores()->where('store_id', $storeId)->where('user_id',Auth::id())->exists();
     }
 }

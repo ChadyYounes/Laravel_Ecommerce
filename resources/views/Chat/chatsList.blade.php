@@ -31,6 +31,10 @@
         }
         .chat-name {
             font-weight: bold;
+            margin: 0;
+        }
+        .chat-action {
+            margin-left: auto;
         }
         .chat-button {
             background-color: #007bff;
@@ -44,39 +48,25 @@
         .chat-button:hover {
             background-color: #0056b3;
         }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-@if(auth()->check())
-    @if(auth()->user()->getRole->name === 'buyer')
-        <div class="container">
-            <h2>Chat List</h2>
-            @foreach($chatsListSellers as $chat)
-                <div class="chat">
-                    <div class="chat-info">
-                        <p class="chat-name">{{$chat->name}}</p>
-                    </div>
-                    <div class="chat-action">
-                        <a href="{{ route("chat_form",['id' => $chat->id]) }}" class="chat-button">Chat Now</a>
-                    </div>
-                </div>
-            @endforeach
+<div class="container">
+    <h2>Chats List</h2>
+    @foreach($chatsListBuyers as $chat)
+        <div class="chat">
+            <div class="chat-info">
+                <p class="chat-name">{{$chat->getBuyer->name}}</p>
+            </div>
+            <div class="chat-action">
+                <a href="{{ route("chat_form",['id' => $chat->getBuyer->id]) }}" class="chat-button">Chat Now</a>
+            </div>
         </div>
-    @elseif(auth()->user()->getRole->name === 'seller')
-        <div class="container">
-            <h2>Chat List</h2>
-            @foreach($chatsListBuyers as $chat)
-                <div class="chat">
-                    <div class="chat-info">
-                        <p class="chat-name">{{$chat->name}}</p>
-                    </div>
-                    <div class="chat-action">
-                        <a href="{{ route("chat_form",['id' => $chat->id]) }}" class="chat-button">Chat Now</a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    @endif
-@endif
+    @endforeach
+</div>
 </body>
 </html>

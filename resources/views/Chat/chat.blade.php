@@ -7,7 +7,11 @@
 <section class="msger">
     <header class="msger-header">
         <div class="msger-header-title">
-            <i class="fas fa-comment-alt"></i> Chatting with {{$receiver->name}}
+            @if(auth()->user()->getRole->name === "seller")
+                <i class="fas fa-comment-alt"></i> Chatting with {{$sender->name}}
+            @else
+                <i class="fas fa-comment-alt"></i> Chatting with {{$receiver->name}}
+            @endif
         </div>
         <div class="msger-header-options">
             <span><i class="fas fa-cog"></i></span>
@@ -16,32 +20,44 @@
 
     <main class="msger-chat">
         @foreach($messages as $message)
-            @if($message->sender_id == $sender->id)
-                <div class="msg right-msg">
-                    @else
-                        <div class="msg left-msg">
-                            @endif
-                            <div class="msg-img" style="background-image: url({{ $message->sender_id == $sender->id ? asset('path/to/sender/image') : asset('path/to/receiver/image') }})"></div>
-                            <div class="msg-bubble">
-                                <div class="msg-info">
-                                    <div class="msg-info-name">{{ $message->sender_id == $sender->id ? $sender->name : $receiver->name }}</div>
-                                    <div class="msg-info-time">{{ $message->created_at->format('H:i') }}</div>
-                                </div>
-                                <div class="msg-text">
-                                    {{ $message->message_content }}
-                                </div>
-                            </div>
-                        </div>
-                @endforeach
+            <div class="msg {{ $message->sender_id == $sender->id ? 'right-msg' : 'left-msg' }}">
+                <div class="msg-img" style="background-image: url({{ $message->sender_id == $sender->id ? asset('path/to/sender/image') : asset('path/to/receiver/image') }})"></div>
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">{{ $message->sender_id == $sender->id ? $sender->name : $receiver->name }}</div>
+                        <div class="msg-info-time">{{ $message->created_at->format('H:i') }}</div>
+                    </div>
+                    <div class="msg-text">
+                        {{ $message->message_content }}
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </main>
+
+{{--    @if(auth()->user()->getRole->name === "seller")--}}
+{{--        <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $sender->id]) }}">--}}
+{{--            @csrf--}}
+{{--            <input type="text" class="msger-input" name="message" placeholder="Enter your message...">--}}
+{{--            <button type="submit" class="msger-send-btn">Send</button>--}}
+{{--        </form>--}}
+{{--    @else--}}
+{{--        <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $receiver->id]) }}">--}}
+{{--            @csrf--}}
+{{--            <input type="text" class="msger-input" name="message" placeholder="Enter your message...">--}}
+{{--            <button type="submit" class="msger-send-btn">Send</button>--}}
+{{--        </form>--}}
+{{--    @endif--}}
 
     <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $receiver->id]) }}">
         @csrf
         <input type="text" class="msger-input" name="message" placeholder="Enter your message...">
         <button type="submit" class="msger-send-btn">Send</button>
     </form>
+
 </section>
 </body>
+
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 <script>
     // Enable pusher logging - don't include this in production
