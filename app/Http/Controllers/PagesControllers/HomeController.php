@@ -26,7 +26,7 @@ class HomeController extends Controller
                     break;
                 case 2:
                     // Seller
-                    return view('homes.homeSeller', compact('user'));
+                    return view('storeManagement.addStore', compact('user'));
                     break;
                 case 3:
                     // Admin
