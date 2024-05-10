@@ -1,3 +1,4 @@
+
 <!-- navbar.blade.php -->
 <nav class="navbar">
     <div class="navbar-container container">

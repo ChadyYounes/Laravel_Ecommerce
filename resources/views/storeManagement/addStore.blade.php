@@ -152,7 +152,7 @@
                 <li><a href="#">Menu</a></li>
                 <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
             </ul>
-            <h1 class="logo">Navbar</h1>
+            <h1 class="logo">FlipCart</h1>
         </div>
     </nav>
   <!-- Logout div -->

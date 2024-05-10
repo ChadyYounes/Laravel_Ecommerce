@@ -122,6 +122,8 @@ Route::post('/addproductsView/{store_id}',[ProductController::class,'createProdu
 
 //buyer Stores view
 route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerStores');
+route::get('/buyer/store/{id}/product',[BuyerController::class,'storeProductView'])->name('storeProductView');
+
 
 
 

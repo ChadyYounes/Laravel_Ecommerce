@@ -96,17 +96,11 @@
             @csrf
                 <h1>Add Event</h1>
                 <input type="hidden" name="store_id" value="{{$store->id}}">
-                <label for="event_datetime">Event Name</label>
                 <input type="text" placeholder="Event Name"  name="event_name"/>
-                <label for="event_datetime">Event Date&Time</label>
                 <input type="datetime-local" name="event_datetime" id="event_datetime" placeholder="Event Date&Time">
-                <label for="event_datetime">Product Name</label>
                 <input type="text" name="product_name" id="" placeholder="Product Name">
-                <label for="product_image_url">Product Image</label>
                 <input type="file" name="product_image_url" id="product_image_url">
-                <label for="event_datetime">Starting Price</label>
                 <input type="number" placeholder="Starting Price" name="starting_price" />
-                <label for="event_datetime">Minimum Increase</label>
                 <input type="number" placeholder="Minimum Increase" name="minimum_increase" />
 
                 <button>Proceed</button>

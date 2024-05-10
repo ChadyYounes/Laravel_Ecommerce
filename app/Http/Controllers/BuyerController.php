@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventParticipant;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
@@ -14,6 +14,14 @@ class BuyerController extends Controller
         $stores = Store::paginate(6);
         $user = Auth::user();
         return view('buyerLayout.buyerStores', compact( 'stores','user'));
+    }
+
+    public function storeProductView($store_id) {
+        $store = Store::find($store_id);
+        $user = Auth::user();
+        $product = Product::where('store_id',$store->id)->get();
+
+        return view('buyerLayout.storeProducts', compact( 'store','user','product'));
     }
     public function viewEvents()
     {
