@@ -13,7 +13,7 @@ class CurrencyController extends Controller
     public function changeBaseCurrency(Request $request)
     {
         $user=Auth::user();
-        $user->base_currency=$request->currency;
+        $user->base_currency=$request->currency_id;
         $user->save();
     }
 }

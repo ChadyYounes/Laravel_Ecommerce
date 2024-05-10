@@ -23,28 +23,28 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'createPassword' => 'required|string|min:8',
-            'confirmPassword' => 'required|same:createPassword', 
+            'confirmPassword' => 'required|same:createPassword',
         ], [
-            'email.unique' => 'The email address has already been taken.', 
-            'confirmPassword.same' => 'The password confirmation does not match.', 
+            'email.unique' => 'The email address has already been taken.',
+            'confirmPassword.same' => 'The password confirmation does not match.',
         ]);
-    
+
         $new_user = new User();
         $new_user->name = $validatedData['username'];
         $new_user->email = $validatedData['email'];
         $new_user->password = Hash::make($validatedData['createPassword']);
-        
+        $new_user->base_currency=1;
         $new_user->save();
-        
-        
+
+
 
     $verificationUrl = route('user.verify', ['user_id' => $new_user->id]);
- 
+
     Mail::to($request->email)->send(new Verify($verificationUrl, $new_user));
 
     return redirect()->route('email.verify');
-        
+
     }
-    
-    
+
+
 }

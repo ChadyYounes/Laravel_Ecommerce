@@ -49,6 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    public function getCurrency()
+    {
+        return $this->belongsTo(Currency::class,'base_currency','id');
+    }
     public function getProfile() {
         return $this->hasOne(Profile::class);
     }

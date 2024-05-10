@@ -92,7 +92,7 @@
 
          <!-- navbar -->
 <body>
-@include('buyerLayout.buyerNav')
+@include('buyerLayout.buyerNav',['currencies'=>$currencies])
 <!--end navbar-->
 
 
