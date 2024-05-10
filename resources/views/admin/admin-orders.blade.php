@@ -12,7 +12,17 @@
    <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        
+        <style>
+             .btn-deliver {
+                background-color: red;
+                color: white;
+                padding: 4px;
+                border-radius: 15px;
+                border: transparent;
+                box-shadow: 5px 3px black;
+                
+            }
+        </style>
 </head>
 
 <body>
@@ -149,28 +159,46 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Product Name</td>
-                                <td>Price</td>
-                                <td>Buyer</td>
-                                <td>Seller</td>
-                                <td>Shop</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <th>Order ID</th>
+                                <th>Buyer Name</th>
+                                <th>Store(s)</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
-
+                
                         <tbody>
+                            @foreach ($all_orders as $order)
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Buyer data</td>
-                                <td>seller data</td>
-                                <td>Shop data></td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->getUser->name }}</td>
+                                <td>
+                                    <select >
+                                        @foreach ($order->getOrderItem as $orderItem)
+                                            <option>{{ $orderItem->getProduct->getStore->store_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>${{ $order->total_amount }}</td>
+                                <td>
+                                    @if ($order->order_status === 'pending')
+                                        <span class="status pending">Pending</span>
+                                    @elseif ($order->order_status === 'paid')
+                                        <span class="status paid">Paid</span>
+                                    @elseif ($order->order_status === 'delivered')
+                                        <span class="status delivered">Delivered</span>
+                                    @endif
+                                </td>
+                                @if ($order->order_status !== 'delivered')
+                                <td>
+                    <form action="{{ route('changeOrderStatus', ['order_id' => $order->id]) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn-deliver">Mark as Delivered</button>
+                    </form>
+                </td>
+                @endif
                             </tr>
-
-                            
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

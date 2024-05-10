@@ -75,7 +75,7 @@
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type='hidden' name="total" value="{{ $totalPrice }}">
                                             <input type='hidden' name="productname" value="{{ $shoppingCart ? $shoppingCart->getShoppingCartItem->implode('getProduct.product_name', ', ') : '' }}">
-                                            @if ($shoppingCart)
+                                            @if ($shoppingCart->getShoppingCartItem->isNotEmpty())
                                             <button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i>Continue</button>
                                             @endif
                                         </form>

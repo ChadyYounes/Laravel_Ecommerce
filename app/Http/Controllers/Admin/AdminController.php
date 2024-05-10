@@ -45,6 +45,7 @@ class AdminController extends Controller
                 
                     return view('admin.admin-categories', compact('total_categories', 'all_categories'));
                 }
+               
         public function admin_stores_deactivated_view()
                 {
                         $deactivated_stores_nbr = Store::where('is_active', false)->count();
@@ -257,5 +258,11 @@ class AdminController extends Controller
                 
                     return view('admin.super-search', compact('users', 'stores', 'products'));
                 }
-        
+                public function changeOrderStatus($order_id)
+                {
+                    $order = Order::findOrFail($order_id);
+                    $order->order_status = 'delivered';
+                    $order->save();
+                    return redirect()->back()->with('success', 'Order status updated to Delivered');
+                }
 }
