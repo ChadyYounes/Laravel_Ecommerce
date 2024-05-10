@@ -9,6 +9,8 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ShoppingCartItem;
 use App\Models\Product;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendReceiptOrder;
 use Illuminate\Database\QueryException;
 class StripeController extends Controller
 {
@@ -151,7 +153,8 @@ class StripeController extends Controller
                     foreach ($user->getShoppingCart->getShoppingCartItem as $item) {
                         $item->delete();
                     }
-            
+                    Mail::to($user->email)->send(new SendReceiptOrder($order));
+
                     return redirect()->route('home');
                 } catch (QueryException $e) {
                     Log::error('Error saving order: ' . $e->getMessage());
