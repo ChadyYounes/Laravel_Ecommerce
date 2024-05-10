@@ -87,7 +87,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::get('admin/stores/activated', [AdminController::class,'admin_stores_activated_view'])->name('admin.stores.activated');
 });
 
- 
+
 
 /****************************Amine End******************************** */
 
@@ -114,6 +114,8 @@ Route::post('/subscribeToEvent',[BuyerController::class,'subscribeToEvent'])->na
 Route::post('/unsubscribeFromEvent',[BuyerController::class,'unsubscribeFromEvent'])->name('unsubscribeFromEvent');
 Route::get('/liveBidding/{id}',[BuyerController::class,'liveBidding'])->name('liveBidding');
 Route::post('/placeBid',[BidController::class,'placeBid'])->name('placeBid');
+Route::post('/followStore',[BuyerController::class,'followStore'])->name('followStore');
+Route::post('/unfollowStore',[BuyerController::class,'unfollowStore'])->name('unfollowStore');
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');

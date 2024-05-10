@@ -138,7 +138,7 @@
                 <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
                 <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
                 <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
-                <li><a href="#">Menu</a></li>
+                <li><a href="#">Chats</a></li>
                 <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
             </ul>
             <h1 class="logo">FlipCart</h1>

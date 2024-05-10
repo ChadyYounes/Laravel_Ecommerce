@@ -14,14 +14,12 @@ use Pusher\Pusher;
 class ChatController extends Controller
 {
     public function chatsList(){
-        $sellerRole = Role::where('name', 'seller')->value('id');
-        $buyerRole = Role::where('name', 'buyer')->value('id');
-        $chatsListBuyers = User::where('role_id',$buyerRole)->get();
-        $chatsListSellers= User::where('role_id',$sellerRole)->get();
+//        $sellerRole = Role::where('name', 'seller')->value('id');
+//        $buyerRole = Role::where('name', 'buyer')->value('id');
+        $chatsListBuyers = chat_messages::where('receiver_id',Auth::id())->get();
+//        $chatsListSellers= User::where('role_id',$sellerRole)->get();
         return view('Chat.chatsList',[
-            'chatsListBuyers'=>$chatsListBuyers,
-            'chatsListSellers'=>$chatsListSellers,
-
+            'chatsListBuyers'=>$chatsListBuyers
         ]);
     }
     public function chatForm($receiverId){

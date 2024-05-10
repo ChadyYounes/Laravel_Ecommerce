@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventBid;
 use App\Models\EventParticipant;
+use App\Models\StoreFollower;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Store;
@@ -76,6 +77,25 @@ class BuyerController extends Controller
             'eventBids'=>$eventBids,
             'currentBid'=>$currentBid
         ]);
+    }
+
+    public function followStore(Request $request)
+    {
+        $follow=new StoreFollower();
+
+        $follow->user_id=Auth::id();
+        $follow->store_id=$request->input('store_id');
+//        dd($follow);
+        $follow->save();
+
+        return redirect()->back();
+    }
+
+    public function unfollowStore(Request $request)
+    {
+        $follow=StoreFollower::where('store_id',$request->input('store_id'));
+        $follow->delete();
+        return redirect()->back();
     }
 
 }
