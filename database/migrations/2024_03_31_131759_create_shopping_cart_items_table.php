@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shopping_cart_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('shopping_cart_id')->references('id')->on('shopping_carts')->onDelete('cascade');
+            $table->foreignId('cart_id')->references('id')->on('shopping_carts')->onDelete('cascade');
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('quantity');
             $table->double('unit_price');
