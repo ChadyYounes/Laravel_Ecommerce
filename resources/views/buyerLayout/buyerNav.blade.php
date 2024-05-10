@@ -23,6 +23,11 @@
     <p class="username">{{$user->name}}</p><hr>
     <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
     <!-- Logout form -->
+    <select id="baseCurrencySelect">
+        @foreach($currencies as $currency)
+            <option value="{{$currency->id}}" {{ $user->base_currency == $currency->id ? 'selected' : '' }}>{{$currency->currency_code}}</option>
+        @endforeach
+    </select>
     <form id="logout-form" action="{{ route('logout') }}" method="POST">
         @csrf
         <button type="submit" class="logout-button">Logout</button>
@@ -46,6 +51,8 @@
 <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
     // JavaScript code for toggling the visibility of the logout div
     document.getElementById('user-icon').addEventListener('click', function() {
@@ -55,5 +62,27 @@
         } else {
             logoutDiv.style.display = 'none';
         }
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#baseCurrencySelect').change(function(){
+            var currencyId = $(this).val();
+            $.ajax({
+                url: '/update-base-currency', // Laravel route to handle the request
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    currency_id: currencyId
+                },
+                success: function(response){
+                    // Handle success response if needed
+                    location.reload();
+                },
+                error: function(xhr, status, error){
+                    // Handle error if needed
+                }
+            });
+        });
     });
 </script>

@@ -120,7 +120,7 @@
 </head>
 
 <body>
-@include('buyerLayout.buyerNav')
+@include('buyerLayout.buyerNav',['currencies'=>$currencies])
 <div class="container mt-5">
     <h3 class="mb-4">Bidding Events</h3>
     <table class="table table-bordered">
