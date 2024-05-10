@@ -180,69 +180,38 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <th>Order ID</th>
+                                <th>Buyer Name</th>
+                                <th>Store(s)</th>
+                                <th>Total Amount</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
-
+                
                         <tbody>
+                            @foreach ($today_orders as $order)
                             <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
+                                <td>{{ $order->id }}</td>
+                                <td>{{ $order->getUser->name }}</td>
+                                <td>
+                                    <select >
+                                        @foreach ($order->getOrderItem as $orderItem)
+                                            <option>{{ $orderItem->getProduct->getStore->store_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>${{ $order->total_amount }}</td>
+                                <td>
+                                    @if ($order->order_status === 'pending')
+                                        <span class="status pending">Pending</span>
+                                    @elseif ($order->order_status === 'paid')
+                                        <span class="status paid">Paid</span>
+                                    @elseif ($order->order_status === 'delivered')
+                                        <span class="status delivered">Delivered</span>
+                                    @endif
+                                </td>
                             </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Dell Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Apple Watch</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-
-                            <tr>
-                                <td>Addidas Shoes</td>
-                                <td>$620</td>
-                                <td>Due</td>
-                                <td><span class="status inProgress">In Progress</span></td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

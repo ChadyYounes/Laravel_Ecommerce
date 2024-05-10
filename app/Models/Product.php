@@ -29,4 +29,8 @@ class Product extends Model
     {
         return $this->hasOne(OrderItem::class);
     }
+    public function getStore()
+    {
+        return $this->belongsTo(Store::class,'store_id','id');
+    }
 }

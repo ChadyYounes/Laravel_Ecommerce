@@ -91,6 +91,8 @@ class StripeController extends Controller
         
                 $productname = $request->get('productname');
                 $totalprice = $request->get('total');
+                $deliveryAddress = $request->input('userAddress');   
+                $specificAddress = $request->input('specificLocation');   
                 $two0 = "00";
         
                 $session = \Stripe\Checkout\Session::create([
@@ -108,7 +110,7 @@ class StripeController extends Controller
                         
                     ],
                     'mode'        => 'payment',
-                    'success_url' => route('success'),
+                    'success_url' => route('success', ['total' => $totalprice, 'deliveryAdress' => $deliveryAddress, 'specificAddress' => $specificAddress]),
                     'cancel_url'  => route('deliveryAddress'),
                 ]);
         
@@ -120,8 +122,8 @@ class StripeController extends Controller
                 try {
                     $user = Auth::user();
                     $totalPrice = $request->input('total');
-                    $deliveryAddress = $request->input('userAddress');   
-                    $specificAddress = $request->input('specificLocation');   
+                    $deliveryAddress = $request->input('deliveryAddress');   
+                    $specificAddress = $request->input('specificAddress');   
             
                     $order = new Order();
                     $order->buyer_id = $user->id;
@@ -146,7 +148,9 @@ class StripeController extends Controller
                         }
                     }
             
-                    $user->getShoppingCart->getShoppingCartItem->delete();
+                    foreach ($user->getShoppingCart->getShoppingCartItem as $item) {
+                        $item->delete();
+                    }
             
                     return redirect()->route('home');
                 } catch (QueryException $e) {

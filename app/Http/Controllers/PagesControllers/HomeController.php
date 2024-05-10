@@ -49,17 +49,19 @@ class HomeController extends Controller
         $total_orders = Order::count();
         $today = now()->format('Y-m-d');
         $today_new_users = User::whereDate('email_verified_at', $today)
-                           ->where('email', '!=', 'admin2024@gmail.com')
-                           ->get();
+                               ->where('email', '!=', 'admin2024@gmail.com')
+                               ->get();
         $total_categories = Category::count();
-
-
+        
+        $today_orders = Order::whereDate('created_at', $today)->get();
+    
         return view('homes.homeAdmin', compact('user'))
                     ->with('total_users', $total_users)
                     ->with('total_stores', $total_stores)
                     ->with('total_orders', $total_orders)
                     ->with('today_new_users', $today_new_users)
-                    ->with('total_categories', $total_categories);
+                    ->with('total_categories', $total_categories)
+                    ->with('today_orders', $today_orders);
     }
 
     public function verifyEmail($user_id)
