@@ -430,6 +430,9 @@ bottom: 5px;
                 </a>
             </div>
              <div class="d-flex justify-content-center">
+                 <a href="{{route('addProductReview',$p->id)}}">
+                     <button class="buy d-flex align-items-center"><ion-icon name="chatbox-ellipses-outline"></ion-icon> Add Review</button>
+                 </a>
                 <form action="{{ route('addToCart') }}" method="POST">
                     @csrf
                     <input type="hidden" name="productId" value="{{ $p->id }}">
