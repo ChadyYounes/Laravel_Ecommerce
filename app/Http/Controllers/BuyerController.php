@@ -5,6 +5,7 @@ use App\Models\Currency;
 use App\Models\Event;
 use App\Models\EventBid;
 use App\Models\EventParticipant;
+use App\Models\ProductReview;
 use App\Models\StoreFollower;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
@@ -114,6 +115,31 @@ class BuyerController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Base currency updated successfully']);
+    }
+
+    public function addProductReview($productId)
+    {
+        $product=Product::find($productId);
+        $reviews=ProductReview::where('product_id',$productId)->get();
+        $count=ProductReview::where('product_id',$productId)->count();
+        $currencies=Currency::all();
+        return view('buyerLayout.addProductReview',[
+            'currencies'=>$currencies,
+            'user'=>Auth::user(),
+            'product'=>$product,
+            'reviews'=>$reviews,
+            'count'=>$count
+        ]);
+    }
+    public function addProductReviewStore(Request $request)
+    {
+        $review=new ProductReview();
+        $review->user_id=Auth::id();
+        $review->product_id=$request->input('product_id');
+        $review->review=$request->input('review');
+        $review->save();
+
+        return redirect()->back();
     }
 
 }

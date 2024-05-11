@@ -74,4 +74,8 @@ class User extends Authenticatable implements MustVerifyEmail
         // Check if the user has a relationship with the given store
         return $this->getFollowedStores()->where('store_id', $storeId)->where('user_id',Auth::id())->exists();
     }
+    public function getReviews()
+    {
+        return $this->hasMany(ProductReview::class,'user_id','id');
+    }
 }
