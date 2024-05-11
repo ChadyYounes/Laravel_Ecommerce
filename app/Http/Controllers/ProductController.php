@@ -66,5 +66,58 @@ public function addProductView($store_id){
 
     return view('Products.addProduct',compact('store','user','category'));
 }
+public function deleteProduct($product_id)
+{
+    $product = Product::findOrFail($product_id);
+    $store_id = $product->store_id;
+    $product->delete();
 
+    return Redirect()->route('productsView', ['store_id' => $store_id])->with('success', 'Product deleted successfully');
+}
+
+public function editProductView($product_id){
+    $product = Product::findOrFail($product_id);
+    $store = Store::findOrFail($product->store_id);
+    $user = User::findOrFail(Auth::user()->id);
+    $categories = Category::all();
+
+    return view('Products.editProductView', compact('product', 'store', 'user', 'categories'));
+}
+
+public function editProduct(Request $request, $product_id)
+{
+    // Validate the request data
+    $request->validate([
+        'product_name' => 'required|max:255|string',
+        'price' => 'required|numeric|min:0',
+        'quantity' => 'required|numeric|min:0',
+        'description' => 'required|max:255|string',
+        'product_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'category_id' => 'required',
+    ]);
+
+    $product = Product::findOrFail($product_id);
+    $category = Category::findOrFail($request->category_id);
+
+    // Handle file upload if there's a new image
+    if ($request->hasFile('product_url')) {
+        $file = $request->file('product_url');
+        $extension = $file->getClientOriginalExtension();
+        $fileName = time().'.'.$extension;
+        $path = "storage/product-images/";
+        $file->move($path, $fileName);
+        $product->product_url = $path.$fileName;
+    }
+
+    // Update the product
+    $product->update([
+        'product_name' => $request->product_name,
+        'price' => $request->price,
+        'description' => $request->description,
+        'quantity' => $request->quantity,
+        'category_id' => $category->id,
+    ]);
+
+    return redirect()->route('productsView', ['store_id' => $product->store_id])->with('success', 'Product updated successfully');
+}
 }

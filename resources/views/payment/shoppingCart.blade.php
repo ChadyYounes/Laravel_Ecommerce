@@ -71,12 +71,12 @@
                                 <tr>
                                     <td colspan="5" style="text-align:right;">
                                         <form action="{{ route('deliveryAddress') }}" method="get">
-                                            <a href="{{ route('home') }}" class="btn btn-danger"> <i class="fa fa-arrow-left"></i> Continue Shopping</a>
+                                            <a href="{{ route('home') }}" class="btn btn-danger"> <i class="fa fa-arrow-left"></i>Go Back</a>
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type='hidden' name="total" value="{{ $totalPrice }}">
                                             <input type='hidden' name="productname" value="{{ $shoppingCart ? $shoppingCart->getShoppingCartItem->implode('getProduct.product_name', ', ') : '' }}">
                                             @if ($shoppingCart->getShoppingCartItem->isNotEmpty())
-                                            <button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i>Continue</button>
+                                            <button class="btn btn-success" type="submit" id="checkout-live-button"><i class="fa fa-money"></i>Payment</button>
                                             @endif
                                         </form>
                                     </td>

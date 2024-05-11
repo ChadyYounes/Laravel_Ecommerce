@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bidding Events</title>
+    <title>{{$store->store_name}} | products</title>
 
     
     <link rel="stylesheet" type="text/css" href="{{asset("assets/css/productCardStyle.css")}}">
@@ -369,6 +369,31 @@ bottom: 5px;
         <h6 class="subtitle font-weight-normal">You can rely on our amazing features list and also our customer services will be a great experience for you without a doubt</h6>
       </div>
     </div>
+<br><br>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <!-- Search form -->
+    <form action="{{ route('search', ['store_id' => $store->id]) }}" method="GET" style="display: flex; align-items: center;">
+        <label for="category" style="margin-right: 10px;">Filter by category:</label>
+        <select name="category" id="category" required style="width: 200px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+            <option value="">All</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" style="border-style: none; padding: 8px; border-radius: 8px; margin-left: 10px;">Search</button>
+    </form>
+
+    <!-- Sorting form -->
+    <form action="{{ route('sort', ['store_id' => $store->id]) }}" method="GET" style="display: flex; align-items: center;">
+        <label for="sort" style="margin-right: 10px;">Sort by:</label>
+        <select name="sort" style="width: 200px; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+        </select>
+        <button type="submit" style="border-style: none; padding: 8px; border-radius: 8px; margin-left: 10px;">Sort</button>
+    </form>
+</div>
+
     <!-- Row  -->
     @foreach($chunks as $chunk)
     <div class="row mt-4">
@@ -453,6 +478,42 @@ bottom: 5px;
 </div> <!-- Close pricing4 -->
 
 
+
+@if(session('success'))
+<div id="popup">
+        <div id="popup-content">
+            <p>{{ session('success') }}</p>
+            <button id="proceed-btn" style="margin-top:3%;">Proceed</button>
+        </div>
+    </div>
+@elseif($errors->any())
+    <div id="popup" >
+        <div id="popup-content">
+            <h3 style="color:darkred;">product not added</h3>
+
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+
+            <button id="proceed-btn" style="margin-top:3%;">OK</button>
+        </div>
+    </div>
+@endif
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var popup = document.getElementById("popup");
+        var proceedBtn = document.getElementById("proceed-btn");
+
+        if (popup) {
+            console.log("Popup element found.");
+            proceedBtn.addEventListener("click", function() {
+                console.log("Proceed button clicked.");
+                popup.style.display = "none";
+            });
+        }
+    });
+</script>
 
 
 

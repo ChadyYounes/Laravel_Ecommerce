@@ -139,7 +139,7 @@
                 <div class="overlay-panel overlay-left">
                     <h1>Welcome Back! Mr. {{$user->name}}</h1>
                     <p>Streamline your sales journey! Add your product, set the price - watch it fly off the shelves!</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <button class="ghost" id="signIn">Add Product</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Mr. {{$user->name}}!</h1>

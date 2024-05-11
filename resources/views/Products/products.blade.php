@@ -169,15 +169,27 @@
                 <th scope="col">Category</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>    
+                <th scope="col" style="text-align:center">Action</th>    
+
                 </tr>
             </thead>
     @foreach($product as $products)
                 <tr>
-                <td data-label="Image"><img style="border-radius: 10px;" width="74px" src="{{asset($products->product_url)}}"></td>
+                <td data-label="Image"><img style="border-radius: 10px;" height="64px" width="74px" src="{{asset($products->product_url)}}"></td>
                 <td data-label="Name">{{$products->product_name}}</td>
                 <td data-label="Category">{{$products->getCategory->category_name}}</td>
                 <td data-label="Quantity">{{$products->quantity}}</td>
                 <td data-label="Price">{{$products->price}}$</td>
+                <td data-label="Action" style="display:flex;margin-left:15%;text-align:center">
+                <!-- Edit Button -->
+                <a class="boxed-btn" style="min-width:30%; text-align:center" href="{{ route('editProductView', ['product_id' => $products->id]) }}">Edit</a>
+                <!-- Delete Button -->
+                <form action="{{ route('deleteProduct', ['product_id' => $products->id]) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button  style="background-color: darkred;border-style:none;border-radius:18px;padding:9px;color:white;margin-left:15%" type="submit">Delete</button>
+                </form>
+                </td>
                 </tr>               
     @endforeach
   </table> 
