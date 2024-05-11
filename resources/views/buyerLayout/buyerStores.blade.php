@@ -118,7 +118,7 @@
 </head>
   <!-- navbar -->
   <body>
-    @include('buyerLayout.buyerNav')
+  @include('buyerLayout.buyerNav',['currencies'=>$currencies])
 <!--end navbar-->
    <!-- Iterate through stores and organize them into rows with three cards each -->
 @php $storesChunks = $stores->chunk(3); @endphp

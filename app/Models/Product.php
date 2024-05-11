@@ -33,4 +33,8 @@ class Product extends Model
     {
         return $this->belongsTo(Store::class,'store_id','id');
     }
+    public function getReviews()
+    {
+        return $this->hasMany(ProductReview::class,'product_id','id');
+    }
 }

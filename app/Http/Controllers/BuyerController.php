@@ -1,46 +1,58 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Currency;
 use App\Models\Event;
 use App\Models\EventBid;
 use App\Models\EventParticipant;
+use App\Models\ProductReview;
 use App\Models\StoreFollower;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Http;
+
 class BuyerController extends Controller
 {
     public function buyerLayout() {
         $stores = Store::paginate(6);
         $user = Auth::user();
-        return view('buyerLayout.buyerStores', compact( 'stores','user'));
+        $currencies=Currency::all();
+//        dd($currencies);
+        return view('buyerLayout.buyerStores', compact( 'stores','user','currencies'));
     }
 
     public function storeProductView($store_id) {
         $store = Store::find($store_id);
         $user = Auth::user();
+        $response=Http::get('https://v6.exchangerate-api.com/v6/96c4bfcf9462e8a2c4748b48/latest/USD');
+        $apiCurrency=$response->json();
         $product = Product::where('store_id',$store->id)->get();
         $categories = Category::all();
 
-        return view('buyerLayout.storeProducts', compact( 'store','user','product','categories'));
+        $currencies=Currency::all();
+        return view('buyerLayout.storeProducts', compact( 'store','user','product','currencies','apiCurrency','categories'));
     }
     public function viewEvents()
     {
         $events=Event::all();
-
+        $currencies=Currency::all();
         return view('buyerLayout.viewEvents',[
             'events'=>$events,
-            'user'=>Auth::user()
+            'user'=>Auth::user(),
+            'currencies'=>$currencies
         ]);
     }
     public function myEvents()
     {
+        $currencies=Currency::all();
         $events=EventParticipant::where('user_id',Auth::user()->id)->get();
         return view('buyerLayout.myEvents',[
             'events'=>$events,
-            'user'=>Auth::user()
+            'user'=>Auth::user(),
+            'currencies'=>$currencies
         ]);
     }
     public function subscribeToEvent(Request $request)
@@ -98,6 +110,7 @@ class BuyerController extends Controller
         $follow->delete();
         return redirect()->back();
     }
+
     public function search_category(Request $request, $store_id) {
         // Get the search value and selected category ID
         $search = $request->input('search');
@@ -154,4 +167,39 @@ class BuyerController extends Controller
     
     // Method to sort products by price
    
+
+    public function updateBaseCurrency(Request $request) {
+        $user = Auth::user();
+        dd($request);
+        $user->base_currency = $request->currency_id;
+        $user->save();
+
+        return response()->json(['message' => 'Base currency updated successfully']);
+    }
+
+    public function addProductReview($productId)
+    {
+        $product=Product::find($productId);
+        $reviews=ProductReview::where('product_id',$productId)->get();
+        $count=ProductReview::where('product_id',$productId)->count();
+        $currencies=Currency::all();
+        return view('buyerLayout.addProductReview',[
+            'currencies'=>$currencies,
+            'user'=>Auth::user(),
+            'product'=>$product,
+            'reviews'=>$reviews,
+            'count'=>$count
+        ]);
+    }
+    public function addProductReviewStore(Request $request)
+    {
+        $review=new ProductReview();
+        $review->user_id=Auth::id();
+        $review->product_id=$request->input('product_id');
+        $review->review=$request->input('review');
+        $review->save();
+
+        return redirect()->back();
+    }
+
 }

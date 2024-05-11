@@ -19,17 +19,18 @@ class GoogleAuthController extends Controller
     try {
         $googleUser = Socialite::driver('google')->user();
         $user = User::where('email', $googleUser->getEmail())->first();
-    
+
         if (!$user) {
             $user = new User();
             $user->name = $googleUser->getName();
             $user->email = $googleUser->getEmail();
-            $user->google_id = Hash::make($googleUser->getId()); 
+            $user->google_id = Hash::make($googleUser->getId());
+            $user->base_currency=1;
             $user->save();
         }
-    
+
         Auth::login($user);
-    
+
         if ($user->role_id === null) {
             return redirect()->route('set-profile');
         } else {

@@ -116,6 +116,9 @@ Route::get('/liveBidding/{id}',[BuyerController::class,'liveBidding'])->name('li
 Route::post('/placeBid',[BidController::class,'placeBid'])->name('placeBid');
 Route::post('/followStore',[BuyerController::class,'followStore'])->name('followStore');
 Route::post('/unfollowStore',[BuyerController::class,'unfollowStore'])->name('unfollowStore');
+//Route::post('/update-base-currency', [BuyerController::class,'updateBaseCurrency'])->name('update.base.currency');
+Route::get('addProductReview/{id}',[BuyerController::class,'addProductReview'])->name('addProductReview');
+Route::post('/addProductReviewStore',[BuyerController::class,'addProductReviewStore'])->name('addProductReviewStore');
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');

@@ -49,6 +49,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    public function getCurrency()
+    {
+        return $this->belongsTo(Currency::class,'base_currency','id');
+    }
     public function getProfile() {
         return $this->hasOne(Profile::class);
     }
@@ -69,5 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         // Check if the user has a relationship with the given store
         return $this->getFollowedStores()->where('store_id', $storeId)->where('user_id',Auth::id())->exists();
+    }
+    public function getReviews()
+    {
+        return $this->hasMany(ProductReview::class,'user_id','id');
     }
 }

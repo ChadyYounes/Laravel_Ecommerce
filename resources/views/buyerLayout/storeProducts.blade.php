@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$store->store_name}} | products</title>
 
-    
+
     <link rel="stylesheet" type="text/css" href="{{asset("assets/css/productCardStyle.css")}}">
 
     <style>
@@ -98,7 +98,7 @@
             margin-top:5%;
             color:    #1e90ff;
         }
-        
+
         body{
 
 background-color: #eee;
@@ -332,7 +332,7 @@ font-size: 11px;
 font-weight: bold;
 }
 .voutcher-right{
-width: 40%;	 
+width: 40%;
 background-color: purple;
 color: #fff;
 }
@@ -353,7 +353,7 @@ bottom: 5px;
 </head>
 
 <body>
-@include('buyerLayout.buyerNav')
+@include('buyerLayout.buyerNav',['currencies'=>$currencies])
 
 
 @php
@@ -398,13 +398,13 @@ bottom: 5px;
     @foreach($chunks as $chunk)
     <div class="row mt-4">
         @foreach($chunk as $p)
-        
+
         <div class="card">
 
             <div class="image-container">
 
                 <div class="first">
-                    
+
                     <div class="d-flex justify-content-between align-items-center">
                     <span class="discount">-25%</span>
                     <span class="wishlist"><ion-icon name="heart-outline"></ion-icon></span>
@@ -415,7 +415,7 @@ bottom: 5px;
     <img src="{{ asset($p->product_url) }}" class="img-fluid rounded thumbnail-image">
 </div>
 
-    
+
 
         </div>
 
@@ -423,10 +423,14 @@ bottom: 5px;
         <div class="product-detail-container p-2">
             <div class="d-flex justify-content-between align-items-center">
                     <h5 class="dress-name">{{$p->product_name}}</h5>
-                    
+
                     <div class="d-flex flex-column mb-2">
 
-                        <span class="new-price">{{$p->price}}$</span>
+                        <span class="new-price" id="product-price">
+                            {{ number_format($p->price * $apiCurrency['conversion_rates'][auth()->user()->getCurrency->currency_code], 2) }} {{ auth()->user()->getCurrency->currency_code }}
+                        </span>
+
+
                         <small class="old-price text-right"></small>
                     </div>
 
@@ -435,22 +439,25 @@ bottom: 5px;
             <h6 class="dress-description">{{$p->description}}</h6>
         <div class="d-flex justify-content-between align-items-center pt-1">
 
-       
 
-            
-            
+
+
+
 
         </div>
 
             <!-- Contact and shoppingg cartttttt-->
         <div class="d-flex justify-content-between align-items-center pt-1">
         <div class="d-flex justify-content-center">
-            
+
                 <a href="">
                 <button class="buy d-flex align-items-center"><ion-icon name="call"></ion-icon> Contact</button>
                 </a>
             </div>
              <div class="d-flex justify-content-center">
+                 <a href="{{route('addProductReview',$p->id)}}">
+                     <button class="buy d-flex align-items-center"><ion-icon name="chatbox-ellipses-outline"></ion-icon> Add Review</button>
+                 </a>
                 <form action="{{ route('addToCart') }}" method="POST">
                     @csrf
                     <input type="hidden" name="productId" value="{{ $p->id }}">
@@ -459,13 +466,13 @@ bottom: 5px;
         </div>
 
 
-            
-            
 
-            
+
+
+
         </div>
 
-    
+
 
 </div>
 
@@ -521,5 +528,46 @@ bottom: 5px;
 <!-- Bootstrap JS -->
 <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Add this script to your Blade template or external JavaScript file -->
+<script>
+    $(document).ready(function() {
+        // Function to update prices based on currency change
+        $('#baseCurrencySelect').change(function() {
+            var currencyId = $(this).val();
+
+            // Make AJAX request to fetch updated exchange rates
+            $.ajax({
+                url: '/update-exchange-rates',
+                type: 'POST',
+                data: {
+                    currency_id: currencyId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Update prices on the page based on the new exchange rates
+                    updatePrices(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        // Function to update prices on the page
+        function updatePrices(exchangeRates) {
+            // Loop through each product and update its price
+            $('#product-price').each(function() {
+                var price = parseFloat($(this).data('price'));
+                var currencyCode = $(this).data('currency-code');
+                var convertedPrice = price * exchangeRates[currencyCode];
+
+                // Update the price on the page
+                $(this).text(convertedPrice.toFixed(2) + ' ' + currencyCode);
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
