@@ -137,8 +137,10 @@ Route::put('editStore/{store_id}/{user_id}',[StoreController::class,'updateStore
 //products view route
 Route::get('/productsView/{store_id}',[ProductController::class,'productView'])->name('productsView');
 Route::get('/addproductsView/{store_id}',[ProductController::class,'addProductView'])->name('addProductView');
-
+Route::post('/product/{product_id}/delete',[ProductController::class,'deleteProduct'])->name('deleteProduct');
 Route::post('/addproductsView/{store_id}',[ProductController::class,'createProduct'])->name('addProduct');
+Route::get('/products/{product_id}/edit', [ProductController::class, 'editProductView'])->name('editProductView');
+Route::post('/products/{product_id}/edit', [ProductController::class, 'editProduct'])->name('editProduct');
 
 //buyer Stores view
 route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerStores');
@@ -146,9 +148,8 @@ route::get('/buyer/store/{id}/product',[BuyerController::class,'storeProductView
 
 //add to shopping cart
 Route::post('/add-to-cart', [CartController::class,'addToCart'])->name('addToCart');
-
-
-
+Route::get('/search/{store_id}', [BuyerController::class,'search_category'])->name('search');
+Route::get('/sort/{store_id}', [BuyerController::class, 'sort'])->name('sort');
 
 
 

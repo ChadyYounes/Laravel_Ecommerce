@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Models\Category;
 use Illuminate\Support\Facades\Http;
 
 class BuyerController extends Controller
@@ -29,8 +30,10 @@ class BuyerController extends Controller
         $response=Http::get('https://v6.exchangerate-api.com/v6/96c4bfcf9462e8a2c4748b48/latest/USD');
         $apiCurrency=$response->json();
         $product = Product::where('store_id',$store->id)->get();
+        $categories = Category::all();
+
         $currencies=Currency::all();
-        return view('buyerLayout.storeProducts', compact( 'store','user','product','currencies','apiCurrency'));
+        return view('buyerLayout.storeProducts', compact( 'store','user','product','currencies','apiCurrency','categories'));
     }
     public function viewEvents()
     {
@@ -107,6 +110,63 @@ class BuyerController extends Controller
         $follow->delete();
         return redirect()->back();
     }
+
+    public function search_category(Request $request, $store_id) {
+        // Get the search value and selected category ID
+        $search = $request->input('search');
+        $category_id = $request->input('category');
+    
+        // Search in the name column from the categories table
+        $categories = Category::query()
+            ->where('category_name', 'LIKE', "%{$search}%")
+            ->get();
+    
+        // Filter products by category if a category is selected
+        if ($category_id) {
+            $product = Product::where('store_id', $store_id)
+                ->whereHas('getCategory', function ($query) use ($category_id) {
+                    $query->where('category_id', $category_id);
+                })
+                ->get();
+        } else {
+            // If no category is selected, get all products for the store
+            $product = Product::where('store_id', $store_id)->get();
+        }
+    
+        $store = Store::find($store_id);
+        $user = Auth::user();
+    
+        return view('buyerLayout.storeProducts', compact('store', 'user', 'product', 'categories'));
+    }
+    
+    public function sort(Request $request, $store_id) {
+        // Get the selected sorting option
+        $sort = $request->input('sort', 'asc'); // Default sorting by ascending price
+    
+        // Filter products by store
+        $productsQuery = Product::where('store_id', $store_id);
+    
+        // Sorting
+        if ($sort === 'desc') {
+            $product = $productsQuery->orderBy('price', 'desc')->get();
+        } else {
+            $product = $productsQuery->orderBy('price', 'asc')->get();
+        }
+    
+        // Get all categories
+        $categories = Category::all();
+    
+        $store = Store::find($store_id);
+        $user = Auth::user();
+    
+        // Return the sorted products view with categories
+        return view('buyerLayout.storeProducts', compact('store', 'user', 'product', 'categories'));
+    }
+    
+    
+    
+    // Method to sort products by price
+   
 
     public function updateBaseCurrency(Request $request) {
         $user = Auth::user();
