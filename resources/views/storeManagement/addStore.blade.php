@@ -5,90 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/storeForm.css') }}">
     <title>Add Store</title>
-       <!-- Google Web Fonts -->
-
-        <!-- Icon Font Stylesheet -->
-
-        <!-- Template Stylesheet -->
         <!--  Stylesheet -->
-        <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
-
-        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
-
-
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
-
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <!-- fontawesome -->
-    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}"> --}}
     <!-- bootstrap -->
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-
-    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+ <!-- owl carousel -->
+ <link rel="stylesheet" href={{asset("assets/css/owl.carousel.css")}}>
+ <!-- magnific popup -->
+ <link rel="stylesheet" href={{asset("assets/css/magnific-popup.css")}}>
+ <!-- animate css -->
+ <link rel="stylesheet" href={{asset("assets/css/animate.css")}}>
+ <!-- mean menu css -->
+ <link rel="stylesheet" href={{asset("assets/css/meanmenu.min.css")}}>
+ <!-- main style -->
+ <link rel="stylesheet" href={{asset("assets/css/main.css")}}>
     <!-- responsive -->
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
-
-          #logout-div {
-    background-color: #ddd;
-    padding: 10px;
-    display: none;
-    border-radius: 5px;
-    position: absolute;
-    z-index: 999;
-    right: 5%;
-    width: 150px; /* Adjust width as needed */
-}
-
-.logout-button  {
-    background-color: white;
-    color: darkred;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.edit-profile-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.username {
-    color: black;
-}
-
-
-.logout-button:hover,
-.edit-profile-button:hover {
-    background-color: lightgray;
-}
-
-#user-icon {
-    position: relative;
-}
-
-.logout-div {
-    position: absolute;
-    width: 150px;
-}
 #popup {
     position: fixed;
     top: 0;
@@ -130,6 +72,25 @@
 #image_preview {
     margin-left: 10px;
 }
+
+.animated-text {
+      overflow: hidden; /* Ensures the text only appears as it animates */
+      border-right: .15em solid orange; /* Cursor effect */
+      white-space: nowrap; /* Keeps the text on a single line */
+      margin: 0 auto; /* Center the text container */
+      letter-spacing: .15em; /* Adds spacing between letters */
+      animation: typing 3.5s steps(30, end), blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: orange }
+    }
 </style>
 </head>
 <body>
@@ -137,53 +98,20 @@
 
 <!-- navbar -->
 <body>
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
-                <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
-                <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
-                <li><a href="#">Chats</a></li>
-                <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
-            </ul>
-            <h1 class="logo">FlipCart</h1>
-        </div>
-    </nav>
-  <!-- Logout div -->
-
-   <div id="logout-div" class="logout-div">
-        <p class="username">{{$user->name}}</p><hr>
-        <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
-        <!-- Logout form -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
-
-        <!-- Error display -->
-        <div id="logout-error" class="logout-error" style="display: none;"></div>
-    </div>
-
-    <!-- Include the JavaScript code -->
-    <script>
-        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-        document.getElementById('user-icon').addEventListener('click', function() {
-            var logoutDiv = document.getElementById('logout-div');
-            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
-                logoutDiv.style.display = 'block';
-            } else {
-                logoutDiv.style.display = 'none';
-            }
-        });
-    </script>
+  
+@include('storeManagement.sellerNav')
 <!--end navbar-->
-
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3><span class="orange-text">Add a Store</h3>
+                    <p class="animated-text">You can create any store that you want..</p>
+                </div>
+            </div>
+        </div>
+        <div class="sectionForm">
 <form method="POST" action="{{route('createStore' , ['user_id' => $user->id])}}" enctype="multipart/form-data">
         @csrf
     <ul class="form-style-1">
@@ -219,6 +147,7 @@
     </li>
 </ul>
 </form>
+</div>
 @if(session('success'))
 <div id="popup">
         <div id="popup-content">
@@ -274,4 +203,5 @@
 
 
 </body>
+@include('footer.footer')
 </html>

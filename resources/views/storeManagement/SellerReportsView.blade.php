@@ -6,206 +6,168 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <link href="{{asset("css/productCard.css")}}" rel="stylesheet">
-    <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
-    <link href="{{asset("css/logout.css")}}" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
-    
-    <!-- Template Stylesheet -->
-    <link href="{{asset("css/style.css")}}" rel="stylesheet">
-    <!-- Template Stylesheet -->
+    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/productCard.css')}}" rel="stylesheet">
+    <link href="{{asset('css/storeReport.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
-<!-- favicon -->
-<link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
-<!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-<!-- fontawesome -->
-<link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
-<!-- bootstrap -->
-<link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-
-<link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
-<!-- responsive -->
-<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <style>
-        #logout-div {
-            background-color: #ddd;
-            padding: 10px;
-            display: none;
-            border-radius: 5px;
-            position: absolute;
-            z-index: 999;
-            right: 5%;
-            width: 150px; /* Adjust width as needed */
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
         }
-
-        .logout-button {
-            background-color: white;
-            color: darkred;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
         }
-
-        .edit-profile-button {
-            background-color: white;
-            color: black;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;
-            font-weight: bold;
+        .status-canceled {
+            background-color: #f8d7da;
+            color: #721c24;
         }
-
-        .username {
-            color: black;
+        .status-shipped {
+            background-color: #cce5ff;
+            color: #004085;
         }
-
-        .logout-button:hover,
-        .edit-profile-button:hover {
-            background-color: lightgray;
+        .error ul {
+            color: red;
         }
-
-        .logout-div {
-            position: absolute;
-            width: 150px; 
-        }
-        [type="date"] {
-  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
-}
-[type="date"]::-webkit-inner-spin-button {
-  display: none;
-}
-[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-}
-
-
-label {
-  display: block;
-}
-input {
-  border: 1px solid #c4c4c4;
-  border-radius: 5px;
-  background-color: #fff;
-  padding: 3px 5px;
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
-  width: 190px;
-}
-.dateHeaders{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.innerHeader{
-    display: flex;
-    flex-direction: column;
-    margin-right: 10%;
-    margin-left: 10%;
-
-}
     </style>
 </head>
 <body>
-
-    <!-- navbar -->
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-            </div>
-            <ul class="menu-items">
-                <li><a href="{{route('home',['user_id' => $user->id])}}">Home</a></li>
-                <li><a href="{{route('storeFormView',['user_id' => $user->id])}}">Create Store</a></li>
-                <li><a href="{{route('storeView' , ['user_id' => $user->id ])}}">Your stores</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
-            </ul>
-            <h1 class="logo">Navbar</h1>
-        </div>
-    </nav>
-    <!-- Logout div -->
-    <div id="logout-div" class="logout-div">
-        <p class="username">{{$user->name}}</p>
-        <hr>
-        <a href="{{ route('edit-profile') }}" class="edit-profile-button" style="text-decoration: none; font-size: 14px;">Edit Profile</a>
-        <!-- Logout form -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+    @include('storeManagement.sellerNav')
+    
+    <div class="container">
+        <!-- Form to filter by date -->
+        <form id="filter-form" action="{{ route('filterOrders') }}" method="POST">
             @csrf
-            <button type="submit" class="logout-button">Logout</button>
+            <div class="dateFields">
+                @if ($errors->any())
+                    <div class="error">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+        
+                <div class="date-group">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ old('start_date', now()->toDateString()) }}">
+        
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ old('end_date', now()->toDateString()) }}">
+                </div>
+                <button type="submit">Submit</button>
+            </div>
         </form>
         
-        <!-- Error display -->
-        <div id="logout-error" class="logout-error" style="display: none;"></div>
+
+        <!-- Dropdown for status filter -->
+        <div class="status-filter">
+            <label for="order_status">Filter by Status:</label>
+            <select id="order_status">
+                <option value="all">All</option>
+                <option value="delivered">Delivered</option>
+                <option value="pending">Pending</option>
+                <option value="canceled">Canceled</option>
+                <option value="shipped">Shipped</option>
+            </select>
+        </div>
+
+        <h1>Filtered Orders</h1>
+
+        <!-- Table container for vertical scroll -->
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Buyer Name</th>
+                        <th>Total Amount</th>
+                        <th>Delivery Address</th>
+                        <th>Order Status</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody id="order-table-body">
+                    @foreach ($orders as $order)
+                        <tr>
+                            <td>{{ $order->id }}</td>
+                            <td>{{ $order->getUser->name }}</td>
+                            <td>{{ $order->total_amount }}</td>
+                            <td>{{ $order->delivery_address }}</td>
+                            <td class="status-{{ $order->order_status }}">
+                                {{ ucfirst($order->order_status) }}
+                            </td>
+                            <td>{{ $order->created_at }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- Include the JavaScript code -->
     <script>
-        // JavaScript to toggle the visibility of the logout div when the user clicks on the user icon
-        document.getElementById('user-icon').addEventListener('click', function() {
-            var logoutDiv = document.getElementById('logout-div');
-            if (logoutDiv.style.display === 'none' || logoutDiv.style.display === '') {
-                logoutDiv.style.display = 'block';
-            } else {
-                logoutDiv.style.display = 'none';
-            }
+        // Handle real-time status filter
+        document.getElementById('order_status').addEventListener('change', function() {
+            var status = this.value;
+
+            // Perform an AJAX request to filter the orders by status
+            fetch("{{ route('filterByStatus') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    status: status
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Clear current table rows
+                var tableBody = document.getElementById('order-table-body');
+                tableBody.innerHTML = '';
+
+                // Populate new rows based on the filtered data
+                data.orders.forEach(order => {
+                    var row = document.createElement('tr');
+
+                    var orderId = document.createElement('td');
+                    orderId.textContent = order.id;
+                    row.appendChild(orderId);
+
+                    var buyerName = document.createElement('td');
+                    buyerName.textContent = order.buyer_name;
+                    row.appendChild(buyerName);
+
+                    var totalAmount = document.createElement('td');
+                    totalAmount.textContent = order.total_amount;
+                    row.appendChild(totalAmount);
+
+                    var deliveryAddress = document.createElement('td');
+                    deliveryAddress.textContent = order.delivery_address;
+                    row.appendChild(deliveryAddress);
+
+                    var orderStatus = document.createElement('td');
+                    orderStatus.textContent = order.order_status.charAt(0).toUpperCase() + order.order_status.slice(1);
+                    orderStatus.className = 'status-' + order.order_status;
+                    row.appendChild(orderStatus);
+
+                    var createdAt = document.createElement('td');
+                    createdAt.textContent = order.created_at;
+                    row.appendChild(createdAt);
+
+                    // Append the row to the table body
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error:', error));
         });
     </script>
-
-<!-- end navbar -->    
-<form id="filter-form" action="{{ route('filterOrders') }}" method="POST">
-        @csrf
-        <div class="dateFields">
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date">
-
-            <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date">
-
-            <button type="submit">Submit</button>
-        </div>
-    </form>
-    <h1>Filtered Orders</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Buyer ID</th>
-                <th>Total Amount</th>
-                <th>Delivery Address</th>
-                <th>Order Status</th>
-                <th>Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($orders as $order)
-                <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->buyer_id }}</td>
-                    <td>{{ $order->total_amount }}</td>
-                    <td>{{ $order->delivery_address }}</td>
-                    <td>{{ $order->order_status }}</td>
-                    <td>{{ $order->created_at }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
 </body>
 </html>

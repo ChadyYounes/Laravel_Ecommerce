@@ -11,6 +11,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\FacebookAuthController;
 use App\Http\Controllers\PagesControllers\HomeController;
+use App\Http\Controllers\DataTable\SellerDataTableController;
 use App\Http\Controllers\PagesControllers\SetProfileController;
 use App\Http\Controllers\PagesControllers\EditProfileController;
 use App\Http\Controllers\ProductController;
@@ -19,7 +20,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\BotManController;
+
 /********************************************************************* */
 /********************************Amine Start*************************** */
 /************************************************ */
@@ -104,9 +108,11 @@ Route::get('/success', [StripeController::class,'success'])->name('success');
 //kassem
 //chat form route
 Route::get('/chatsList',[ChatController::class,'chatsList'])->name('chats_list');
-Route::get('/chatsList/{id}',[ChatController::class,'chatForm'])->name('chat_form');
+Route::get('/chatsForm/{id}',[ChatController::class,'chatForm'])->name('chat_form');
 Route::post('/send-message/{receiver_id}', [ChatController::class, 'sendMessage'])->name('sendMessage');
 Route::post('/update-base-currency',[CurrencyController::class,'changeBaseCurrency'])->name('update-base-currency');
+Route::post('/chat/clear-messages/{receiver_id}', [ChatController::class, 'clearMessages'])->name('clearMessages');
+//
 Route::post('/storeEvent',[EventController::class,'storeEvent'])->name('storeEvent');
 Route::get('/buyer/viewEvents',[BuyerController::class,'viewEvents'])->name('viewEvents');
 Route::get('/buyer/myEvents',[BuyerController::class,'myEvents'])->name('myEvents');
@@ -119,6 +125,8 @@ Route::post('/unfollowStore',[BuyerController::class,'unfollowStore'])->name('un
 //Route::post('/update-base-currency', [BuyerController::class,'updateBaseCurrency'])->name('update.base.currency');
 Route::get('addProductReview/{id}',[BuyerController::class,'addProductReview'])->name('addProductReview');
 Route::post('/addProductReviewStore',[BuyerController::class,'addProductReviewStore'])->name('addProductReviewStore');
+
+
 //chady
 //stores routes
 Route::get('/addStore/{user_id}',[StoreController::class,'storeForm'])->name('storeFormView');
@@ -128,6 +136,8 @@ Route::get('/viewStore/{user_id}',[StoreController::class,'storeView'])->name('s
 Route::get('/viewStore/Report/{user_id}',[StoreController::class,'SellerReportsView'])->name('SellerReports');
 
 Route::post('/filter-orders', [StoreController::class, 'filterOrders'])->name('filterOrders');
+Route::post('/filter-by-status', [StoreController::class, 'filterByStatus'])->name('filterByStatus');
+
 //store delete
 Route::delete('/viewStore/{store_id}',[StoreController::class,'deleteStore'])->name('deleteStore');
 //store edit
@@ -145,6 +155,7 @@ Route::post('/products/{product_id}/edit', [ProductController::class, 'editProdu
 //buyer Stores view
 route::get('/buyer/stores',[BuyerController::class,'buyerLayout'])->name('buyerStores');
 route::get('/buyer/store/{id}/product',[BuyerController::class,'storeProductView'])->name('storeProductView');
+Route::get('/filterStores', [BuyerController::class, 'filterStores'])->name('filterStores');
 
 //add to shopping cart
 Route::post('/add-to-cart', [CartController::class,'addToCart'])->name('addToCart');
@@ -152,6 +163,19 @@ Route::get('/search/{store_id}', [BuyerController::class,'search_category'])->na
 Route::get('/sort/{store_id}', [BuyerController::class, 'sort'])->name('sort');
 
 
+//Data tables:
+Route::get('seller/stores/data', [SellerDataTableController::class, 'getSellerStoresData'])->name('seller.stores.data');
+Route::get('store/{store_id}/products-data', [SellerDataTableController::class, 'productData'])->name('productsData');
 
+
+//pop ups card home seller total amount
+Route::get('seller/gained/details', [HomeController::class, 'getDetails'])->name('seller.gained.details');
+// web.php
+Route::get('/seller/orders/details', [HomeController::class, 'getOrderDetails'])->name('seller.orders.details');
+//Seller botman
+Route::get('/botman', function () {
+return view('botman');
+});
+Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\BotManController@handle');
 
 

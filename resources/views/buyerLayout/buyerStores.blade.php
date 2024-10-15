@@ -3,173 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlipCart -BuyerStores</title>
-    <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+    <title>Stores</title>
 
-        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
 
-        <!-- Template Stylesheet -->
-        <link href="{{asset("css/style.css")}}" rel="stylesheet">
+    <!-- Template Stylesheet -->
+    <link href="{{asset("css/style.css")}}" rel="stylesheet">
 
-        	<!-- favicon -->
-            <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
-            <!-- google font -->
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-            <!-- fontawesome -->
-            <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
-            <!-- bootstrap -->
-            <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
 
-            <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
-            <!-- responsive -->
-            <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
-            <style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 
-   #logout-div {
-    background-color: #ddd;
-    padding: 10px;
-    display: none;
-    border-radius: 5px;
-    position: absolute;
-    z-index: 999;
-    right: 5%;
-    width: 150px; /* Adjust width as needed */
-}
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+    <!-- Include jQuery before Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
 
-.logout-button  {
-    background-color: white;
-    color: darkred;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.edit-profile-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.username {
-    color: black;
-}
-#popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
 
-#popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    text-align: center; /* Center text */
-}
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
-#proceed-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 16px; /* Smaller padding */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    <!-- Custom CSS -->
+    <style>
+        #store-filter-form {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
 
-.logout-button:hover,
-.edit-profile-button:hover {
-    background-color: lightgray;
-}
+        .single-product-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            transition: transform 0.2s ease;
+        }
 
-#user-icon {
-    position: relative;
-}
+        .single-product-item:hover {
+            transform: scale(1.05);
+        }
 
-.logout-div {
-    position: absolute;
-    width: 150px;
-}
-.storesHeader{
-    text-align:center;
-    margin-top:5%;
-    color:    #1e90ff;
-}
-</style>
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .cart-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .cart-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .no-results {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ff0000;
+        }
+        .chat-btn {
+            border: 2px solid orange; 
+            border-radius: 5px;
+            background-color: transparent;
+            color: orange; 
+            padding: 10px 20px; 
+            margin-top: 10px; 
+            cursor: pointer; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .chat-btn:hover {
+            background-color: orange; 
+            color: white; 
+        }
+
+    </style>
 </head>
-  <!-- navbar -->
-  <body>
-  @include('buyerLayout.buyerNav',['currencies'=>$currencies])
-<!--end navbar-->
-   <!-- Iterate through stores and organize them into rows with three cards each -->
-@php $storesChunks = $stores->chunk(3); @endphp
-@foreach($storesChunks as $chunk)
-<div class="row">
-    @foreach($chunk as $store)
-    <div class="col-lg-4 col-md-6 text-center">
-    <div class="single-product-item">
-        <div class="product-image">
-            <a href="">
-                <img src="{{ asset($store->image_url) }}" alt="">
-            </a>
+
+<body>
+    <!-- Navbar -->
+    @include('buyerLayout.buyerNav', ['currencies' => $currencies])
+    <div class="row" style="margin-top: 55px;">
+        <div class="col-lg-8 offset-lg-2 text-center">
+            <div class="section-title">
+                <h3><span class="orange-text">There are </span>{{$total_stores}} stores</h3>
+                <p class="animated-text"> </p>
+            </div>
         </div>
-        <h3>{{ $store->store_name }}</h3>
-        <p class="product-price"><span>{{ $store->store_category }}</span></p>
-        <a href="{{ route('storeProductView', ['id' => $store->id]) }}" class="cart-btn">Shop</a>
-
-
-            <input type="hidden" name="store_id" value="{{$store->id}}">
-            @if(auth()->user()->isFollowing($store->id))
-                <form action="{{route('unfollowStore')}}" method="post" style="display: inline">
-                @csrf
-                <input type="hidden" name="store_id" value="{{$store->id}}">
-                <button type="submit" style="background-color: #f28123;border-style: none; border-radius: 40px; padding:12px" class="btn btn-primary">UnFollow</button>
-                </form>
-            @else
-            <form action="{{route('followStore')}}" method="post" style="display: inline">
-                @csrf
-                <input type="hidden" name="store_id" value="{{$store->id}}">
-                <button type="submit" style="background-color: #f28123;border-style: none; border-radius: 40px; padding:12px" class="btn btn-primary">Follow</button>
-            </form>
-            @endif
-
-        <a href="{{route('chat_form',$store->getUser->id)}}" class="cart-btn chat-btn">Chat</a>
-
-
-
     </div>
-</div>
+    <!-- Filter Form -->
+    <div class="container mt-3" style="margin-bottom: 30px;">
+        <form id="store-filter-form" class="row" style="border: 2px solid orange; padding: 20px 20px;">
+            <h4>Filter:</h4>
+            <div class="col-md-6">
+                <input type="text" name="store_name" class="form-control" placeholder="Search by store name" id="store-search">
+            </div>
+            <div class="col-md-4">
+                <select name="store_category" class="form-control">
+                    <option value="">All Categories</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+           
+        </form>
+    </div>
 
+    <div id="store-list-container">
+        @include('buyerLayout.storeList', ['stores' => $stores])
+    </div>
 
-    @endforeach
-</div>
-@endforeach
-<br>
-<br>
-<div class="custom-pagination">
-    {{ $stores->links() }}
-</div>
-<br><br>
-<!-- -->
-<br><br>
+    <div id="no-results" class="no-results" >
+        No results found.
+    </div>
+    <script>
+    $(document).ready(function() {
+    $('#store-search, #store-filter-form select').on('keyup change', function() {
+        let searchTerm = $('#store-search').val();
+
+        $.ajax({
+            url: '{{ route('filterStores') }}',
+            method: 'GET',
+            data: $('#store-filter-form').serialize(),
+            success: function(response) {
+                if (response.html.trim() === "") {
+                    $('#store-list-container').html(''); 
+                    $('#no-results').show(); 
+                } else {
+                    $('#store-list-container').html(response.html); 
+                    $('#no-results').hide(); 
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error); 
+            }
+        });
+    });
+});
+
+    </script>
+    @include('footer.footer')
 </body>
 </html>

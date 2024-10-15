@@ -9,93 +9,26 @@
         <meta content="" name="description">
 
         <!--  Stylesheet -->
-        <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
-
-        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
         <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
-
-
         <link href="{{asset("css/style.css")}}" rel="stylesheet">
-
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-
-    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
-    <!-- responsive -->
-    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
-        <style>
-#logout-div {
-    background-color: #ddd;
-    padding: 10px;
-    display: none;
-    border-radius: 5px;
-    position: absolute;
-    z-index: 999;
-    right: 5%;
-    width: 150px; /* Adjust width as needed */
-}
-
-.logout-button  {
-    background-color: white;
-    color: darkred;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.edit-profile-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.username {
-    color: black;
-}
-
-.logout-button:hover,
-.edit-profile-button:hover {
-    background-color: lightgray;
-}
-
-#user-icon {
-    position: relative;
-}
-
-.logout-div {
-    position: absolute;
-    width: 150px;
-}
-
-        </style>
+		<!-- favicon -->
+		<link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+		<!-- google font -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+		<!-- fontawesome -->
+		<link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+		<!-- responsive -->
+		<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+       
     </head>
-
-
          <!-- navbar -->
 <body>
-@include('buyerLayout.buyerNav',['currencies'=>$currencies])
+	@include('buyerLayout.buyerNav',['currencies'=>$currencies])
 <!--end navbar-->
-
-
 <!-- home -->
 
 
@@ -340,78 +273,7 @@ Don't wait! Treat yourself to the taste of luxury without breaking the bank. Gra
 		</div>
 	</div>
 	<!-- end latest news -->
-
-
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>t Flipcart, we're dedicated to providing you with an unparalleled shopping experience. With a commitment to quality, convenience, and customer satisfaction, we strive to be your trusted destination for all your shopping needs</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Lebanon, Beirut.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Web II</a>,  All Rights Reserved.</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
-
+@include('footer.footer')
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->

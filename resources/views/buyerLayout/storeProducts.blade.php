@@ -5,52 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$store->store_name}} | products</title>
-
-
     <link rel="stylesheet" type="text/css" href="{{asset("assets/css/productCardStyle.css")}}">
-
     <style>
-
-        #logout-div {
-            background-color: #ddd;
-            padding: 10px;
-            display: none;
-            border-radius: 5px;
-            position: absolute;
-            z-index: 999;
-            right: 5%;
-            width: 150px; /* Adjust width as needed */
-        }
-
-        .logout-button  {
-            background-color: white;
-            color: darkred;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;font-weight: bold;
-        }
-        .edit-profile-button {
-            background-color: white;
-            color: black;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;font-weight: bold;
-        }
-        .username {
-            color: black;
-        }
         #popup {
             position: fixed;
             top: 0;
@@ -78,25 +34,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-        }
-
-        .logout-button:hover,
-        .edit-profile-button:hover {
-            background-color: lightgray;
-        }
-
-        #user-icon {
-            position: relative;
-        }
-
-        .logout-div {
-            position: absolute;
-            width: 150px;
-        }
-        .storesHeader{
-            text-align:center;
-            margin-top:5%;
-            color:    #1e90ff;
         }
 
         body{
@@ -412,7 +349,7 @@ bottom: 5px;
                 </div>
 
                 <div class="image-container">
-    <img src="{{ asset($p->product_url) }}" class="img-fluid rounded thumbnail-image">
+    <img src="{{ asset('storage/' . $p->product_url) }}" class="img-fluid rounded thumbnail-image">
 </div>
 
 
@@ -450,7 +387,7 @@ bottom: 5px;
         <div class="d-flex justify-content-between align-items-center pt-1">
         <div class="d-flex justify-content-center">
 
-                <a href="">
+                <a href="{{ route('chats_list', ['user_id' => $user->id])}}">
                 <button class="buy d-flex align-items-center"><ion-icon name="call"></ion-icon> Contact</button>
                 </a>
             </div>

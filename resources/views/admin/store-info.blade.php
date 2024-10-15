@@ -143,9 +143,6 @@
 </head>
 <body>
 
-
-
-
 <form method="POST" action="{{route('update-store-by-admin' , ['store_id' => $store->id])}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')

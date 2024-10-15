@@ -25,13 +25,17 @@ class SetProfileController extends Controller
                 'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:800',  
             ]);
     
+            // Set the default image path
+            $defaultImagePath = 'profile-images/avatarDefault.png';
+    
             if ($request->hasFile('image_url')) {
                 $image = $request->file('image_url');
                 $fileName = time() . '.' . $image->getClientOriginalExtension();
                 $filePath = 'profile-images/' . $fileName;
                 Storage::putFileAs('public', $image, $filePath);
             } else {
-                $fileName = null; 
+                // Use the default image if no file is uploaded
+                $fileName = $defaultImagePath; 
             }
     
             // Create a new profile instance

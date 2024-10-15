@@ -1,5 +1,31 @@
+<!-- <ion-icon name="home-outline"></ion-icon> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--  Stylesheet -->
+        <link href="{{asset("css/navbar.css")}}" rel="stylesheet">
+        <link href="{{asset("css/logout.css")}}" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/9055df38da.js" crossorigin="anonymous"></script>
+        <link href="{{asset("css/style.css")}}" rel="stylesheet">
+         <!-- favicon -->
+         <link rel="shortcut icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
+         <!-- google font -->
+         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+         <!-- fontawesome -->
+         <link rel="stylesheet" href="{{asset('assets/css/all.min.css')}}">
+         <!-- bootstrap -->
+         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
 
-<!-- navbar.blade.php -->
+         <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+         <!-- responsive -->
+         <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">   
+        
+</head>
+<body>
 <nav class="navbar">
     <div class="navbar-container container">
         <input type="checkbox" name="" id="">
@@ -9,14 +35,16 @@
             <span class="line line3"></span>
         </div>
         <ul class="menu-items">
-            <li><a href="{{route('home')}}">Home <ion-icon name="home-outline"></ion-icon></a></li>
-            <li><a href="{{route('buyerStores')}}">View Stores <ion-icon name="storefront-outline"></ion-icon></a></li>
-            <li><a href="{{route('shoppingCart')}}">Shopping cart <ion-icon name="cart-outline"></ion-icon></a></li>
-            <li><a href="{{route('viewEvents')}}">View Events <ion-icon name="pricetag-outline"></ion-icon></a></li>
-            <li><a href="{{route('myEvents')}}">My Events</a></li>
-            <li><a href="#" id="user-icon" class="my-auto">Logout</a></li>
+            <li><a href="{{route('home')}}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home </a></li>
+            <li><a href="{{route('buyerStores')}}" class="{{ request()->routeIs('buyerStores') ? 'active' : '' }}">View Stores</a></li>
+            <li><a href="{{route('shoppingCart')}}" class="{{ request()->routeIs('shoppingCart') ? 'active' : '' }}">Shopping cart</a></li>
+            <li><a href="{{route('viewEvents')}}" class="{{ request()->routeIs('viewEvents') ? 'active' : '' }}">View Events</a></li>
+            <li><a href="{{route('myEvents')}}" class="{{ request()->routeIs('myEvents') ? 'active' : '' }}">My Events</a></li>
+            <li><a href="{{ route('chats_list', ['user_id' => $user->id])}}" class="{{ request()->routeIs('chats') ? 'active' : '' }}">Chats</a></li>
+            <li><a href="#" id="user-icon" class="my-auto">Settings</a></li>
         </ul>
-        <h1 class="logo">FlipCart</h1>
+        <h1 class="logo"><a href="{{route('home', ['user_id' => $user->id])}}"
+            style="text-decoration:none;">AEZ e-commerce</h1></a>
     </div>
 </nav>
 <div id="logout-div" class="logout-div">
@@ -86,3 +114,5 @@
         });
     });
 </script>
+</body>
+</html>

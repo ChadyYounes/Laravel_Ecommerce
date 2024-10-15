@@ -63,7 +63,7 @@
         <div class="sign-column w2">
             <div class="intro-p">
                 <div class="canvas-logo">
-                    <h2 class="logo">CRAK E-commerce</h2>
+                    <h2 class="logo">AEZ e-commerce</h2>
                 </div>
                 <div class="intro-content">
                     <div class="intro-title">Your Best E-commerce</div>
