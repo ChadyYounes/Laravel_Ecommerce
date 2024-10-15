@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/storeForm.css') }}">
     <title>Add Store</title>
        <!-- Google Web Fonts -->
-       
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         <!-- Icon Font Stylesheet -->
        
         <!-- Template Stylesheet -->
@@ -33,62 +33,6 @@
 <!-- responsive -->
 <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <style>
-        
-          #logout-div {
-    background-color: #ddd;
-    padding: 10px;
-    display: none;
-    border-radius: 5px;
-    position: absolute;
-    z-index: 999;
-    right: 5%;
-    width: 150px; /* Adjust width as needed */
-}
-
-.logout-button  {
-    background-color: white;
-    color: darkred;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.edit-profile-button {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
-    text-align: left;
-    transition: background-color 0.3s ease;font-weight: bold;
-}
-.username {
-    color: black;
-}
-
-
-.logout-button:hover,
-.edit-profile-button:hover {
-    background-color: lightgray;
-}
-
-#user-icon {
-    position: relative;
-}
-
-.logout-div {
-    position: absolute;
-    width: 150px; 
-}
 #popup {
     position: fixed;
     top: 0;
@@ -263,4 +207,5 @@
 
 
 </body>
+@include('footer.footer')
 </html>

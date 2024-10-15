@@ -1,0 +1,141 @@
+/* General DataTables Styles */
+table.dataTable {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0;
+}
+
+table.dataTable th,
+table.dataTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table.dataTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.dataTable tr:hover {
+    background-color: #ddd;
+}
+
+table.dataTable th {
+    background-color: #4caf50;
+    color: white;
+    text-align: center;
+}
+
+/* Responsive DataTables */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Button styles */
+.dataTables_wrapper .dt-buttons {
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dt-buttons .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.dataTables_wrapper .dt-buttons .btn.copy {
+    background-color: #007bff;
+    color: white;
+}
+
+.dataTables_wrapper .dt-buttons .btn.copy:hover {
+    background-color: #0056b3;
+}
+
+.dataTables_wrapper .dt-buttons .btn.csv {
+    background-color: #28a745;
+    color: white;
+}
+
+.dataTables_wrapper .dt-buttons .btn.csv:hover {
+    background-color: #218838;
+}
+
+.dataTables_wrapper .dt-buttons .btn.pdf {
+    background-color: #dc3545;
+    color: white;
+}
+
+.dataTables_wrapper .dt-buttons .btn.pdf:hover {
+    background-color: #c82333;
+}
+
+/* Image Styling */
+table.dataTable img {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Custom styling for specific table IDs */
+#productsTable img {
+    border-radius: 10px;
+    height: 64px;
+    width: 74px;
+}
+/* Custom styles for DataTables buttons */
+.dataTables_wrapper .dt-buttons {
+    margin: 10px 0;
+    margin-left: 7px;
+}
+
+.dataTables_wrapper .dt-buttons .btn {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Text color */
+    border: 1px solid #007bff; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px 12px; /* Padding */
+    font-size: 12px; /* Font size */
+    margin-right: 15px; /* Spacing between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transition effect */
+}
+
+.dataTables_wrapper .dt-buttons .btn:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+.dataTables_wrapper .dt-buttons .btn:active {
+    background-color: #004085; /* Even darker background on click */
+    border-color: #004085; /* Even darker border on click */
+}
+
+.dataTables_wrapper .dt-buttons .btn.print {
+    background-color: #28a745; /* Green for print button */
+    border-color: #28a745; /* Green border for print button */
+}
+
+.dataTables_wrapper .dt-buttons .btn.print:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #218838; /* Darker green border on hover */
+}
+
+.dataTables_wrapper .dt-buttons .btn.csv {
+    background-color: #fd7e14; /* Orange for CSV button */
+    border-color: #fd7e14; /* Orange border for CSV button */
+}
+
+.dataTables_wrapper .dt-buttons .btn.csv:hover {
+    background-color: #e06c00; /* Darker orange on hover */
+    border-color: #e06c00; /* Darker orange border on hover */
+}
+
+.dataTables_wrapper .dt-buttons .btn.pdf {
+    background-color: #dc3545; /* Red for PDF button */
+    border-color: #dc3545; /* Red border for PDF button */
+}
+
+.dataTables_wrapper .dt-buttons .btn.pdf:hover {
+    background-color: #c82333; /* Darker red on hover */
+    border-color: #c82333; /* Darker red border on hover */
+}

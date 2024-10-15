@@ -18,10 +18,13 @@ class BuyerController extends Controller
 {
     public function buyerLayout() {
         $stores = Store::paginate(6);
+        $total_stores = Store::count();
         $user = Auth::user();
         $currencies=Currency::all();
+        $categories = Category::all();
+        $user = Auth::user();
 //        dd($currencies);
-        return view('buyerLayout.buyerStores', compact( 'stores','user','currencies'));
+        return view('buyerLayout.buyerStores', compact( 'stores','total_stores','user','currencies','categories', 'user' ));
     }
 
     public function storeProductView($store_id) {
@@ -201,5 +204,27 @@ class BuyerController extends Controller
 
         return redirect()->back();
     }
-
+    //Filters
+    public function filterStores(Request $request) {
+        $query = Store::query();
+    
+        // Search by store name
+        if ($request->has('store_name')) {
+            $query->where('store_name', 'LIKE', '%' . $request->store_name . '%');
+        }
+    
+        // Filter by store category
+        if ($request->has('store_category') && $request->store_category) {
+            $query->where('store_category', $request->store_category);
+        }
+    
+        $stores = $query->paginate(6);
+    
+        return response()->json([
+            'html' => view('buyerLayout.storeList', compact('stores'))->render()
+        ]);
+    }
+    
+    
+    
 }

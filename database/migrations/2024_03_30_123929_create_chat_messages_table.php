@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('sender_id',false,true);
             $table->bigInteger('receiver_id',false,true);
-//            $table->foreignId('sender_id')->references('users')->on('id')->onDelete('cascade');
-//            $table->foreignId('receiver_id')->references('users')->on('id')->onDelete('cascade');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
             $table->longText('message_content');

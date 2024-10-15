@@ -15,5 +15,6 @@ class CurrencyController extends Controller
         $user=Auth::user();
         $user->base_currency=$request->currency_id;
         $user->save();
+
     }
 }

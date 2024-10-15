@@ -11,6 +11,7 @@ use App\Models\ShoppingCartItem;
 use App\Models\ShoppingCart;
 
 use App\Models\Product;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendReceiptOrder;
 use Illuminate\Database\QueryException;
@@ -19,6 +20,7 @@ class StripeController extends Controller
     public function shoppingCart()
 {
     $user = Auth::user();
+    $currencies=Currency::all();
     $shoppingCart = $user->getShoppingCart;
     $totalPrice = 0;
 
@@ -31,7 +33,7 @@ class StripeController extends Controller
         }
     }
 
-    return view('payment.shoppingCart', compact('user', 'shoppingCart', 'totalPrice'));
+    return view('payment.shoppingCart', compact('user', 'shoppingCart', 'totalPrice', 'currencies'));
 }
 
           

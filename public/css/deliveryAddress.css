@@ -15,7 +15,12 @@ body {
 
 /* Header Styles */
 header {
-    background-color: #333;
+    background: radial-gradient(
+        circle at 10% 20%,
+        rgb(251, 221, 19) 0.1%,
+        rgb(255, 153, 1) 90%
+    );
+    letter-spacing: 1mm;
     color: #fff;
     padding: 10px 0;
     text-align: center;

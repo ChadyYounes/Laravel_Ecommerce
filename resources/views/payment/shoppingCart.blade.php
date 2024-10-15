@@ -6,8 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shopping cart</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <link href="{{asset('css/shoppingCard.css')}}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ffc107;
+    padding-bottom: 15px;
+}
 
+</style>
 </head>
 <body>
     <div class="container">
@@ -35,7 +54,7 @@
                                     <tr>
                                         <td data-th="Product">
                                             <div class="row">
-                                                <div class="col-sm-3 hidden-xs"><img src="{{ asset($item->getProduct->product_url) }}" width="100" height="100" class="img-responsive"/></div>
+                                                <div class="col-sm-3 hidden-xs"><img src="{{ asset('storage/' .$item->getProduct->product_url) }}" width="100" height="100" class="img-responsive"/></div>
                                                 <div class="col-sm-9">
                                                     <h4 class="nomargin">{{ $item->getProduct->product_name }}</h4>
                                                 </div>

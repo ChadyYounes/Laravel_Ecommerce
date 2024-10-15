@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use App\Models\Store;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\StoreFollower;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+
 class HomeController extends Controller
 {
-    public function homeView() {
+    public function homeView(Request $request) {
         $user = Auth::user();
-
         // Check if the user is authenticated
         if ($user) {
             switch ($user->role_id) {
@@ -25,9 +29,46 @@ class HomeController extends Controller
                     return view('homes.homeBuyer', compact('user','currencies'));
                     break;
                 case 2:
-                    // Seller
-                    return view('storeManagement.addStore', compact('user'));
-                    break;
+                //// Seller
+                $selectedDate = $request->input('date', Carbon::today()->format('Y-m-d')); 
+                $stores = Store::where('seller_id', $user->id)->with('getProducts')->get();
+                   // Calculate total orders on selected date
+                   $total_orders = Order::whereDate('created_at', $selectedDate)->count();
+
+
+                // Calculate total products sold on selected date
+                $totalProductsSoldToday = OrderItem::whereHas('getProduct', function ($query) use ($user) {
+                    $query->whereHas('getStore', function ($query) use ($user) {
+                        $query->where('seller_id', $user->id);
+                    });
+                })
+                ->whereHas('getOrder', function ($query) {
+                    $query->where('order_status', 'delivered');
+                })
+                ->whereDate('created_at', $selectedDate)
+                ->sum('quantity');
+
+                // Calculate total amount gained on selected date
+                $totalAmountGainedToday = OrderItem::whereHas('getProduct', function ($query) use ($user) {
+                    $query->whereHas('getStore', function ($query) use ($user) {
+                        $query->where('seller_id', $user->id);
+                    });//
+                })
+                ->whereHas('getOrder', function ($query) {
+                    $query->where('order_status', 'delivered');
+                })
+                ->whereDate('created_at', $selectedDate)
+                ->sum(DB::raw('quantity * unit_price'));
+
+                return view('homes.homeSeller', compact(
+                    'stores', 
+                    'total_orders',
+                    'totalProductsSoldToday', 
+                    'totalAmountGainedToday', 
+                    'selectedDate', 
+                    'user'  // Add the user to compact
+                ));
+                 break;
                 case 3:
                     // Admin
                     return $this->homeAdmin();
@@ -76,4 +117,63 @@ class HomeController extends Controller
         }
         return redirect()->route('set-profile');
     }
+
+    //Seller dashboard details
+    public function getDetails(Request $request)
+    {
+        try {
+            $date = $request->query('date', now()->format('Y-m-d'));
+
+            // Fetch orders based on the selected date
+            $orders = Order::whereDate('created_at', $date)
+                ->with('getOrderItem.getProduct.getStore') // Eager load the necessary relationships
+                ->get();
+
+            // Prepare data for the modal
+            $sales = $orders->flatMap(function ($order) {
+                return $order->getOrderItem->map(function ($item) {
+                    return [
+                        'product_name' => $item->getProduct->product_name,
+                        'store_name' => $item->getProduct->getStore->store_name,
+                        'price' => $item->unit_price * $item->quantity,
+                    ];
+                });
+            });
+
+            return response()->json(['sales' => $sales]);
+        } catch (\Exception $e) {
+            // Log the error and return a generic error response
+            Log::error('Error fetching sales details: ' . $e->getMessage());
+            return response()->json(['error' => 'Unable to fetch details'], 500);
+        }
+    }
+    public function getOrderDetails(Request $request)
+        {
+            $date = $request->input('date');
+
+            // Ensure the date is valid and format it as needed
+            if (!$date) {
+                return response()->json(['error' => 'Date is required'], 400);
+            }
+
+            // Query the orders based on the provided date
+            $orders = Order::whereDate('created_at', $date)
+                ->with(['getUser', 'getOrderItem.getProduct']) // Load related data
+                ->get();
+
+            $details = $orders->map(function ($order) {
+                return [
+                    'buyer_name' => $order->getUser->name,
+                    'address' => $order->getUser->getProfile->address ?? 'N/A',
+                    'product' => $order->getOrderItem->map(function ($item) {
+                        return $item->getProduct->product_name; // Assuming a Product model with a name field
+                    }),
+                    'store_name' => $order->getOrderItem->first()->getProduct->getStore->store_name ?? 'N/A', // Assuming a Store model
+                    'delivery_status' => $order->order_status // Adjust according to your Order model
+                ];
+            });
+
+            return response()->json(['sales' => $details]);
+        }
+
 }

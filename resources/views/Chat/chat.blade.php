@@ -4,24 +4,27 @@
     <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
 </head>
 <body>
+
 <section class="msger">
-    <header class="msger-header">
+    <header class="msger-header d-flex justify-content-between align-items-center">
         <div class="msger-header-title">
-            @if(auth()->user()->getRole->name === "seller")
-                <i class="fas fa-comment-alt"></i> Chatting with {{$sender->name}}
+            @if(auth()->user()->id === $sender->id)
+            <i class="fas fa-comment-alt"></i> Chatting with {{$receiver->name}}
             @else
-                <i class="fas fa-comment-alt"></i> Chatting with {{$receiver->name}}
+            <i class="fas fa-comment-alt"></i> Chatting with {{$sender->name}}
             @endif
         </div>
+        
         <div class="msger-header-options">
-            <span><i class="fas fa-cog"></i></span>
+            <a href="{{ route('chats_list') }}" class="btn btn-secondary go-to-chat-list-btn">Go to chat list</a>
         </div>
     </header>
 
     <main class="msger-chat">
         @foreach($messages as $message)
             <div class="msg {{ $message->sender_id == $sender->id ? 'right-msg' : 'left-msg' }}">
-                <div class="msg-img" style="background-image: url({{ $message->sender_id == $sender->id ? asset('path/to/sender/image') : asset('path/to/receiver/image') }})"></div>
+                <div class="msg-img" style="background-image: url({{ $message->sender_id == $sender->id ? asset('storage/' . ($sender->getProfile->image_url ?? 'profile-images/avatarDefault.png')) : asset('storage/' . ($receiver->getProfile->image_url)) }})"></div>
+
                 <div class="msg-bubble">
                     <div class="msg-info">
                         <div class="msg-info-name">{{ $message->sender_id == $sender->id ? $sender->name : $receiver->name }}</div>
@@ -35,36 +38,22 @@
         @endforeach
     </main>
 
-{{--    @if(auth()->user()->getRole->name === "seller")--}}
-{{--        <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $sender->id]) }}">--}}
-{{--            @csrf--}}
-{{--            <input type="text" class="msger-input" name="message" placeholder="Enter your message...">--}}
-{{--            <button type="submit" class="msger-send-btn">Send</button>--}}
-{{--        </form>--}}
-{{--    @else--}}
-{{--        <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $receiver->id]) }}">--}}
-{{--            @csrf--}}
-{{--            <input type="text" class="msger-input" name="message" placeholder="Enter your message...">--}}
-{{--            <button type="submit" class="msger-send-btn">Send</button>--}}
-{{--        </form>--}}
-{{--    @endif--}}
-
-    <form class="msger-inputarea" method="post" action="{{ route('sendMessage', ['receiver_id' => $receiver->id]) }}">
+    <form class="msger-inputarea d-flex align-items-center p-2" method="post" action="{{ route('sendMessage', ['receiver_id' => $receiver->id]) }}">
         @csrf
-        <input type="text" class="msger-input" name="message" placeholder="Enter your message...">
-        <button type="submit" class="msger-send-btn">Send</button>
+        <input type="text" class="form-control msger-input me-2" name="message" placeholder="Enter your message..." required>
+        
+        <button type="submit" class="btn btn-primary msger-send-btn">Send</button>
     </form>
-
 </section>
-</body>
 
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
 <script>
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
-    const pusher = new Pusher('8cfdd2443899a0acb693', {
-        cluster: 'ap2'
+    const pusher = new Pusher('f4222571b1a73d903fdd', {
+        cluster: 'eu'
     });
 
     const channel = pusher.subscribe('chat');
@@ -110,79 +99,16 @@
     });
 
     document.querySelector('.msger-chat').style.scrollBehavior = 'smooth';
+    
 </script>
+<script>
+    var userId = {{ Auth::id() }};
 
-
-
-
-
-{{--<script>--}}
-{{--    // Enable pusher logging - don't include this in production--}}
-{{--    Pusher.logToConsole = true;--}}
-
-{{--    const pusher = new Pusher('8cfdd2443899a0acb693', {--}}
-{{--        cluster: 'ap2'--}}
-{{--    });--}}
-
-{{--    const channel = pusher.subscribe('chat');--}}
-{{--    const senderId = {{$sender->id}};--}}
-
-{{--    channel.bind('chat-event', function(data) {--}}
-{{--        const isSender = data.sender_id === senderId;--}}
-{{--        const msgClass = isSender ? 'right-msg' : 'left-msg';--}}
-{{--        const imgURL = isSender ? '{{ asset('path/to/sender/image') }}' : '{{ asset('path/to/receiver/image') }}';--}}
-{{--        const senderName = isSender ? '{{$sender->name}}' : '{{$receiver->name}}';--}}
-
-{{--        // Extract the time portion from the created_at timestamp--}}
-{{--        const messageTime = new Date(data.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });--}}
-
-{{--        const newMessageHtml = `--}}
-{{--            <div class="msg ${msgClass}">--}}
-{{--                <div class="msg-img" style="background-image: url(${imgURL})"></div>--}}
-{{--                <div class="msg-bubble">--}}
-{{--                    <div class="msg-info">--}}
-{{--                        <div class="msg-info-name">${senderName}</div>--}}
-{{--                        <div class="msg-info-time">${messageTime}</div>--}}
-{{--                    </div>--}}
-{{--                    <div class="msg-text">--}}
-{{--                        ${data.message_content}--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        `;--}}
-
-{{--        document.querySelector('.msger-chat').insertAdjacentHTML('beforeend', newMessageHtml);--}}
-{{--    });--}}
-
-{{--    // Handle form submission to prevent default behavior--}}
-{{--    document.getElementById('sendMessageForm').addEventListener('submit', function(event) {--}}
-{{--        event.preventDefault(); // Prevent default form submission--}}
-
-{{--        const formData = new FormData(this); // Get form data--}}
-{{--        const url = this.getAttribute('action'); // Get form action URL--}}
-
-{{--        // Send AJAX request to submit the form data--}}
-{{--        fetch(url, {--}}
-{{--            method: 'POST',--}}
-{{--            body: formData--}}
-{{--        })--}}
-{{--            .then(response => response.json())--}}
-{{--            .then(data => {--}}
-{{--                // Handle success response if needed--}}
-{{--                console.log(data);--}}
-{{--                // Clear the message input field if needed--}}
-{{--                document.querySelector('.msger-input').value = '';--}}
-{{--            })--}}
-{{--            .catch(error => {--}}
-{{--                // Handle error if needed--}}
-{{--                console.error('Error:', error);--}}
-{{--            });--}}
-{{--    });--}}
-{{--</script>--}}
-
-
-
-
-
-
+    Echo.private('chat.' + userId)
+        .listen('ChatMessageSent', (e) => {
+            console.log(e);
+            let messageHtml = '<div><strong>' + (e.sender_id == userId ? 'You' : 'The other user') + ':</strong> ' + e.message_content + '</div>';
+            document.querySelector('.chat-window').innerHTML += messageHtml;
+        });
+</script>
 </html>

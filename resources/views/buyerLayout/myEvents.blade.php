@@ -28,47 +28,7 @@
     <!-- responsive -->
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     <style>
-
-        #logout-div {
-            background-color: #ddd;
-            padding: 10px;
-            display: none;
-            border-radius: 5px;
-            position: absolute;
-            z-index: 999;
-            right: 5%;
-            width: 150px; /* Adjust width as needed */
-        }
-
-        .logout-button  {
-            background-color: white;
-            color: darkred;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;font-weight: bold;
-        }
-        .edit-profile-button {
-            background-color: white;
-            color: black;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            margin: 5px 0;
-            display: block;
-            width: 100%;
-            text-align: left;
-            transition: background-color 0.3s ease;font-weight: bold;
-        }
-        .username {
-            color: black;
-        }
+ 
         #popup {
             position: fixed;
             top: 0;
@@ -97,25 +57,8 @@
             border-radius: 4px;
             cursor: pointer;
         }
-
-        .logout-button:hover,
-        .edit-profile-button:hover {
-            background-color: lightgray;
-        }
-
-        #user-icon {
-            position: relative;
-        }
-
-        .logout-div {
-            position: absolute;
-            width: 150px;
-        }
-        .storesHeader{
-            text-align:center;
-            margin-top:5%;
-            color:    #1e90ff;
-        }
+ 
+       
     </style>
 </head>
 
@@ -209,10 +152,7 @@
         window.location.href = "{{route('liveBidding', ':eventId')}}".replace(':eventId', eventId);
     }
 </script>
-
-
-
-
 </body>
+@include('footer.footer')
 
 </html>
